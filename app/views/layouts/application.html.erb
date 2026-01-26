@@ -10,7 +10,29 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="site">
+    <header class="site-header">
+      <div class="header-inner">
+        <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+          <%= link_to "Global", "#", class: "nav-link" %>
+          <%= link_to "Climate", "#", class: "nav-link" %>
+          <%= link_to "Health", "#", class: "nav-link" %>
+          <%= link_to "Information", "#", class: "nav-link" %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        © 2026 glowhkb.org &nbsp;&nbsp; Conceptualized by Haseena Rajeevan, Yale Center for Medical Informatics<br>
+        Designed and developed by Anoop Rajeevan
+      </div>
+    </footer>
   </body>
 </html>

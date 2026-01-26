@@ -1,44 +1,163 @@
-/* Home page styles */
-.home {
-  min-height: 100vh;
-  padding: 3rem 2rem;
-  text-align: center;
-  background-color: #347ec9;
-  color: #ffffff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* Prevent scrolling and make layout fit viewport */
+html, body {
+  height: 100%;
 }
 
-.title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.nav {
+body.site {
+  margin: 0;
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.nav button {
-  background: transparent;
-  border: 2px solid #ffffff;
+/* Header */
+.site-header {
+  background: #347ec9;
   color: #ffffff;
-  padding: 0.6rem 1.2rem;
+  flex: 0 0 auto;
+}
+
+.header-inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+}
+
+/* Logo */
+.site-logo {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  white-space: nowrap;
+}
+
+.site-logo:hover {
+  text-decoration: underline;
+}
+
+/* Nav */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
   font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 0.35rem 0.25rem;
 }
 
-.nav button:hover {
-  background: rgba(255, 255, 255, 0.15);
+.nav-link:hover {
+  text-decoration: underline;
 }
 
-.tagline {
-  max-width: 700px;
-  margin: 0 auto;
-  font-size: 1.2rem;
-  line-height: 1.5;
+/* Main content takes remaining height between header and footer */
+.site-main {
+  flex: 1 1 auto;
+  min-height: 0; /* important for no-overflow flex layouts */
+}
+
+/* Hero area w/ background image placeholder */
+.home-hero {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  /* Background image placeholder (swap later) */
+  background-color: #2b5f93;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Text overlay */
+.home-tagline {
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  max-width: 900px;
+  text-align: center;
+
+  /* Shadow for readability over images */
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  margin: 0;
+  padding: 1rem 1.25rem;
+}
+
+/* Footer pinned to bottom */
+.site-footer {
+  flex: 0 0 auto;
+  background: #347ec9;
+  color: #ffffff;
+}
+
+.footer-inner {
+  padding: 0.9rem 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Small screens: wrap nav nicely */
+@media (max-width: 640px) {
+  .header-inner {
+    height: auto;
+    padding: 0.9rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+  }
+
+  .home-tagline {
+    font-size: 1.25rem;
+  }
+}
+
+.home-content {
+  text-align: center;
+  max-width: 1000px;
+}
+
+/* Main title over hero image */
+.home-title {
+  color: #ffffff;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+
+  /* Stronger shadow for readability */
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Existing tagline (slightly tuned) */
+.home-tagline {
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  margin: 0;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive tweak */
+@media (max-width: 640px) {
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .home-tagline {
+    font-size: 1.2rem;
+  }
 }
