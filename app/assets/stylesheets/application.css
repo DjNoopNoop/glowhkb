@@ -72,7 +72,7 @@ body.site {
   padding: 2rem;
 
   /* Background image placeholder (swap later) */
-  background-color: #2b5f93;
+  background-color: #3b5998;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -160,4 +160,72 @@ body.site {
   .home-tagline {
     font-size: 1.2rem;
   }
+}
+
+/* Dropdown container */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Create a hoverable gap for the dropdown */
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 1rem;
+}
+
+/* Make the toggle look like your other nav links */
+.nav-dropdown-toggle {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* Menu */
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.nav-dropdown-item {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #111;
+  white-space: nowrap;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* Show on hover + keyboard focus within */
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  display: block;
+}
+
+/* Optional caret spacing */
+.nav-caret {
+  margin-left: 6px;
+}
+
+/* Map placeholder sizing */
+.mapbox-map {
+  width: 100%;
+  height: calc(100vh - 160px); /* adjust based on header/footer sizes */
 }

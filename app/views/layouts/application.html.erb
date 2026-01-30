@@ -14,9 +14,23 @@
     <header class="site-header">
       <div class="header-inner">
         <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
-
         <nav class="site-nav" aria-label="Primary navigation">
-          <%= link_to "Global", "#", class: "nav-link" %>
+          <div class="nav-dropdown">
+            <button
+              class="nav-link nav-dropdown-toggle"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Global
+              <span class="nav-caret" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="nav-dropdown-menu" role="menu">
+              <%= link_to "Map", global_map_path, class: "nav-dropdown-item", role: "menuitem" %>
+              <%= link_to "Search", global_search_path, class: "nav-dropdown-item", role: "menuitem" %>
+            </div>
+          </div>
           <%= link_to "Climate", "#", class: "nav-link" %>
           <%= link_to "Health", "#", class: "nav-link" %>
           <%= link_to "Information", "#", class: "nav-link" %>
