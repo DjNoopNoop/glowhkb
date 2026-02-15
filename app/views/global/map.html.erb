@@ -1,1 +1,5 @@
-<div id="mapbox-map" class="mapbox-map"></div>
+<div id="mapbox-map"
+	class="mapbox-map"
+	data-controller="map"
+	data-map-mapbox-token="<%= ENV['MAPBOX_ACCESS_TOKEN'] || Rails.application.credentials.dig(:mapbox, :access_token) %>">
+</div>
