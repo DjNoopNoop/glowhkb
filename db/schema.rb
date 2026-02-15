@@ -10,8 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_15_002618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "publications", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "authors"
+    t.text "institutions"
+    t.string "journal"
+    t.integer "year"
+    t.string "volume"
+    t.string "pages"
+    t.text "data_source"
+    t.text "population"
+    t.string "time_frame"
+    t.text "diagnosis"
+    t.string "emergency_departments"
+    t.text "exposure_periods"
+    t.string "country_region"
+    t.string "subject_type"
+    t.string "disease_studied"
+    t.text "demographics"
+    t.text "race_ethnicity"
+    t.text "statistical_methods"
+    t.text "pollution_parameters"
+    t.text "weather_parameters"
+    t.string "odds_ratio"
+    t.string "risk_ratio"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_region"], name: "index_publications_on_country_region"
+    t.index ["disease_studied"], name: "index_publications_on_disease_studied"
+    t.index ["journal"], name: "index_publications_on_journal"
+    t.index ["year"], name: "index_publications_on_year"
+  end
 
 end
