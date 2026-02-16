@@ -1,0 +1,8 @@
+<h1><%= @publication.title %></h1>
+
+<p><strong>Authors:</strong> <%= @publication.authors %></p>
+<p><strong>Journal:</strong> <%= @publication.journal %></p>
+<p><strong>Year:</strong> <%= @publication.year %></p>
+<p><strong>Owner:</strong> <%= @publication.user&.email || "(unassigned)" %></p>
+
+<%= link_to "Back", publications_path %>

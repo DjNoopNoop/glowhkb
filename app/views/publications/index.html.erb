@@ -1,0 +1,16 @@
+<h1>Publications</h1>
+
+<%= link_to "New publication", new_publication_path if logged_in? %>
+
+<ul>
+  <% @publications.each do |p| %>
+    <li>
+      <%= link_to p.title, publication_path(p) %>
+      <% if p.user %> — by <%= p.user.email %><% end %>
+      <% if current_user == p.user %>
+        <%= link_to "Edit", edit_publication_path(p) %>
+        <%= button_to "Delete", publication_path(p), method: :delete, data: { confirm: "Are you sure?" }, form: { class: "inline-form" } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
