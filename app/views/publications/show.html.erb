@@ -8,4 +8,17 @@
 	<p><strong>URL:</strong> <%= link_to @publication.url, @publication.url, target: "_blank", rel: "noopener" %></p>
 <% end %>
 
+<% if @publication.latitude.present? && @publication.longitude.present? %>
+	<p><strong>Coordinates:</strong> <%= @publication.latitude %>, <%= @publication.longitude %></p>
+<% elsif @publication.latitude.present? || @publication.longitude.present? %>
+	<p><strong>Coordinates:</strong>
+		<% if @publication.latitude.present? %>
+			Lat: <%= @publication.latitude %>
+		<% end %>
+		<% if @publication.longitude.present? %>
+			Lon: <%= @publication.longitude %>
+		<% end %>
+	</p>
+<% end %>
+
 <%= link_to "Back", publications_path %>
