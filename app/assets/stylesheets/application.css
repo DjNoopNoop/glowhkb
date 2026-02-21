@@ -309,6 +309,31 @@ body.site {
   outline-offset: 2px;
 }
 
+/* Sign up button as a rounded pill */
+.signup-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.9rem;
+  background: #dff6ff;
+  color: #0b4e85;
+  border-radius: 999px;
+  border: 1px solid rgba(11,78,133,0.08);
+  text-decoration: none;
+  transition: background-color 140ms ease, transform 120ms ease;
+}
+
+.signup-button:hover,
+.signup-button:focus {
+  background: #c9efff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.signup-button:active {
+  transform: translateY(0);
+}
+
 /* Map placeholder sizing */
 .mapbox-map {
   width: 100%;
