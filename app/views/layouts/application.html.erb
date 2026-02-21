@@ -40,9 +40,25 @@
           <%= link_to "Information", "#", class: "nav-link" %>
           <div class="auth-links">
             <% if logged_in? %>
-              <span class="nav-user">Signed in as <%= current_user.email %></span>
               <%= link_to "My publications", publications_path, class: "nav-link" %>
-              <%= link_to "Sign out", logout_path, method: :delete, class: "nav-link" %>
+
+              <div data-controller="user-menu" class="user-menu">
+                <button
+                  data-action="click->user-menu#toggle"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  class="user-menu-button nav-link"
+                  type="button"
+                >
+                  <%= image_tag "avatar-placeholder.svg", alt: "", class: "avatar" %>
+                  <span class="username"><%= current_user.name.presence || current_user.email %></span>
+                  <span class="nav-caret" aria-hidden="true">▾</span>
+                </button>
+
+                <div class="user-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
+                  <%= link_to "Sign out", logout_path, method: :delete, class: "nav-dropdown-item", role: "menuitem" %>
+                </div>
+              </div>
             <% else %>
               <%= link_to "Sign up", signup_path, class: "nav-link" %>
               <%= link_to "Sign in", login_path, class: "nav-link" %>

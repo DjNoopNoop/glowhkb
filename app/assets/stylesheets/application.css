@@ -46,6 +46,11 @@ body.site {
   gap: 1.25rem;
 }
 
+/* Make nav take remaining space so auth links can align right */
+.site-nav {
+  flex: 1 1 auto;
+}
+
 .nav-link {
   color: #ffffff;
   text-decoration: none;
@@ -222,6 +227,86 @@ body.site {
 /* Optional caret spacing */
 .nav-caret {
   margin-left: 6px;
+}
+
+/* Auth area */
+.auth-links {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* User menu button */
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.user-menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #eaf6ff; /* light-blue pill background */
+  border: 0;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  color: #0b4e85;
+  font: inherit;
+  border-radius: 999px;
+  transition: background-color 150ms ease, transform 120ms ease;
+  text-decoration: none; /* remove underline */
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  display: inline-block;
+}
+
+.username {
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 180px;
+  padding: 6px 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.user-menu.open .user-menu-dropdown {
+  display: block;
+}
+
+.user-menu .nav-dropdown-item {
+  color: #111;
+}
+
+/* Hover/active state: darker blue pill, no underline */
+.user-menu-button.nav-link:hover,
+.user-menu-button:hover {
+  background: #cdeeff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* Focus visible for accessibility */
+.user-menu-button:focus-visible {
+  outline: 3px solid rgba(13,110,200,0.25);
+  outline-offset: 2px;
 }
 
 /* Map placeholder sizing */
