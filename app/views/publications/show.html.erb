@@ -4,5 +4,8 @@
 <p><strong>Journal:</strong> <%= @publication.journal %></p>
 <p><strong>Year:</strong> <%= @publication.year %></p>
 <p><strong>Owner:</strong> <%= @publication.user&.email || "(unassigned)" %></p>
+<% if @publication.url.present? %>
+	<p><strong>URL:</strong> <%= link_to @publication.url, @publication.url, target: "_blank", rel: "noopener" %></p>
+<% end %>
 
 <%= link_to "Back", publications_path %>

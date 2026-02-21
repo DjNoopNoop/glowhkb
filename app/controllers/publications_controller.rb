@@ -48,6 +48,6 @@ class PublicationsController < ApplicationController
   end
 
   def publication_params
-    params.require(:publication).permit(:title, :authors, :institutions, :journal, :year, :volume, :pages, :data_source, :population, :time_frame, :diagnosis, :emergency_departments, :exposure_periods, :country_region, :subject_type, :disease_studied, :demographics, :race_ethnicity, :statistical_methods, :pollution_parameters, :weather_parameters, :odds_ratio, :risk_ratio)
+    params.require(:publication).permit(:title, :authors, :institutions, :journal, :year, :volume, :pages, :data_source, :population, :time_frame, :diagnosis, :emergency_departments, :exposure_periods, :country_region, :subject_type, :disease_studied, :demographics, :race_ethnicity, :statistical_methods, :pollution_parameters, :weather_parameters, :odds_ratio, :risk_ratio, :url)
   end
 end
