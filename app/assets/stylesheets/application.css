@@ -355,6 +355,39 @@ body.site {
   font: inherit;
 }
 
+/* Style the Sign out button inside the user menu dropdown to look like a link */
+.user-menu-dropdown .inline-form {
+  margin: 0;
+}
+
+.user-menu-dropdown .inline-form input[type="submit"],
+.user-menu-dropdown .inline-form button {
+  background: transparent;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  color: #0b5fd6; /* blue link color */
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+  display: block;
+}
+
+.user-menu-dropdown .inline-form input[type="submit"]:hover,
+.user-menu-dropdown .inline-form button:hover {
+  text-decoration: underline;
+}
+
+.user-menu-dropdown .inline-form .nav-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+
 /* Publication map marker + hover popup */
 .pub-marker {
   position: relative;
