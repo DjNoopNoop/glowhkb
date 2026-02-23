@@ -9,6 +9,8 @@ class CreatePublications < ActiveRecord::Migration[7.1]
       t.integer :year
       t.string  :volume
       t.string  :pages
+      t.string :url
+      t.string :doi
 
       # Study details
       t.text    :data_source
@@ -24,13 +26,17 @@ class CreatePublications < ActiveRecord::Migration[7.1]
       # Demographics + methods
       t.text    :demographics
       t.text    :race_ethnicity
-      t.text    :statistical_methods
+      t.text    :statistical_method
 
       # Exposures + outcomes
       t.text    :pollution_parameters
       t.text    :weather_parameters
       t.string  :odds_ratio
       t.string  :risk_ratio
+
+      # Geographic coordinates
+      t.decimal :latitude, precision: 10, scale: 6
+      t.decimal :longitude, precision: 10, scale: 6
 
       t.timestamps
     end
