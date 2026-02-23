@@ -10,46 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_16_000100) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_23_015511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "publications", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "authors"
-    t.text "institutions"
-    t.string "journal"
-    t.integer "year"
-    t.string "volume"
-    t.string "pages"
-    t.string "url"
-    t.string "doi"
-    t.text "data_source"
-    t.text "population"
-    t.string "time_frame"
-    t.text "diagnosis"
-    t.string "emergency_departments"
-    t.text "exposure_periods"
-    t.string "country_region"
-    t.string "subject_type"
-    t.string "disease_studied"
-    t.text "demographics"
-    t.text "race_ethnicity"
-    t.text "statistical_method"
-    t.text "pollution_parameters"
-    t.text "weather_parameters"
-    t.string "odds_ratio"
-    t.string "risk_ratio"
+  create_table "air_pollutants", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "geographic_locations", force: :cascade do |t|
+    t.string "name", null: false
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "medical_conditions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "publications", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "authors"
+    t.string "journal"
+    t.integer "year"
+    t.string "doi"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.index ["country_region"], name: "index_publications_on_country_region"
-    t.index ["disease_studied"], name: "index_publications_on_disease_studied"
-    t.index ["journal"], name: "index_publications_on_journal"
     t.index ["user_id"], name: "index_publications_on_user_id"
-    t.index ["year"], name: "index_publications_on_year"
+  end
+
+  create_table "statistical_methods", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,6 +60,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_16_000100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "weather_parameters", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "publications", "users"
