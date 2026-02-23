@@ -1,6 +1,16 @@
 class GlobalController < ApplicationController
   def map
-    @publications = Publication.where.not(latitude: nil, longitude: nil).select(:id, :title, :year, :journal, :url, :latitude, :longitude)
+    @publications = Publication.joins(:geographic_location)
+                               .where.not(geographic_locations: { latitude: nil, longitude: nil })
+                               .select(
+                                 'publications.id',
+                                 'publications.title',
+                                 'publications.year',
+                                 'publications.journal',
+                                 'publications.url',
+                                 'geographic_locations.latitude AS latitude',
+                                 'geographic_locations.longitude AS longitude'
+                               )
   end
 
   def search

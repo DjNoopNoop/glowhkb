@@ -96,8 +96,7 @@ export default class extends Controller {
       markerEl.appendChild(info)
 
       const openShow = () => {
-        const url = p.url && p.url.length ? p.url : `/publications/${p.id}`
-        window.location.href = url
+        window.location.href = `/publications/${p.id}`
       }
 
       markerEl.addEventListener('mouseenter', () => { info.style.display = 'block' })

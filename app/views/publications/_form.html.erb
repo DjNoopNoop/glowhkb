@@ -5,13 +5,22 @@
   </div>
 
   <div>
+    <%= f.label :doi %><br>
+    <%= f.text_field :doi %>
+  </div>
+
+  <div>
     <%= f.label :url %><br>
     <%= f.url_field :url %>
   </div>
 
   <div>
-    <%= f.label :country_region, "Country/Region" %><br>
-    <%= f.text_field :country_region %>
+    <%= f.label :geographic_location_name, "Geographic Location" %><br>
+    <div data-controller="tag-input" data-tag-input-url-value="/autocomplete/geographic_locations" data-tag-input-single-value="true">
+      <input type="text" name="publication[geographic_location_name]" value="<%= @publication.geographic_location&.name %>" data-action="input->tag-input#search" data-tag-input-target="input">
+      <input type="hidden" name="publication[geographic_location_id]" value="<%= @publication.geographic_location_id %>" data-tag-input-target="hiddenId">
+      <div data-tag-input-target="suggestions" class="suggestions"></div>
+    </div>
   </div>
 
   <div>
@@ -29,7 +38,24 @@
     <%= f.number_field :year %>
   </div>
 
-  <div>
-    <%= f.submit %>
+  <!-- Air Pollutants -->
+  <%= label_tag "Air Pollutants" %>
+  <%= text_field_tag "air_pollutant_names[]", nil, multiple: true %>
+
+  <!-- Weather Parameters -->
+  <%= label_tag "Weather Parameters" %>
+  <%= text_field_tag "weather_parameter_names[]", nil, multiple: true %>
+
+  <!-- Medical Conditions -->
+  <%= label_tag "Medical Conditions" %>
+  <%= text_field_tag "medical_condition_names[]", nil, multiple: true %>
+
+  <!-- Statistical Methods -->
+  <%= label_tag "Statistical Methods" %>
+  <%= text_field_tag "statistical_method_names[]", nil, multiple: true %>
+
+  <div class="form-actions">
+    <%= link_to "Back", publications_path, class: "button secondary" %>
+    <%= f.submit class: "button primary" %>
   </div>
 <% end %>

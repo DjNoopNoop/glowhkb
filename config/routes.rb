@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   get "global/map", to: "global#map", as: :global_map
   get "global/search", to: "global#search", as: :global_search
+  get "autocomplete/:resource", to: "autocomplete#search", as: :autocomplete
   
   resources :users, only: %i[new create edit update show]
   get "/signup", to: "users#new", as: :signup
