@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_23_015511) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_23_020040) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,34 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_23_015511) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pub_air_pollutants", id: false, force: :cascade do |t|
+    t.bigint "publication_id", null: false
+    t.bigint "air_pollutant_id", null: false
+    t.index ["air_pollutant_id", "publication_id"], name: "idx_ap_pub"
+    t.index ["publication_id", "air_pollutant_id"], name: "idx_pub_ap"
+  end
+
+  create_table "pub_medical_conditions", id: false, force: :cascade do |t|
+    t.bigint "publication_id", null: false
+    t.bigint "medical_condition_id", null: false
+    t.index ["medical_condition_id", "publication_id"], name: "idx_mc_pub"
+    t.index ["publication_id", "medical_condition_id"], name: "idx_pub_mc"
+  end
+
+  create_table "pub_statistical_methods", id: false, force: :cascade do |t|
+    t.bigint "publication_id", null: false
+    t.bigint "statistical_method_id", null: false
+    t.index ["publication_id", "statistical_method_id"], name: "idx_pub_sm"
+    t.index ["statistical_method_id", "publication_id"], name: "idx_sm_pub"
+  end
+
+  create_table "pub_weather_parameters", id: false, force: :cascade do |t|
+    t.bigint "publication_id", null: false
+    t.bigint "weather_parameter_id", null: false
+    t.index ["publication_id", "weather_parameter_id"], name: "idx_pub_wp"
+    t.index ["weather_parameter_id", "publication_id"], name: "idx_wp_pub"
+  end
+
   create_table "publications", force: :cascade do |t|
     t.string "title", null: false
     t.text "authors"
@@ -44,6 +72,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_23_015511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.bigint "geographic_location_id"
+    t.index ["geographic_location_id"], name: "index_publications_on_geographic_location_id"
     t.index ["user_id"], name: "index_publications_on_user_id"
   end
 
@@ -68,5 +98,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_23_015511) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "publications", "geographic_locations"
   add_foreign_key "publications", "users"
 end
