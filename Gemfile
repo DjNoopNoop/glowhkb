@@ -54,6 +54,8 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   # Load environment variables from .env in development and test
   gem "dotenv-rails", groups: [:development, :test]
+  # Pretty-print Ruby objects during development and tests
+  gem "awesome_print"
 end
 
 group :development do
