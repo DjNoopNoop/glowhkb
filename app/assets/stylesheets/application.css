@@ -400,28 +400,4 @@ body.site {
   display: inline-block;
 }
 
-.pub-marker .pub-hover {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, -110%);
-  white-space: nowrap;
-  background: #ffffff;
-  padding: 6px 8px;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-  display: none;
-  z-index: 10;
-  font-size: 13px;
-  color: #222;
-  max-width: 220px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Show hover popup when marker or popup is hovered */
-.pub-marker:hover .pub-hover,
-.pub-marker .pub-hover:hover {
-  display: block;
-}
 

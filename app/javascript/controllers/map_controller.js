@@ -65,7 +65,8 @@ export default class extends Controller {
 
       const markerEl = document.createElement('div')
       markerEl.className = 'pub-marker'
-      markerEl.style.position = 'relative'
+      // Let Mapbox position the marker element via transforms; avoid relative positioning
+      markerEl.style.position = 'absolute'
       markerEl.style.width = '18px'
       markerEl.style.height = '18px'
       markerEl.style.borderRadius = '50%'
@@ -73,40 +74,21 @@ export default class extends Controller {
       markerEl.style.boxShadow = '0 1px 3px rgba(0,0,0,0.3)'
       markerEl.style.cursor = 'pointer'
 
-      const info = document.createElement('div')
-      info.className = 'pub-hover'
-      info.style.position = 'absolute'
-      info.style.left = '50%'
-      info.style.top = '0'
-      info.style.transform = 'translate(-50%, -110%)'
-      info.style.whiteSpace = 'nowrap'
-      info.style.background = 'white'
-      info.style.padding = '6px 8px'
-      info.style.borderRadius = '6px'
-      info.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
-      info.style.display = 'none'
-      info.style.zIndex = '10'
-
       const title = escapeHTML(p.title || '')
       const meta = []
       if (p.journal) meta.push(escapeHTML(p.journal))
       if (p.year) meta.push('' + p.year)
-      info.innerHTML = `<div style="font-weight:600;margin-bottom:4px;">${title}</div><div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
 
-      markerEl.appendChild(info)
+      const popupHtml = `<div style="font-weight:600;margin-bottom:4px;">${title}</div><div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
 
-      const openShow = () => {
-        window.location.href = `/publications/${p.id}`
-      }
+      const popup = new mapboxgl.Popup({ offset: 12, closeButton: false, closeOnClick: false }).setHTML(popupHtml)
 
-      markerEl.addEventListener('mouseenter', () => { info.style.display = 'block' })
-      markerEl.addEventListener('mouseleave', () => { info.style.display = 'none' })
-      info.addEventListener('mouseenter', () => { info.style.display = 'block' })
-      info.addEventListener('mouseleave', () => { info.style.display = 'none' })
-      markerEl.addEventListener('click', openShow)
-      info.addEventListener('click', (e) => { e.stopPropagation(); openShow() })
+      const marker = new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).setPopup(popup).addTo(this.map)
 
-      new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).addTo(this.map)
+      // show popup on hover (explicit add/remove) and navigate on click
+      markerEl.addEventListener('mouseenter', () => { marker.getPopup().addTo(this.map) })
+      markerEl.addEventListener('mouseleave', () => { marker.getPopup().remove() })
+      markerEl.addEventListener('click', () => { window.location.href = `/publications/${p.id}` })
 
       bounds.extend([lng, lat])
     })
