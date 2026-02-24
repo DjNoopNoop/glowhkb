@@ -16,24 +16,13 @@
   </div>
 
   <div>
-    <%= f.label :geographic_location_name, "Geographic Location" %><br>
-    <div data-controller="tag-input"
-         data-tag-input-url-value="/autocomplete/geographic_locations"
-         data-tag-input-single-value="true">
-
-      <input type="text"
-             name="publication[geographic_location_name]"
-             value="<%= @publication.geographic_location&.name %>"
-             data-action="input->tag-input#search"
-             data-tag-input-target="input">
-
-      <input type="hidden"
-             name="publication[geographic_location_id]"
-             value="<%= @publication.geographic_location_id %>"
-             data-tag-input-target="hiddenId">
-
-      <div data-tag-input-target="suggestions" class="suggestions"></div>
-    </div>
+    <%= f.label :geographic_location_id, "Geographic Location" %><br>
+    <%= f.collection_select :geographic_location_id,
+          GeographicLocation.order(:name),
+          :id,
+          :name,
+          { include_blank: true },
+          { data: { controller: "tom-select" } } %>
   </div>
 
   <div>
