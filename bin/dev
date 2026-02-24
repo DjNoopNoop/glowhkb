@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Start containers
+docker compose up -d
+
+# Optional: show status + tail logs for the web container
+docker compose ps
+echo "Tip: tail logs with: docker compose logs -f web"

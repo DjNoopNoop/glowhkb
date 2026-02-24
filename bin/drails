@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Ensure containers are running
+docker compose up -d db web
+
+# Run Rails inside the web container from the app root
+exec docker compose exec -w /rails web bundle exec rails "$@"
