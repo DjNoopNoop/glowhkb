@@ -63,14 +63,34 @@ body.site {
 }
 
 /* Main content takes remaining height between header and footer */
+.site-header {
+  background: #347ec9;
+  color: #ffffff;
+  flex: 0 0 auto;
+  /* keep header visible at the top while allowing the page to scroll */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 .site-main {
   flex: 1 1 auto;
   min-height: 0; /* important for no-overflow flex layouts */
+  /* allow the main area to scroll independently between header/footer when
+     necessary; keep some bottom padding so content won't butt up against a
+     sticky footer on small screens */
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 }
 
 /* Hero area w/ background image placeholder */
 .home-hero {
-  height: 100%;
+  /* make hero fill the available space inside .site-main without forcing
+     a 100% height (which can cause overflow). Using flex lets it grow to the
+     remaining area between header and footer */
+  flex: 1 0 auto;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,9 +119,14 @@ body.site {
 
 /* Footer pinned to bottom */
 .site-footer {
+  /* keep footer visible at the bottom of the viewport while still remaining
+     in-flow so it stays below content when appropriate */
+  position: sticky;
+  bottom: 0;
   flex: 0 0 auto;
   background: #347ec9;
   color: #ffffff;
+  z-index: 90;
 }
 
 .footer-inner {
