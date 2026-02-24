@@ -7,3 +7,15 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Sample domain data for local development
+[
+	{ model: AirPollutant, names: %w[PM2.5 PM10 NO2 SO2 O3 CO] },
+	{ model: WeatherParameter, names: %w[Temperature Humidity Precipitation WindSpeed] },
+	{ model: MedicalCondition, names: %w[Asthma COPD Cardiovascular Diabetes] },
+	{ model: StatisticalMethod, names: %w[LinearRegression LogisticRegression TimeSeries MetaAnalysis] }
+].each do |entry|
+	entry[:names].each do |name|
+		entry[:model].find_or_create_by!(name: name)
+	end
+end

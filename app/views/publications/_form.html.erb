@@ -1,4 +1,5 @@
 <%= form_with model: @publication, local: true do |f| %>
+
   <div>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -16,9 +17,21 @@
 
   <div>
     <%= f.label :geographic_location_name, "Geographic Location" %><br>
-    <div data-controller="tag-input" data-tag-input-url-value="/autocomplete/geographic_locations" data-tag-input-single-value="true">
-      <input type="text" name="publication[geographic_location_name]" value="<%= @publication.geographic_location&.name %>" data-action="input->tag-input#search" data-tag-input-target="input">
-      <input type="hidden" name="publication[geographic_location_id]" value="<%= @publication.geographic_location_id %>" data-tag-input-target="hiddenId">
+    <div data-controller="tag-input"
+         data-tag-input-url-value="/autocomplete/geographic_locations"
+         data-tag-input-single-value="true">
+
+      <input type="text"
+             name="publication[geographic_location_name]"
+             value="<%= @publication.geographic_location&.name %>"
+             data-action="input->tag-input#search"
+             data-tag-input-target="input">
+
+      <input type="hidden"
+             name="publication[geographic_location_id]"
+             value="<%= @publication.geographic_location_id %>"
+             data-tag-input-target="hiddenId">
+
       <div data-tag-input-target="suggestions" class="suggestions"></div>
     </div>
   </div>
@@ -38,21 +51,57 @@
     <%= f.number_field :year %>
   </div>
 
-  <!-- Air Pollutants -->
-  <%= label_tag "Air Pollutants" %>
-  <%= text_field_tag "air_pollutant_names[]", nil, multiple: true %>
+  <div>
+    <%= f.label :air_pollutant_ids, "Air Pollutants" %><br>
+    <%= f.collection_select :air_pollutant_ids,
+          AirPollutant.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: "tom-select" }
+          } %>
+  </div>
 
-  <!-- Weather Parameters -->
-  <%= label_tag "Weather Parameters" %>
-  <%= text_field_tag "weather_parameter_names[]", nil, multiple: true %>
+  <div>
+    <%= f.label :weather_parameter_ids, "Weather Parameters" %><br>
+    <%= f.collection_select :weather_parameter_ids,
+          WeatherParameter.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: "tom-select" }
+          } %>
+  </div>
 
-  <!-- Medical Conditions -->
-  <%= label_tag "Medical Conditions" %>
-  <%= text_field_tag "medical_condition_names[]", nil, multiple: true %>
+  <div>
+    <%= f.label :medical_condition_ids, "Medical Conditions" %><br>
+    <%= f.collection_select :medical_condition_ids,
+          MedicalCondition.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: "tom-select" }
+          } %>
+  </div>
 
-  <!-- Statistical Methods -->
-  <%= label_tag "Statistical Methods" %>
-  <%= text_field_tag "statistical_method_names[]", nil, multiple: true %>
+  <div>
+    <%= f.label :statistical_method_ids, "Statistical Methods" %><br>
+    <%= f.collection_select :statistical_method_ids,
+          StatisticalMethod.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: "tom-select" }
+          } %>
+  </div>
 
   <div class="form-actions">
     <%= link_to "Back", publications_path, class: "button secondary" %>
