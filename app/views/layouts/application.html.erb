@@ -18,68 +18,12 @@
   </head>
 
   <body class="site">
-    <header class="site-header">
-      <div class="header-inner">
-        <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
-        <nav class="site-nav" aria-label="Primary navigation">
-          <div class="nav-dropdown">
-            <button
-              class="nav-link nav-dropdown-toggle"
-              type="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Global
-              <span class="nav-caret" aria-hidden="true">▾</span>
-            </button>
-
-            <div class="nav-dropdown-menu" role="menu">
-              <%= link_to "Map", global_map_path, class: "nav-dropdown-item", role: "menuitem" %>
-              <%= link_to "Search", global_search_path, class: "nav-dropdown-item", role: "menuitem" %>
-            </div>
-          </div>
-          <%= link_to "Climate", "#", class: "nav-link" %>
-          <%= link_to "Health", "#", class: "nav-link" %>
-          <%= link_to "Information", "#", class: "nav-link" %>
-          <div class="auth-links">
-            <% if logged_in? %>
-              <%= link_to "My publications", publications_path, class: "nav-link" %>
-
-              <div data-controller="user-menu" class="user-menu">
-                <button
-                  data-action="click->user-menu#toggle"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  class="user-menu-button nav-link"
-                  type="button"
-                >
-                  <%= image_tag "avatar-placeholder.svg", alt: "", class: "avatar" %>
-                  <span class="username"><%= current_user.name.presence || current_user.email %></span>
-                  <span class="nav-caret" aria-hidden="true">▾</span>
-                </button>
-
-                <div class="user-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
-                  <%= button_to "Sign out", logout_path, method: :delete, form: { class: "inline-form" }, class: "nav-dropdown-item", role: "menuitem" %>
-                </div>
-              </div>
-            <% else %>
-              <%= link_to "Sign up", signup_path, class: "nav-link signup-button" %>
-              <%= link_to "Sign in", login_path, class: "nav-link" %>
-            <% end %>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <%= render "layouts/header" %>
 
     <main class="site-main">
       <%= yield %>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        © 2026 glowhkb.org &nbsp;&nbsp; Conceptualized by Haseena Rajeevan, Yale Center for Medical Informatics<br>
-        Designed and developed by Anoop Rajeevan
-      </div>
-    </footer>
+    <%= render "layouts/footer" %>
   </body>
 </html>
