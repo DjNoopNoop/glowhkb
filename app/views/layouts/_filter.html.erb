@@ -1,5 +1,5 @@
-<div data-controller="filter" class="site-filter collapsed">
-  <div class="filter-panel collapsed" data-filter-target="panel">
+<div data-controller="filter" class="site-filter">
+  <div class="filter-panel" data-filter-target="panel">
     <div class="filter-row">
     <%= render partial: 'layouts/filter_dropdown', locals: { id: 'geographic_location', label: 'Locations', collection: (@geographic_locations || GeographicLocation.order(:name)), param_key: 'geographic_location_ids' } %>
     <%= render partial: 'layouts/filter_dropdown', locals: { id: 'air_pollutant', label: 'Air pollutants', collection: (@air_pollutants || AirPollutant.order(:name)), param_key: 'air_pollutant_ids' } %>
@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <button class="filter-toggle" data-action="click->filter#togglePanel" data-filter-target="toggleButton" aria-expanded="false" aria-label="Toggle filter">
+  <button class="filter-toggle" data-action="click->filter#togglePanel" data-filter-target="toggleButton" aria-expanded="true" aria-label="Toggle filter">
     <span class="filter-toggle-caret">▾</span>
   </button>
 </div>

@@ -68,7 +68,7 @@ body.site {
   flex: 0 0 auto;
   background: #347ec9;
   color: #ffffff;
-  z-index: 90;
+  z-index: 250;
 }
 
 .footer-inner {

@@ -38,6 +38,19 @@ export default class extends Controller {
     const dropdown = button.closest('.filter-dropdown')
     const menu = dropdown.querySelector('.filter-menu')
     const expanded = button.getAttribute('aria-expanded') === 'true'
+    // If we're opening this menu, close any other open menus first
+    if (!expanded) {
+      const allMenus = document.querySelectorAll('.filter-menu')
+      allMenus.forEach(m => {
+        if (m !== menu) {
+          m.style.display = 'none'
+          const dd = m.closest('.filter-dropdown')
+          const btn = dd && dd.querySelector('.filter-button')
+          if (btn) btn.setAttribute('aria-expanded', 'false')
+        }
+      })
+    }
+
     button.setAttribute('aria-expanded', (!expanded).toString())
     menu.style.display = expanded ? 'none' : 'block'
   }

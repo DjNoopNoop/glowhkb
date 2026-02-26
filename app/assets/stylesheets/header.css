@@ -105,7 +105,7 @@
   /* keep header visible at the top while allowing the page to scroll */
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 300;
 }
 
 /* Dropdown container */
@@ -123,6 +123,19 @@
   height: 1rem;
 }
 
+/* Bridge small vertical gap between button and dropdown so pointer stays within
+   the menu/widget when moving from the button to the menu. */
+.user-menu::after,
+.manage-menu::after,
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+}
+
 .nav-dropdown-toggle {
   background: transparent;
   border: 0;
@@ -134,14 +147,14 @@
 .nav-dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
   min-width: 160px;
   padding: 8px 0;
   border-radius: 8px;
   background: white;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  z-index: 1000;
+  z-index: 320;
 }
 
 .nav-dropdown-item {
@@ -166,6 +179,18 @@
 .nav-dropdown:hover .nav-dropdown-menu,
 .nav-dropdown:focus-within .nav-dropdown-menu {
   display: block;
+}
+
+/* Make user menu show on hover/focus like nav-dropdown */
+.user-menu:hover .user-menu-dropdown,
+.user-menu:focus-within .user-menu-dropdown {
+  display: block;
+}
+
+/* When a menu is force-hidden (e.g., clicked to close while hovered), override hover/focus styles */
+.nav-dropdown.force-hide .nav-dropdown-menu,
+.user-menu.force-hide .user-menu-dropdown {
+  display: none !important;
 }
 
 .nav-caret {
@@ -369,7 +394,7 @@
   border-radius: 8px;
   background: white;
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  z-index: 1000;
+  z-index: 320;
 }
 
 .user-menu.open .user-menu-dropdown {

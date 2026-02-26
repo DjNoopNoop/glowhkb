@@ -8,7 +8,7 @@
 	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 	overflow: visible;
 	transition: padding 240ms ease, border-bottom 240ms ease, max-height 260ms ease;
-	z-index: 200;
+	z-index: 100;
 }
 
 .filter-row {
@@ -87,7 +87,7 @@
 	border: 1px solid rgba(0, 0, 0, 0.08);
 	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 	border-radius: 8px;
-	z-index: 1100;
+	z-index: 150;
 }
 
 .filter-list {
@@ -156,9 +156,10 @@
 /* Toggle button */
 .filter-toggle {
 	position: absolute;
-	right: 42px;
-	bottom: -5px;
-	transform: translateY(50%);
+	right: 46px;
+	top: calc(100% + 10px);
+	bottom: auto;
+	transform: none;
 	background: #000;
 	border: 0;
 	width: 32px;
@@ -168,7 +169,7 @@
 	cursor: pointer;
 	font-size: 0.9rem;
 	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-	z-index: 220;
+	z-index: 175;
 	display: flex;
 	align-items: center;
 	justify-content: center;
