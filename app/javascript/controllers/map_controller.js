@@ -35,6 +35,18 @@ export default class extends Controller {
     this.map.addControl(new mapboxgl.NavigationControl())
 
     let publications = []
+    this._markers = []
+
+    // listen for filter updates dispatched on the map element
+    this.updateListener = (e) => {
+      try {
+        const pubs = e.detail && e.detail.publications ? e.detail.publications : []
+        this.updatePublications(pubs)
+      } catch (err) {
+        console.error('Error handling update-publications event', err)
+      }
+    }
+    this.element.addEventListener('filter:update', this.updateListener)
 
     const script = this.element.querySelector('script[data-map-publications]')
     if (script && script.textContent) {
@@ -54,6 +66,19 @@ export default class extends Controller {
       }
     }
 
+    // initialize with any publications present in the markup
+    if (publications && publications.length) this.updatePublications(publications)
+  }
+
+  updatePublications(publications) {
+    // remove existing markers
+    try {
+      this._markers.forEach(m => m.remove())
+    } catch (e) {
+      // ignore
+    }
+    this._markers = []
+
     if (!publications || !publications.length) return
 
     const bounds = new mapboxgl.LngLatBounds()
@@ -65,7 +90,6 @@ export default class extends Controller {
 
       const markerEl = document.createElement('div')
       markerEl.className = 'pub-marker'
-      // Let Mapbox position the marker element via transforms; avoid relative positioning
       markerEl.style.position = 'absolute'
       markerEl.style.width = '18px'
       markerEl.style.height = '18px'
@@ -85,11 +109,11 @@ export default class extends Controller {
 
       const marker = new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).setPopup(popup).addTo(this.map)
 
-      // show popup on hover (explicit add/remove) and navigate on click
       markerEl.addEventListener('mouseenter', () => { marker.getPopup().addTo(this.map) })
       markerEl.addEventListener('mouseleave', () => { marker.getPopup().remove() })
       markerEl.addEventListener('click', () => { window.location.href = `/publications/${p.id}` })
 
+      this._markers.push(marker)
       bounds.extend([lng, lat])
     })
 
@@ -113,5 +137,6 @@ export default class extends Controller {
       this.map.remove()
       this.map = null
     }
+    if (this.updateListener) this.element.removeEventListener('filter:update', this.updateListener)
   }
 }

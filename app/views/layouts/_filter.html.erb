@@ -1,0 +1,19 @@
+<div data-controller="filter" class="site-filter collapsed">
+  <div class="filter-panel collapsed" data-filter-target="panel">
+    <div class="filter-row">
+    <%= render partial: 'layouts/filter_dropdown', locals: { id: 'geographic_location', label: 'Locations', collection: (@geographic_locations || GeographicLocation.order(:name)), param_key: 'geographic_location_ids' } %>
+    <%= render partial: 'layouts/filter_dropdown', locals: { id: 'air_pollutant', label: 'Air pollutants', collection: (@air_pollutants || AirPollutant.order(:name)), param_key: 'air_pollutant_ids' } %>
+    <%= render partial: 'layouts/filter_dropdown', locals: { id: 'medical_condition', label: 'Medical conditions', collection: (@medical_conditions || MedicalCondition.order(:name)), param_key: 'medical_condition_ids' } %>
+    <%= render partial: 'layouts/filter_dropdown', locals: { id: 'weather_parameter', label: 'Weather parameters', collection: (@weather_parameters || WeatherParameter.order(:name)), param_key: 'weather_parameter_ids' } %>
+    <%= render partial: 'layouts/filter_dropdown', locals: { id: 'statistical_method', label: 'Statistical methods', collection: (@statistical_methods || StatisticalMethod.order(:name)), param_key: 'statistical_method_ids' } %>
+
+    <div class="filter-clear">
+      <button data-action="click->filter#clear" data-filter-target="clearButton" disabled class="btn btn-secondary">Clear Filter</button>
+    </div>
+    </div>
+  </div>
+
+  <button class="filter-toggle" data-action="click->filter#togglePanel" data-filter-target="toggleButton" aria-expanded="false" aria-label="Toggle filter">
+    <span class="filter-toggle-caret">▾</span>
+  </button>
+</div>

@@ -1,0 +1,21 @@
+<div class="filter-dropdown" data-filter-target="dropdown" data-filter-param-key="<%= param_key %>">
+  <button type="button" class="filter-button" data-action="click->filter#toggle" aria-haspopup="true" aria-expanded="false">
+    <span class="filter-label"><%= label %></span>
+    <span class="filter-badge" aria-hidden="true"><span class="filter-badge-count">0</span></span>
+    <span class="filter-caret">▾</span>
+  </button>
+
+  <div class="filter-menu" role="menu" data-filter-target="menu">
+    <ul class="filter-list">
+      <% collection.each do |item| %>
+        <li class="filter-item">
+          <label class="filter-item-label" data-filter-target="itemLabel">
+            <input type="checkbox" name="<%= param_key %>[]" value="<%= item.id %>" data-action="change->filter#changed" data-filter-target="input">
+            <span class="filter-item-text"><%= item.name %></span>
+            <span class="filter-item-check" aria-hidden="true">✓</span>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

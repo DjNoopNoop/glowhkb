@@ -12,8 +12,16 @@ Rails.application.routes.draw do
   get "global/search", to: "global#search", as: :global_search
   get "autocomplete/:resource", to: "autocomplete#search", as: :autocomplete
   
-  resources :users, only: %i[new create edit update show]
-  get "/signup", to: "users#new", as: :signup
+  # User registration and account routes
+  get "/signup", to: "registration#new", as: :signup
+  post "/signup", to: "registration#create"
+
+  get "/account", to: "account#show", as: :account
+  get "/account/edit", to: "account#edit", as: :edit_account
+  patch "/account", to: "account#update"
+  put "/account", to: "account#update"
+  get "/updates", to: "site_updates#index", as: :updates
+  get "/about", to: "pages#about", as: :about
 
   get "/login", to: "sessions#new", as: :login
   post "/login", to: "sessions#create"

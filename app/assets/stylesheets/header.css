@@ -1,0 +1,467 @@
+/* Header styles moved from application.css */
+
+/* Header */
+.site-header {
+  /* Filter UI under the header */
+  .site-filter {
+    background: #f7fbfb;
+    padding: 8px 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .filter-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .filter-dropdown {
+    position: relative;
+  }
+  .filter-button {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .filter-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    max-height: 260px;
+    overflow: auto;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    z-index: 1100;
+  }
+  .filter-list { list-style: none; margin: 0; padding: 8px; }
+  .filter-item { padding: 4px 0; }
+  .filter-item-label { display:flex; align-items:center; gap:8px; cursor: pointer; padding: 6px 8px; border-radius:6px; }
+  .filter-item-label:hover { background: rgba(0,0,0,0.03); }
+  .filter-item-check { margin-left: auto; color: transparent; font-weight: 700; }
+  .filter-item-label.selected .filter-item-text { color: #0b5a2f; }
+  .filter-item-label.selected .filter-item-check { color: #0b5a2f; }
+  .filter-clear { margin-left: 8px; }
+
+  background: #347ec9;
+  color: #ffffff;
+  flex: 0 0 auto;
+}
+
+.header-inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+}
+
+.header-inner {
+  position: relative;
+  justify-content: space-between;
+}
+
+/* Logo */
+.site-logo {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  white-space: nowrap;
+}
+
+.site-logo:hover {
+  text-decoration: underline;
+}
+
+/* Nav */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Make nav take remaining space so auth links can align right */
+.site-nav {
+  flex: 1 1 auto;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.35rem 0.25rem;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.site-header {
+  /* keep header visible at the top while allowing the page to scroll */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* Dropdown container */
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 1rem;
+}
+
+.nav-dropdown-toggle {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.nav-dropdown-item {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #111;
+  white-space: nowrap;
+}
+
+.nav-dropdown-item:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Show on hover + keyboard focus within */
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+  display: block;
+}
+
+.nav-caret {
+  margin-left: 6px;
+}
+
+/* Auth area */
+.auth-links {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Shared menu button */
+.menu-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 0;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  font: inherit;
+  border-radius: 999px;
+  transition: background-color 150ms ease, transform 120ms ease, box-shadow 150ms ease;
+  text-decoration: none;
+}
+
+/* icons inside menu buttons */
+.menu-button .fa,
+.menu-button .fas,
+.menu-button .far,
+.menu-button .fal,
+.menu-button .fab {
+  display: inline-block;
+  width: 18px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Display buttons immediately right of the logo */
+.display-buttons {
+  display: inline-flex;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+  align-items: center;
+}
+
+.display-button {
+  /* match Manage color but with a semi-rectangular shape */
+  background: #3ea0e9;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 0.28rem 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700; /* make the text bolder */
+  text-decoration: none;
+}
+
+.display-button:hover,
+.display-button:focus {
+  background: #145ea8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  text-decoration: none;
+}
+
+.display-button .fa,
+.display-button .fas,
+.display-button .far,
+.display-button .fal,
+.display-button .fab {
+  width: 18px;
+  text-align: center;
+}
+
+.display-text {
+  font-weight: 700;
+}
+
+/* specific appearances */
+.user-button {
+  background: #eaf6ff; /* light-blue pill background */
+  color: #0b4e85;
+}
+
+.manage-button {
+  background: #3ea0e9; /* slightly lighter than header */
+  color: #ffffff;
+}
+
+/* Hover/active state: darker blue pill, no underline */
+.menu-button:hover,
+.menu-button:focus {
+  transform: translateY(-1px);
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.user-menu.open .menu-button,
+.nav-dropdown.open .menu-button,
+.menu-button:active {
+  /* keep the hover styling visible while the dropdown is open/clicked */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.user-button:hover {
+  background: #cdeeff;
+  color: #0b4e85;
+}
+
+.manage-button:hover {
+  background: #145ea8; /* darker, more blue on hover */
+}
+
+.updates-button {
+  background: #2b5fa0; /* darker than header */
+  color: #ffffff;
+
+  position: relative;
+  min-width: 140px;
+  padding-left: 18px; /* space for icon */
+  padding-right: 12px;
+  justify-content: center;
+}
+
+.updates-button i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  text-align: center;
+}
+
+/* About button mirrors Updates button sizing and icon positioning */
+.about-button {
+  background: #2b5fa0; /* same darker background as updates */
+  color: #ffffff;
+  position: relative;
+  min-width: 140px;
+  padding-left: 18px; /* space for icon */
+  padding-right: 12px;
+  justify-content: center;
+}
+
+.about-button i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  text-align: center;
+}
+
+.about-button:hover,
+.about-button:focus {
+  background: #346fb7; /* same brighter hover as updates */
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.updates-button:hover,
+.updates-button:focus {
+  background: #346fb7; /* slightly brighter on hover */
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  display: inline-block;
+}
+
+.username {
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-menu-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 180px;
+  padding: 6px 0;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+}
+
+.user-menu.open .user-menu-dropdown {
+  display: block;
+}
+
+.user-menu .nav-dropdown-item {
+  color: #111;
+}
+
+/* Ensure Manage dropdown has the same spacing from its button as the user menu */
+.manage-menu .nav-dropdown-menu,
+.manage-menu-dropdown {
+  top: calc(100% + 6px);
+}
+
+/* Keep the hover appearance while the menus are open/clicked */
+.user-menu.open .user-button {
+  background: #cdeeff;
+  color: #0b4e85;
+}
+
+.nav-dropdown.open .manage-button,
+.manage-menu.open .manage-button {
+  background: #145ea8;
+  color: #ffffff;
+}
+
+/* Sign up button as a rounded pill */
+.signup-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.9rem;
+  background: #dff6ff;
+  color: #0b4e85;
+  border-radius: 999px;
+  border: 1px solid rgba(11,78,133,0.08);
+  text-decoration: none;
+  transition: background-color 140ms ease, transform 120ms ease;
+}
+
+.signup-button:hover,
+.signup-button:focus {
+  background: #c9efff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* make click-toggle show dropdown when parent has .open */
+.nav-dropdown.open .nav-dropdown-menu {
+  display: block;
+}
+
+/* Manage dropdown specific link color */
+.manage-menu-dropdown .nav-dropdown-item {
+  color: #111;
+}
+
+/* Style the Sign out button inside the user menu dropdown to look like a link */
+.user-menu-dropdown .inline-form {
+  margin: 0;
+  /* ensure the inline delete form fills the dropdown width */
+  display: block;
+  width: 100%;
+}
+
+.user-menu-dropdown .inline-form input[type="submit"],
+.user-menu-dropdown .inline-form button {
+  background: transparent;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  color: #111; /* match dropdown link color */
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+  display: block;
+}
+
+.user-menu-dropdown .inline-form input[type="submit"]:hover,
+.user-menu-dropdown .inline-form button:hover {
+  text-decoration: none;
+  background: rgba(0,0,0,0.06);
+}
+
+.user-menu-dropdown .inline-form .nav-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  text-align: left;
+}

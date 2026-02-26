@@ -1,0 +1,10 @@
+<h1>Account</h1>
+
+<div class="user-details">
+  <p><strong>Name:</strong> <%= @user.name.presence || "(not set)" %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+</div>
+
+<% if current_user == @user %>
+  <%= link_to "Edit account", edit_account_path, class: "button" %>
+<% end %>

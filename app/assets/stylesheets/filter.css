@@ -1,0 +1,215 @@
+.site-filter {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: var(--header-height, 64px);
+	background: rgba(59, 138, 217, 0.92);
+	padding: 8px 1.5rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+	overflow: visible;
+	transition: padding 240ms ease, border-bottom 240ms ease, max-height 260ms ease;
+	z-index: 200;
+}
+
+.filter-row {
+	display: flex;
+	gap: 0.75rem;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.filter-dropdown {
+	position: relative;
+	min-width: 260px;
+}
+
+.filter-button {
+	background: white;
+	border: 1px solid #ddd;
+	padding: 8px 12px;
+	border-radius: 6px;
+	cursor: pointer;
+	min-width: 220px;
+	text-align: left;
+	position: relative;
+}
+
+.filter-button .filter-label {
+	display: inline-block;
+	padding-right: 48px;
+}
+
+.filter-button .filter-caret {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	pointer-events: none;
+	color: #666;
+}
+
+.filter-button .filter-badge {
+	display: none;
+	position: absolute;
+	right: 34px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #0b6fff;
+	color: #fff;
+	font-size: 12px;
+	line-height: 18px;
+	text-align: center;
+}
+
+.filter-button .filter-badge.visible {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.filter-button[aria-expanded="true"] {
+	background: #e9e9e9;
+}
+
+.filter-menu {
+	display: none;
+	position: absolute;
+	top: calc(100% + 8px);
+	left: 0;
+	min-width: 300px;
+	max-height: 320px;
+	overflow: auto;
+	background: white;
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+	border-radius: 8px;
+	z-index: 1100;
+}
+
+.filter-list {
+	list-style: none;
+	margin: 0;
+	padding: 8px;
+}
+
+.filter-item-label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	cursor: pointer;
+	padding: 6px 8px;
+	border-radius: 6px;
+}
+
+.filter-item-label:hover {
+	background: rgba(0, 0, 0, 0.03);
+}
+
+.filter-item-check {
+	margin-left: auto;
+	color: transparent;
+	font-weight: 700;
+}
+
+.filter-item-label.selected .filter-item-text {
+	color: #0b5a2f;
+}
+
+.filter-item-label.selected .filter-item-check {
+	color: #0b5a2f;
+}
+
+/* Sliding panel - allow dropdowns to overflow when expanded, but hide when collapsed */
+.filter-panel {
+	overflow: visible;
+	transition: max-height 260ms cubic-bezier(.2, .8, .2, 1), opacity 240ms ease, padding 240ms ease;
+	max-height: 400px;
+	opacity: 1;
+}
+
+.filter-panel.collapsed {
+	max-height: 0;
+	opacity: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	overflow: hidden;
+}
+
+/* When the outer filter container is collapsed, remove its footprint so content below sits flush under header */
+.site-filter.collapsed {
+	padding-top: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+	max-height: 0;
+	pointer-events: none;
+}
+
+/* Keep the toggle clickable even when collapsed */
+.site-filter.collapsed .filter-toggle {
+	pointer-events: auto;
+}
+
+/* Toggle button */
+.filter-toggle {
+	position: absolute;
+	right: 42px;
+	bottom: -5px;
+	transform: translateY(50%);
+	background: #000;
+	border: 0;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 0.9rem;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+	z-index: 220;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.filter-toggle:focus {
+	outline: 2px solid rgba(11, 111, 255, 0.25);
+}
+
+.filter-toggle .filter-toggle-caret {
+	color: #fff !important;
+	display: inline-block;
+	transform: rotate(0deg);
+	transition: transform 180ms ease;
+	font-size: 20px;
+	line-height: 1;
+}
+
+.filter-toggle[aria-expanded="true"] .filter-toggle-caret {
+	transform: rotate(180deg);
+}
+
+.filter-toggle:active {
+	background: #000;
+}
+
+.filter-toggle:active .filter-toggle-caret {
+	color: #fff !important;
+}
+
+@media (max-width: 900px) {
+	.filter-dropdown {
+		min-width: 200px;
+	}
+
+	.filter-button {
+		min-width: 160px;
+	}
+
+	.filter-menu {
+		min-width: 220px;
+	}
+}

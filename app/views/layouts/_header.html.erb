@@ -1,52 +1,84 @@
 <header class="site-header">
   <div class="header-inner">
-    <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
-    <nav class="site-nav" aria-label="Primary navigation">
-      <div class="nav-dropdown">
-        <button
-          class="nav-link nav-dropdown-toggle"
-          type="button"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Global
-          <span class="nav-caret" aria-hidden="true">▾</span>
-        </button>
+    <div class="header-left">
+      <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
+      <div class="display-buttons">
+        <%= link_to global_map_path, class: "nav-link display-button" do %>
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span class="display-text">Map</span>
+        <% end %>
 
-        <div class="nav-dropdown-menu" role="menu">
-          <%= link_to "Map", global_map_path, class: "nav-dropdown-item", role: "menuitem" %>
-          <%= link_to "Search", global_search_path, class: "nav-dropdown-item", role: "menuitem" %>
-        </div>
-      </div>
-      <%= link_to "Environment", "#", class: "nav-link" %>
-      <%= link_to "Diseases Studied", "#", class: "nav-link" %>
-      <%= link_to "Information", "#", class: "nav-link" %>
-      <div class="auth-links">
-        <% if logged_in? %>
-          <%= link_to "My publications", publications_path, class: "nav-link" %>
-
-          <div data-controller="user-menu" class="user-menu">
-            <button
-              data-action="click->user-menu#toggle"
-              aria-haspopup="true"
-              aria-expanded="false"
-              class="user-menu-button nav-link"
-              type="button"
-            >
-              <%= image_tag "avatar-placeholder.svg", alt: "", class: "avatar" %>
-              <span class="username"><%= current_user.name.presence || current_user.email %></span>
-              <span class="nav-caret" aria-hidden="true">▾</span>
-            </button>
-
-            <div class="user-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
-              <%= button_to "Sign out", logout_path, method: :delete, form: { class: "inline-form" }, class: "nav-dropdown-item", role: "menuitem" %>
-            </div>
-          </div>
-        <% else %>
-          <%= link_to "Sign up", signup_path, class: "nav-link signup-button" %>
-          <%= link_to "Sign in", login_path, class: "nav-link" %>
+        <%= link_to publications_path, class: "nav-link display-button" do %>
+          <i class="fa-solid fa-table"></i>
+          <span class="display-text">Tables</span>
         <% end %>
       </div>
-    </nav>
+    </div>
+
+    <div class="header-center">
+      <div class="search-placeholder" role="search" aria-label="Site search">
+        Search functionality coming soon
+      </div>
+    </div>
+
+    <div class="header-right">
+      <nav class="site-nav" aria-label="Primary navigation">
+        <!-- Global dropdown removed as requested -->
+        <div class="auth-links">
+          <%= link_to about_path, class: "nav-link about-link menu-button about-button" do %>
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <span class="about-text">About</span>
+          <% end %>
+
+          <%= link_to updates_path, class: "nav-link updates-link menu-button updates-button" do %>
+            <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+            <span class="updates-text">Updates</span>
+          <% end %>
+
+          <% if logged_in? %>
+            <div data-controller="user-menu" class="manage-menu nav-dropdown">
+              <button
+                data-action="click->user-menu#toggle"
+                class="nav-link nav-dropdown-toggle manage-button menu-button"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-user-gear" aria-hidden="true"></i>
+                Manage
+                <span class="nav-caret" aria-hidden="true">▾</span>
+              </button>
+
+              <div class="nav-dropdown-menu manage-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
+                <%= link_to "My publications", publications_path, class: "nav-dropdown-item", role: "menuitem" %>
+              </div>
+            </div>
+
+            <div data-controller="user-menu" class="user-menu">
+              <button
+                data-action="click->user-menu#toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                class="user-button menu-button nav-link"
+                type="button"
+              >
+                <%= image_tag "avatar-placeholder.svg", alt: "", class: "avatar" %>
+                <span class="username"><%= current_user.name.presence || current_user.email %></span>
+                <span class="nav-caret" aria-hidden="true">▾</span>
+              </button>
+
+              <div class="user-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
+                <%= link_to "Account settings", account_path, class: "nav-dropdown-item", role: "menuitem" %>
+                <%= button_to "Sign out", logout_path, method: :delete, form: { class: "inline-form" }, class: "nav-dropdown-item", role: "menuitem" %>
+              </div>
+            </div>
+          <% else %>
+            <%= link_to "Sign up", signup_path, class: "nav-link signup-button" %>
+            <%= link_to "Sign in", login_path, class: "nav-link" %>
+          <% end %>
+        </div>
+      </nav>
+    </div>
   </div>
 </header>
+<%= render 'layouts/filter' %>
