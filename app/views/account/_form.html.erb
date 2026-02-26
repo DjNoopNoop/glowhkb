@@ -1,4 +1,5 @@
-<%= form_with model: @user, url: account_path, local: true do |f| %>
+<% form_url = @user.new_record? ? signup_path : account_path %>
+<%= form_with model: @user, url: form_url, local: true do |f| %>
   <div>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -18,6 +19,16 @@
     <%= f.label :password_confirmation %><br>
     <%= f.password_field :password_confirmation %>
   </div>
+
+  <% if @user.new_record? %>
+    <div>
+      <%= f.label :role, "Role" %><br>
+      <% User.public_roles.each do |r| %>
+        <%= f.radio_button :role, r, id: "user_role_#{r}" %>
+        <%= label_tag "user_role_#{r}", r.humanize %>
+      <% end %>
+    </div>
+  <% end %>
 
   <div>
     <%= f.submit %>
