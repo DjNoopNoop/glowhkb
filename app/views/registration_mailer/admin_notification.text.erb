@@ -1,0 +1,9 @@
+New registrant awaiting approval
+
+Hello <%= @admin.name.presence || 'Administrator' %>,
+
+Name: <%= @user.name.presence || '(not provided)' %>
+Email: <%= @user.email %>
+Role: <%= @user.role %>
+
+Review registrants: <%= @admin_url %>

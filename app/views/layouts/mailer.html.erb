@@ -7,7 +7,22 @@
     </style>
   </head>
 
-  <body>
-    <%= yield %>
+  <body style="font-family: Verdana, Geneva, sans-serif; font-size:14px; color:#111; margin:0; padding:20px;">
+    <div style="max-width:600px; margin:0 auto;">
+      <!-- Banner: matches header color scheme -->
+      <div style="background:#347ec9;color:#fff;padding:12px 16px;border-radius:6px 6px 0 0;text-align:left;">
+        <a href="<%= root_url(host: default_host) %>" style="color:#fff;text-decoration:none;font-weight:700;font-size:18px;font-family: 'Times New Roman', Times, serif;">GLOWH-kb</a>
+      </div>
+
+      <div style="background:#ffffff;padding:18px;border:1px solid #e6e6e6;border-top:0;border-radius:0 0 6px 6px;">
+        <%= yield %>
+      </div>
+
+      <!-- Footer: matches site footer -->
+      <div style="background:#347ec9;color:#ffffff;padding:12px 16px;margin-top:12px;border-radius:6px;text-align:center;font-size:12px;">
+        © 2026 glowhkb.org &nbsp;&nbsp; Conceptualized by Haseena Rajeevan, Yale Center for Medical Informatics<br>
+        Designed and developed by Anoop Rajeevan
+      </div>
+    </div>
   </body>
 </html>

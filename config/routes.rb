@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   # User registration and account routes
   get "/signup", to: "registration#new", as: :signup
   post "/signup", to: "registration#create"
+  get "/signup/pending", to: "registration#pending", as: :signup_pending
 
   get "/account", to: "account#show", as: :account
   get "/account/edit", to: "account#edit", as: :edit_account

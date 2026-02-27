@@ -1,0 +1,15 @@
+<h1>New Registrant Awaiting Approval</h1>
+
+<p>Hello <%= @admin.name.presence || 'Administrator' %>,</p>
+
+<p>A new user has registered and is awaiting approval.</p>
+
+<ul>
+  <li><strong>Name:</strong> <%= @user.name.presence || '(not provided)' %></li>
+  <li><strong>Email:</strong> <%= @user.email %></li>
+  <li><strong>Role:</strong> <%= @user.role %></li>
+</ul>
+
+<p style="text-align:center;margin-top:16px;">
+  <a href="<%= @admin_url %>" style="display:inline-block;padding:10px 16px;background:#2d6cdf;color:#fff;text-decoration:none;border-radius:4px;font-family:Verdana, Geneva, sans-serif;">Review Registrants</a>
+</p>
