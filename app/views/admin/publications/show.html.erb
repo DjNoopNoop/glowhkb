@@ -1,1 +1,49 @@
-<%= render template: 'publications/show' %>
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <h1><%= @publication.title %></h1>
+  <div class="actions d-flex gap-2 mt-2">
+    <%= link_to 'Back', admin_publications_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Edit', edit_admin_publication_path(@publication), class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<p><strong>Authors:</strong> <%= @publication.authors %></p>
+<p><strong>Journal:</strong> <%= @publication.journal %></p>
+<p><strong>Year:</strong> <%= @publication.year %></p>
+<p><strong>Owner:</strong> <%= @publication.user&.email || "(unassigned)" %></p>
+<% if @publication.url.present? %>
+  <p><strong>URL:</strong> <%= link_to @publication.url, @publication.url, target: "_blank", rel: "noopener" %></p>
+<% end %>
+
+<% if @publication.doi.present? %>
+  <p><strong>DOI:</strong> <%= @publication.doi %></p>
+<% end %>
+
+<% if @publication.geographic_location.present? %>
+  <p><strong>Geographic location:</strong> <%= @publication.geographic_location.name %></p>
+  <% if @publication.geographic_location.latitude.present? || @publication.geographic_location.longitude.present? %>
+    <p><strong>Coordinates:</strong>
+      <% if @publication.geographic_location.latitude.present? %>
+        Lat: <%= @publication.geographic_location.latitude %>
+      <% end %>
+      <% if @publication.geographic_location.longitude.present? %>
+        Lon: <%= @publication.geographic_location.longitude %>
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @publication.air_pollutants.any? %>
+  <p><strong>Air pollutants:</strong> <%= @publication.air_pollutants.map(&:name).join(', ') %></p>
+<% end %>
+
+<% if @publication.weather_parameters.any? %>
+  <p><strong>Weather parameters:</strong> <%= @publication.weather_parameters.map(&:name).join(', ') %></p>
+<% end %>
+
+<% if @publication.medical_conditions.any? %>
+  <p><strong>Medical conditions:</strong> <%= @publication.medical_conditions.map(&:name).join(', ') %></p>
+<% end %>
+
+<% if @publication.statistical_methods.any? %>
+  <p><strong>Statistical methods:</strong> <%= @publication.statistical_methods.map(&:name).join(', ') %></p>
+<% end %>

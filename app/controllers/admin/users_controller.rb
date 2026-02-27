@@ -3,7 +3,7 @@ module Admin
     before_action :set_user, only: %i[show edit update]
 
     def index
-      @users = User.order(:email)
+      @users = User.active.order(:email)
       respond_to do |format|
         format.html
         format.json { render json: @users.as_json(only: %i[id name email role status]) }

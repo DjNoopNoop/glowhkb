@@ -16,6 +16,10 @@
     function initPublicationsTable() {
       if (!(window.jQuery && $.fn.dataTable)) return;
       var $table = $('#admin-publications-table');
+      var $wrapper = $table.closest('.dataTables_wrapper');
+      if ($wrapper.length && !$.fn.dataTable.isDataTable($table)) {
+        $wrapper.replaceWith($table);
+      }
       if ($.fn.dataTable.isDataTable($table)) {
         $table.DataTable().ajax.reload();
         return;

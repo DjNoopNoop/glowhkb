@@ -17,6 +17,12 @@
     function initUsersTable() {
       if (!(window.jQuery && $.fn.dataTable)) return;
       var $table = $('#admin-users-table');
+      // If a leftover DataTables wrapper exists (e.g. from bfcache/back navigation)
+      // but the DataTable instance is not registered, restore the original table element
+      var $wrapper = $table.closest('.dataTables_wrapper');
+      if ($wrapper.length && !$.fn.dataTable.isDataTable($table)) {
+        $wrapper.replaceWith($table);
+      }
       if ($.fn.dataTable.isDataTable($table)) {
         // If already initialized (e.g., navigating back), reload data
         $table.DataTable().ajax.reload();

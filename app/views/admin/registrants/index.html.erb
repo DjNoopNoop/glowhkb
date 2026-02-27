@@ -1,10 +1,12 @@
-<h1>Registrants (Pending Users)</h1>
+<h1>Pending Registrants</h1>
 
 <table id="admin-registrants-table" class="display" style="width:100%">
   <thead>
     <tr>
       <th>Name</th>
       <th>Email</th>
+      <th>Role</th>
+      <th>Created</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -15,6 +17,10 @@
     function initRegistrantsTable() {
       if (!(window.jQuery && $.fn.dataTable)) return;
       var $table = $('#admin-registrants-table');
+      var $wrapper = $table.closest('.dataTables_wrapper');
+      if ($wrapper.length && !$.fn.dataTable.isDataTable($table)) {
+        $wrapper.replaceWith($table);
+      }
       if ($.fn.dataTable.isDataTable($table)) {
         $table.DataTable().ajax.reload();
         return;
@@ -28,6 +34,8 @@
         columns: [
           { data: 'name', render: function(data){ return data || '—'; } },
           { data: 'email' },
+          { data: 'role', render: function(data){ return data || '—'; } },
+          { data: 'created_at', render: function(data){ return data ? new Date(data).toLocaleString() : '—'; } },
           { data: null, orderable: false, searchable: false, render: function(data,type,row){
               var id = row.id;
               var show = '<a href="' + '/admin/registrants/' + id + '" class="btn btn-sm btn-outline-secondary me-1">Show</a>';
