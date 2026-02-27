@@ -8,8 +8,7 @@ class RegistrationController < ApplicationController
     permitted = sanitize_role(user_params)
     @user = User.new(permitted)
     if @user.save
-      session[:user_id] = @user.id
-      redirect_to root_path, notice: 'Account created'
+      redirect_to root_path, notice: 'Account created. Your account is pending admin approval.'
     else
       render 'registration/new', status: :unprocessable_entity
     end
@@ -23,7 +22,7 @@ class RegistrationController < ApplicationController
 
   def sanitize_role(permitted_params)
     rp = permitted_params.to_h
-    rp[:role] = User.public_roles.include?(rp[:role]) ? rp[:role] : User::ROLE_CONTRIBUTOR
+    rp[:role] = User.public_roles.include?(rp[:role]) ? rp[:role] : User::CONTRIBUTOR
     rp
   end
 end

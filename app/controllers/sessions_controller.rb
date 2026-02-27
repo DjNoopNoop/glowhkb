@@ -4,8 +4,14 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to root_path, notice: "Signed in"
+      if user.active?
+        session[:user_id] = user.id
+        redirect_to root_path, notice: "Signed in"
+      else
+        message = user.denied? ? "Your account has been denied." : "Your account is pending approval."
+        flash.now[:alert] = message
+        render :new, status: :forbidden
+      end
     else
       flash.now[:alert] = "Invalid email or password"
       render :new, status: :unprocessable_entity

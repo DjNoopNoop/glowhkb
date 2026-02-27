@@ -51,6 +51,19 @@ class User < ApplicationRecord
     role == CONTRIBUTOR
   end
 
+  # Status predicate helpers
+  def active?
+    status == ACTIVE
+  end
+
+  def pending?
+    status == PENDING
+  end
+
+  def denied?
+    status == DENIED
+  end
+
   validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: STATUSES }
   validates :role, presence: true, inclusion: { in: ROLES }
