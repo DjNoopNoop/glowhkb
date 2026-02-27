@@ -1,0 +1,5 @@
+<div class="list-group admin-sidebar">
+  <%= link_to "Users", admin_users_path, class: ["list-group-item", "list-group-item-action", (controller_path.start_with?("admin/users") ? "active" : nil)].compact.join(" ") %>
+  <%= link_to "Registrants", admin_registrants_path, class: ["list-group-item", "list-group-item-action", (controller_path.start_with?("admin/registrants") ? "active" : nil)].compact.join(" ") %>
+  <%= link_to "Publications", admin_publications_path, class: ["list-group-item", "list-group-item-action", (controller_path.start_with?("admin/publications") ? "active" : nil)].compact.join(" ") %>
+</div>

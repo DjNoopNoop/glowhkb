@@ -1,0 +1,15 @@
+<h1>User</h1>
+
+<table class="table">
+  <tbody>
+    <% @user.attributes.each do |k, v| %>
+      <tr>
+        <th><%= k.humanize %></th>
+        <td><%= v %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', admin_users_path, class: 'btn btn-secondary' %>
+<%= link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-primary' %>

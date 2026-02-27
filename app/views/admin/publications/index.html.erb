@@ -1,0 +1,24 @@
+<h1>All Publications</h1>
+
+<table class="table publications-list">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Author</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @publications.each do |p| %>
+      <tr>
+        <td><%= link_to p.title, publication_path(p) %></td>
+        <td><%= p.year %></td>
+        <td><%= p.user&.email || '—' %></td>
+        <td>
+          <%= link_to 'Show', publication_path(p), class: 'btn btn-sm btn-outline-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

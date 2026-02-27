@@ -1,0 +1,67 @@
+.admin-site {
+  display: flex;
+  flex-direction: row; /* ensure horizontal layout despite .site-main defaults */
+  align-items: stretch;
+  /* allow .site-main's flex sizing to control height and scrolling */
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+/* Sidebar is contained within the main admin area (not fixed to body) */
+.admin-sidebar {
+  width: 240px;
+  flex: 0 0 240px; /* fixed column so it won't be crushed */
+  min-width: 240px;
+  flex-shrink: 0;
+  background: #f8f9fa;
+  border-right: 1px solid #e9ecef;
+  /* Let the main scroll container handle vertical scrolling; prevent sidebar from forcing layout */
+  height: auto;
+  overflow: visible;
+  padding: 0; /* remove padding inside the sidebar container */
+  box-sizing: border-box;
+  border-radius: 0; /* hard edges */
+}
+
+.admin-sidebar .list-group {
+  margin: 0;
+  border-radius: 0;
+}
+
+/* Remove rounded corners from items and normalize spacing */
+.admin-sidebar .list-group-item {
+  border-radius: 0;
+  padding: 12px 16px;
+}
+
+/* Active link styling: darker shade for current page */
+.admin-sidebar .list-group-item.active,
+.admin-sidebar .list-group-item.active:focus,
+.admin-sidebar .list-group-item.active:hover {
+  background-color: #e2e6ea;
+  color: #000;
+  font-weight: 600;
+}
+
+/* Main content sits to the right of the sidebar */
+.admin-content {
+  flex: 1 1 auto;
+  padding: 28px 24px;
+  min-width: 0; /* allow flex children to shrink correctly */
+  min-height: 0; /* allow parent .site-main to provide the vertical scroll area */
+  box-sizing: border-box;
+  padding-top: 0;
+  overflow-x: auto; /* allow wide tables to scroll horizontally without shrinking sidebar */
+}
+
+/* Prevent tables from forcing the layout; allow them to overflow horizontally */
+.admin-content table {
+  width: 100%;
+  max-width: none;
+  table-layout: auto;
+}
+
+@media (max-width: 767px) {
+  .admin-sidebar { width: 200px; }
+  .admin-content { padding-top: 100px; }
+}

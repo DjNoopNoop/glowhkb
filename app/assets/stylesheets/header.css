@@ -410,6 +410,12 @@
   color: #111;
 }
 
+/* Admin link in Manage menu: prominent red */
+.manage-menu-dropdown .nav-dropdown-item.admin-link {
+  color: #c62828;
+  font-weight: 700;
+}
+
 /* Style the Sign out button inside the user menu dropdown to look like a link */
 .user-menu-dropdown .inline-form {
   margin: 0;

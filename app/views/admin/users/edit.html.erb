@@ -1,0 +1,36 @@
+<h1>Edit User</h1>
+
+<%= form_with model: [:admin, @user], local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :email %>
+    <%= f.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :role %>
+    <%= f.select :role, User::ROLES, {}, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :status %>
+    <%= f.select :status, User::STATUSES, {}, class: 'form-select' %>
+  </div>
+
+  <%# Add other editable attributes dynamically, excluding password fields %>
+  <% (User.attribute_names.map(&:to_sym) - %i[id name email role status password password_digest created_at updated_at]).each do |attr| %>
+    <div class="mb-3">
+      <%= f.label attr %>
+      <%= f.text_field attr, class: 'form-control', value: @user.send(attr) %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', admin_user_path(@user), class: 'btn btn-secondary' %>
+  </div>
+<% end %>

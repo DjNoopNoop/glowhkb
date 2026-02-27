@@ -1,0 +1,68 @@
+<h1>Users</h1>
+
+<table id="admin-users-table" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+</table>
+
+<script>
+  (function() {
+    function initUsersTable() {
+      if (!(window.jQuery && $.fn.dataTable)) return;
+      var $table = $('#admin-users-table');
+      if ($.fn.dataTable.isDataTable($table)) {
+        // If already initialized (e.g., navigating back), reload data
+        $table.DataTable().ajax.reload();
+        return;
+      }
+
+      $table.DataTable({
+        ajax: {
+          url: '<%= admin_users_path(format: :json) %>',
+          dataSrc: ''
+        },
+        columns: [
+          { data: 'name', render: function(data,type,row){ return data || '—'; } },
+          { data: 'email' },
+          { data: 'role' },
+              { data: 'status' },
+              { data: null, orderable: false, searchable: false, render: function(data,type,row){
+                  var id = row.id;
+                  var show = '<a href="' + '/admin/users/' + id + '" class="btn btn-sm btn-outline-secondary me-1">Show</a>';
+                  var edit = '<a href="' + '/admin/users/' + id + '/edit' + '" class="btn btn-sm btn-outline-primary me-1">Edit</a>';
+                  return show + edit;
+                } }
+        ],
+        pageLength: 50,
+        lengthMenu: [[50,100,200,400],[50,100,200,400]],
+        searching: true,
+        ordering: true,
+        processing: true,
+        deferRender: true
+      });
+    }
+
+    // Initialize on Turbo navigation only (Turbo fires on initial load as well).
+    // On each turbo:load, if a DataTable instance exists reload it; otherwise
+    // initialize a new DataTable if the table element is present in the DOM.
+    document.addEventListener('turbo:load', function() {
+      var $table = $('#admin-users-table');
+      if (window.jQuery && $.fn.dataTable && $.fn.dataTable.isDataTable($table)) {
+        $table.DataTable().ajax.reload();
+        return;
+      }
+      if ($table.length) {
+        initUsersTable();
+      }
+    });
+  })();
+</script>
+
+<!-- Delete removed: no client-side handler required -->

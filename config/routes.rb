@@ -27,5 +27,11 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy", as: :logout
 
+  namespace :admin do
+    resources :users, only: [:index, :show, :edit, :update]
+    resources :registrants, only: [:index]
+    resources :publications, only: [:index]
+  end
+
   resources :publications
 end

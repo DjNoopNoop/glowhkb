@@ -50,6 +50,9 @@
               </button>
 
               <div class="nav-dropdown-menu manage-menu-dropdown" data-user-menu-target="menu" role="menu" aria-hidden="true">
+                <% if current_user&.is_admin? %>
+                  <%= link_to "Admin", admin_users_path, class: "nav-dropdown-item admin-link", role: "menuitem" %>
+                <% end %>
                 <%= link_to "My publications", publications_path, class: "nav-dropdown-item", role: "menuitem" %>
               </div>
             </div>
@@ -81,6 +84,6 @@
     </div>
   </div>
 </header>
-<% if (controller_name == 'global' && action_name == 'map') || (controller_name == 'publications' && action_name == 'index') %>
+<% if !controller_path.start_with?("admin/") && ((controller_name == 'global' && action_name == 'map') || (controller_name == 'publications' && action_name == 'index')) %>
   <%= render 'layouts/filter' %>
 <% end %>
