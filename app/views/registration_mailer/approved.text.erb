@@ -1,0 +1,5 @@
+Hello <%= @user.name.presence || @user.email %>,
+
+Your account has been activated and you may now sign in to the site:
+
+<%= @sign_in_url %>

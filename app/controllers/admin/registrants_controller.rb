@@ -16,6 +16,7 @@ module Admin
     def approve
       begin
         @registrant.activate!
+        RegistrationMailer.approved(@registrant).deliver_later
         redirect_to admin_registrants_path, notice: "Registrant approved."
       rescue => e
         redirect_to admin_registrants_path, alert: "Unable to approve registrant."
@@ -25,6 +26,7 @@ module Admin
     def deny
       begin
         @registrant.deny!
+        RegistrationMailer.denied(@registrant).deliver_later
         redirect_to admin_registrants_path, notice: "Registrant denied."
       rescue => e
         redirect_to admin_registrants_path, alert: "Unable to deny registrant."
