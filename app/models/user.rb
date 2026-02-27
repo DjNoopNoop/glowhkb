@@ -19,6 +19,25 @@ class User < ApplicationRecord
     [CONTRIBUTOR, ADJUDICATOR].freeze
   end
 
+  # Scopes for statuses
+  scope :pending, -> { where(status: PENDING) }
+  scope :active, -> { where(status: ACTIVE) }
+  scope :denied, -> { where(status: DENIED) }
+
+  # Scopes for roles
+  scope :contributors, -> { where(role: CONTRIBUTOR) }
+  scope :adjudicators, -> { where(role: ADJUDICATOR) }
+  scope :administrators, -> { where(role: ADMINISTRATOR) }
+
+  # Instance methods to change status
+  def activate!
+    update!(status: ACTIVE)
+  end
+
+  def deny!
+    update!(status: DENIED)
+  end
+
   # Role predicate helpers
   def is_admin?
     role == ADMINISTRATOR

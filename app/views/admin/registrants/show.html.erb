@@ -1,0 +1,18 @@
+<h1>Registrant: <%= @registrant.name.presence || @registrant.email %></h1>
+
+<table class="table">
+  <tbody>
+    <% @registrant.attributes.except('password_digest').each do |k, v| %>
+      <tr>
+        <th><%= k.humanize %></th>
+        <td><%= v %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="actions">
+  <%= button_to 'Approve', approve_admin_registrant_path(@registrant), method: :patch, class: 'btn btn-success' %>
+  <%= button_to 'Deny', deny_admin_registrant_path(@registrant), method: :patch, class: 'btn btn-danger' %>
+  <%= link_to 'Back', admin_registrants_path, class: 'btn btn-secondary' %>
+</div>

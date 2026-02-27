@@ -1,6 +1,6 @@
 <h1>All Publications</h1>
 
-<table class="table publications-list">
+<table id="admin-publications-table" class="display" style="width:100%">
   <thead>
     <tr>
       <th>Title</th>
@@ -9,16 +9,65 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody>
-    <% @publications.each do |p| %>
-      <tr>
-        <td><%= link_to p.title, publication_path(p) %></td>
-        <td><%= p.year %></td>
-        <td><%= p.user&.email || '—' %></td>
-        <td>
-          <%= link_to 'Show', publication_path(p), class: 'btn btn-sm btn-outline-primary' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
 </table>
+
+<script>
+  (function() {
+    function initPublicationsTable() {
+      if (!(window.jQuery && $.fn.dataTable)) return;
+      var $table = $('#admin-publications-table');
+      if ($.fn.dataTable.isDataTable($table)) {
+        $table.DataTable().ajax.reload();
+        return;
+      }
+
+      $table.DataTable({
+        ajax: {
+          url: '<%= admin_publications_path(format: :json) %>',
+          dataSrc: ''
+        },
+        columns: [
+          { data: 'title', render: function(data,type,row){ return data || '—'; } },
+          { data: 'year' },
+          { data: 'user_email', render: function(data){ return data || '—'; } },
+          { data: null, orderable: false, searchable: false, render: function(data,type,row){
+              var id = row.id;
+              var show = '<a href="' + '/admin/publications/' + id + '" class="btn btn-sm btn-outline-secondary me-1">Show</a>';
+              var edit = '<a href="' + '/admin/publications/' + id + '/edit' + '" class="btn btn-sm btn-outline-primary me-1">Edit</a>';
+              var del = '<button class="btn btn-sm btn-outline-danger" onclick="deletePublication(' + id + ')">Delete</button>';
+              return show + edit + del;
+            } }
+        ],
+        pageLength: 50,
+        lengthMenu: [[50,100,200,400],[50,100,200,400]],
+        searching: true,
+        ordering: true,
+        processing: true,
+        deferRender: true
+      });
+    }
+
+    window.deletePublication = function(id) {
+      if (!confirm('Are you sure you want to delete this publication?')) return;
+      var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      fetch('/admin/publications/' + id, {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': token,
+          'Accept': 'application/json'
+        }
+      }).then(function(resp){
+        if (resp.ok) {
+          var $table = $('#admin-publications-table');
+          if ($.fn.dataTable.isDataTable($table)) $table.DataTable().ajax.reload();
+        } else {
+          resp.text().then(function(t){ alert('Delete failed: ' + t); });
+        }
+      }).catch(function(e){ alert('Delete failed'); });
+    }
+
+    document.addEventListener('turbo:load', function() {
+      initPublicationsTable();
+    });
+  })();
+</script>

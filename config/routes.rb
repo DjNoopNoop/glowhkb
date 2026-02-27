@@ -29,8 +29,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :show, :edit, :update]
-    resources :registrants, only: [:index]
-    resources :publications, only: [:index]
+    resources :registrants, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :deny
+      end
+    end
+    resources :publications, only: [:index, :show, :edit, :update, :destroy]
   end
 
   resources :publications
