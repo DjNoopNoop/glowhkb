@@ -19,6 +19,19 @@ class User < ApplicationRecord
     [CONTRIBUTOR, ADJUDICATOR].freeze
   end
 
+  # Role predicate helpers
+  def is_admin?
+    role == ADMINISTRATOR
+  end
+
+  def is_adjudicator?
+    role == ADJUDICATOR
+  end
+
+  def is_contributor?
+    role == CONTRIBUTOR
+  end
+
   validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: STATUSES }
   validates :role, presence: true, inclusion: { in: ROLES }
