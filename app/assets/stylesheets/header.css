@@ -560,9 +560,16 @@
   /* Slightly reduce shadows/transforms to prevent overflow on small screens */
   .nav-dropdown-menu,
   .user-menu-dropdown {
-    left: 0;
-    right: auto;
     min-width: 160px;
+  }
+
+  /* When dropdowns live in the right-side header area, anchor them to the
+     right (open leftwards) to avoid overflowing the viewport on narrow screens. */
+  .header-right .nav-dropdown-menu,
+  .header-right .manage-menu-dropdown,
+  .header-right .user-menu-dropdown {
+    right: 0;
+    left: auto;
   }
 }
 
