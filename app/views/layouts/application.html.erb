@@ -22,7 +22,7 @@
     <%= javascript_include_tag "https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js", "data-turbo-track": "reload" %>
   </head>
 
-  <body class="site">
+  <body class="site <%= "#{controller.controller_name}-#{controller.action_name}" %>">
     <%= render "layouts/header" %>
     <%= render "layouts/flash" %>
     <main class="site-main">

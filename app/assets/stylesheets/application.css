@@ -135,6 +135,20 @@ body.site {
   }
 }
 
+/* Hide footer on narrow screens except on the About page (pages#about).
+   Using the controller-action body class added in the layout (e.g.
+   `pages-about`) allows an exception for the about page. */
+@media (max-width: 980px) {
+  .site-footer {
+    display: none;
+  }
+
+  /* Exception: pages-about should still show the footer */
+  .pages-about .site-footer {
+    display: block;
+  }
+}
+
 /* Dropdown container */
 .mapbox-map {
   width: 100%;
