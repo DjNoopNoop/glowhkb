@@ -99,11 +99,14 @@ export default class extends Controller {
       markerEl.style.cursor = 'pointer'
 
       const title = escapeHTML(p.title || '')
+      const authors = escapeHTML(p.authors || '')
       const meta = []
       if (p.journal) meta.push(escapeHTML(p.journal))
       if (p.year) meta.push('' + p.year)
 
-      const popupHtml = `<div style="font-weight:600;margin-bottom:4px;">${title}</div><div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
+      let popupHtml = `<div style="font-size:14px;font-weight:600;margin-bottom:6px;">${title}</div>`
+      if (authors) popupHtml += `<div style="font-size:13px;color:#333;margin-bottom:4px;">${authors}</div>`
+      popupHtml += `<div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
 
       const popup = new mapboxgl.Popup({ offset: 12, closeButton: false, closeOnClick: false }).setHTML(popupHtml)
 

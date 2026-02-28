@@ -28,6 +28,7 @@ class GlobalController < ApplicationController
       @publications = scope.select(
         'publications.id',
         'publications.title',
+        'publications.authors',
         'publications.year',
         'publications.journal',
         'publications.url',
@@ -47,7 +48,7 @@ class GlobalController < ApplicationController
           render
         end
         format.json do
-          render json: @publications.as_json(only: [:id, :title, :year, :journal, :url, :latitude, :longitude])
+          render json: @publications.as_json(only: [:id, :title, :authors, :year, :journal, :url, :latitude, :longitude])
         end
       end
   end
