@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.1].define(version: 2026_02_28_120000) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "air_pollutants", force: :cascade do |t|

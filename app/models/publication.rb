@@ -1,5 +1,13 @@
 class Publication < ApplicationRecord
   include TagCreatableAssociations
+  include PgSearch::Model
+
+  pg_search_scope :search_by_term,
+                  against: { title: 'A', authors: 'B', journal: 'C' },
+                  using: {
+                    tsearch: { prefix: true, any_word: true },
+                    trigram: {}
+                  }
 
   belongs_to :submission, optional: true
   belongs_to :geographic_location, optional: true

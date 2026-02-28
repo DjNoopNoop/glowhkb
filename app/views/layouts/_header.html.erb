@@ -16,8 +16,18 @@
     </div>
 
     <div class="header-center">
-      <div class="search-placeholder" role="search" aria-label="Site search">
-        Search functionality coming soon
+      <div data-controller="search" class="search-container" role="search" aria-label="Site search">
+        <input
+          data-search-target="input"
+          data-action="input->search#query keydown->search#keydown"
+          type="search"
+          class="search-input"
+          placeholder="Search publications, parameters, pollutants..."
+          aria-label="Site search"
+          autocomplete="off"
+        />
+
+        <div data-search-target="results" class="search-results" hidden></div>
       </div>
     </div>
 
