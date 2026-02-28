@@ -35,6 +35,7 @@ module Admin
       if @publication.save
         redirect_to admin_publication_path(@publication), notice: "Publication created"
       else
+        flash.now[:alert] = "Could not create publication: #{@publication.errors.full_messages.to_sentence}"
         render :new, status: :unprocessable_entity
       end
     end
@@ -53,6 +54,7 @@ module Admin
       if @publication.save
         redirect_to admin_publication_path(@publication), notice: "Publication updated"
       else
+        flash.now[:alert] = "Could not update publication: #{@publication.errors.full_messages.to_sentence}"
         render :edit, status: :unprocessable_entity
       end
     end

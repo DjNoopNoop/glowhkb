@@ -5,7 +5,7 @@ class Submission < ApplicationRecord
   belongs_to :geographic_location, optional: true
   belongs_to :adjudicated_by, class_name: 'User', optional: true
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
 
   has_and_belongs_to_many :air_pollutants, join_table: 'sub_air_pollutants'
   has_and_belongs_to_many :weather_parameters, join_table: 'sub_weather_parameters'

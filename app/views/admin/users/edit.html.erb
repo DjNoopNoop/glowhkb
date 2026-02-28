@@ -1,36 +1,95 @@
-<h1>Edit User</h1>
-
-<%= form_with model: [:admin, @user], local: true do |f| %>
-  <div class="mb-3">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :role %>
-    <%= f.select :role, User::ROLES, {}, class: 'form-select' %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :status %>
-    <%= f.select :status, User::STATUSES, {}, class: 'form-select' %>
-  </div>
-
-  <%# Add other editable attributes dynamically, excluding password fields %>
-  <% (User.attribute_names.map(&:to_sym) - %i[id name email role status password password_digest created_at updated_at]).each do |attr| %>
-    <div class="mb-3">
-      <%= f.label attr %>
-      <%= f.text_field attr, class: 'form-control', value: @user.send(attr) %>
+<div class="container mb-3">
+  <div class="d-flex justify-content-between align-items-start flex-wrap mt-3">
+    <div class="me-3">
+      <div class="d-flex align-items-center mb-2">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 d-flex">
+            <li class="breadcrumb-item">Admin</li>
+            <li class="breadcrumb-item"><%= link_to 'Users', admin_users_path %></li>
+            <% if defined?(@user) && @user.present? %>
+              <li class="breadcrumb-item"><%= link_to truncate(@user.name || @user.email, length: 60), admin_user_path(@user) %></li>
+            <% end %>
+            <li class="breadcrumb-item active" aria-current="page">Edit user</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="mt-2">
+        <h1 class="h3 mb-0">Edit user</h1>
+      </div>
     </div>
-  <% end %>
-
-  <div class="d-flex justify-content-center gap-2">
-    <%= link_to 'Cancel', admin_user_path(@user), class: 'btn btn-secondary' %>
-    <%= f.submit 'Save', class: 'btn btn-primary' %>
   </div>
-<% end %>
+</div>
+
+<div class="container">
+  <div class="row mt-3 mb-4">
+    <div class="col-12">
+
+      <% if @user.errors.any? %>
+        <div class="alert alert-danger">
+          <strong>There were problems saving the user:</strong>
+          <ul class="mb-0">
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: [:admin, @user], local: true, html: { class: 'admin-form' } do |f| %>
+        <div class="mb-3">
+          <%= f.label :name, class: 'form-label' %>
+          <% name_err = @user.errors[:name].any? %>
+          <%= f.text_field :name, class: 'form-control' + (name_err ? ' is-invalid' : '') %>
+          <% if name_err %>
+            <div class="invalid-feedback d-block"><%= @user.errors[:name].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email, class: 'form-label' %>
+          <% email_err = @user.errors[:email].any? %>
+          <%= f.email_field :email, class: 'form-control' + (email_err ? ' is-invalid' : '') %>
+          <% if email_err %>
+            <div class="invalid-feedback d-block"><%= @user.errors[:email].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :role, class: 'form-label' %>
+          <% role_err = @user.errors[:role].any? %>
+          <%= f.select :role, User::ROLES, {}, class: 'form-select' + (role_err ? ' is-invalid' : '') %>
+          <% if role_err %>
+            <div class="invalid-feedback d-block"><%= @user.errors[:role].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :status, class: 'form-label' %>
+          <% status_err = @user.errors[:status].any? %>
+          <%= f.select :status, User::STATUSES, {}, class: 'form-select' + (status_err ? ' is-invalid' : '') %>
+          <% if status_err %>
+            <div class="invalid-feedback d-block"><%= @user.errors[:status].join(', ') %></div>
+          <% end %>
+        </div>
+
+        <%# Add other editable attributes dynamically, excluding password fields %>
+        <% (User.attribute_names.map(&:to_sym) - %i[id name email role status password password_digest created_at updated_at]).each do |attr| %>
+          <% attr_err = @user.errors[attr].any? %>
+          <div class="mb-3">
+            <%= f.label attr, class: 'form-label' %>
+            <%= f.text_field attr, class: 'form-control' + (attr_err ? ' is-invalid' : ''), value: @user.send(attr) %>
+            <% if attr_err %>
+              <div class="invalid-feedback d-block"><%= @user.errors[attr].join(', ') %></div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <%= link_to 'Cancel', admin_user_path(@user), class: 'btn btn-secondary' %>
+          <%= f.submit (@user.persisted? ? 'Update User' : 'Create User'), class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -6,6 +6,9 @@
 					<ol class="breadcrumb mb-0 d-flex">
 						<li class="breadcrumb-item">Admin</li>
 						<li class="breadcrumb-item"><%= link_to 'Publications', admin_publications_path %></li>
+						<% if defined?(@publication) && @publication.present? %>
+							<li class="breadcrumb-item"><%= link_to truncate(@publication.title, length: 60), admin_publication_path(@publication) %></li>
+						<% end %>
 						<li class="breadcrumb-item active" aria-current="page">Edit publication</li>
 					</ol>
 				</nav>

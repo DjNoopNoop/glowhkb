@@ -12,7 +12,7 @@ class Publication < ApplicationRecord
     super.presence || submission&.user
   end
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
 
   has_and_belongs_to_many :air_pollutants, join_table: 'pub_air_pollutants'
   has_and_belongs_to_many :weather_parameters, join_table: 'pub_weather_parameters'
