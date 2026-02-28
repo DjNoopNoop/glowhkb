@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "/account/edit", to: "account#edit", as: :edit_account
   patch "/account", to: "account#update"
   put "/account", to: "account#update"
+  patch "/account/password", to: "account#update_password", as: :update_account_password
   get "/updates", to: "site_updates#index", as: :updates
   get "/about", to: "pages#about", as: :about
 

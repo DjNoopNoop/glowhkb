@@ -1,12 +1,33 @@
-<h1>Account</h1>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h1 class="h4 mb-0">Account</h1>
+        </div>
 
-<div class="user-details">
-  <p><strong>Name:</strong> <%= @user.name.presence || "(not set)" %></p>
-  <p><strong>Email:</strong> <%= @user.email %></p>
-  <p><strong>Role:</strong> <%= @user.role.present? ? @user.role.humanize : "(not set)" %></p>
-  <p><strong>Status:</strong> <%= @user.status.present? ? @user.status.humanize : "(not set)" %></p>
+        <div class="card-body">
+          <dl class="row mb-0">
+            <dt class="col-sm-4">Name</dt>
+            <dd class="col-sm-8"><%= @user.name.presence || "(not set)" %></dd>
+
+            <dt class="col-sm-4">Email</dt>
+            <dd class="col-sm-8"><%= @user.email %></dd>
+
+            <dt class="col-sm-4">Role</dt>
+            <dd class="col-sm-8"><%= @user.role.present? ? @user.role.humanize : "(not set)" %></dd>
+
+            <dt class="col-sm-4">Status</dt>
+            <dd class="col-sm-8"><%= @user.status.present? ? @user.status.humanize : "(not set)" %></dd>
+          </dl>
+        </div>
+
+        <div class="card-footer bg-transparent text-center">
+          <% if current_user == @user %>
+            <%= link_to "Edit account", edit_account_path, class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<% if current_user == @user %>
-  <%= link_to "Edit account", edit_account_path, class: "button" %>
-<% end %>
