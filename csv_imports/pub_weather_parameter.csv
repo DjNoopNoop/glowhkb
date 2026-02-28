@@ -1,0 +1,234 @@
+publication_id,weather_parameter,weather_id
+1,Extreme weather,2
+2,Extreme temperatures,2
+3,Not specified,5
+4,Not specified,5
+5,Heat,10
+6,Not specified,5
+7,Not specified,5
+8,Environmental variables,4
+9,High temperatures,10
+10,Not specified,5
+11,Heat,10
+12,Thunderstorm,11
+13,Not specified,5
+14,Climate change,1
+14,Temperature,10
+15,Not specified,5
+16,Not specified,5
+17,Extreme heat,10
+17,Climate change,1
+18,Temperature,10
+18,Humidity,3
+19,Not specified,5
+20,Temperature,10
+21,Not specified,5
+22,Temperature variability,10
+23,Heat,10
+24,Temperature,10
+25,Temperature,10
+26,Not specified,5
+27,Temperature,10
+28,Not specified,5
+29,Temperature,10
+30,Not specified,5
+31,Not specified,5
+32,Not specified,5
+33,Not specified,5
+34,Not specified,5
+35,Physiological equivalent temperature,10
+36,Not specified,5
+37,Physiological equivalent temperature,10
+38,Humidity,3
+38,Temperature,10
+39,Not specified,5
+40,Temperature,10
+40,Humidity,3
+41,Not specified,5
+42,Not specified,5
+43,Diurnal temperature change,10
+44,Not specified,5
+45,Not specified,5
+46,Not specified,5
+47,Temperature,10
+48,Temperature,10
+49,Temperature,10
+49,Weather changes,1
+50,Not specified,5
+51,Climate variability,1
+52,Diurnal temperature range,10
+53,Not specified,5
+54,Temperature,10
+55,Temperature,10
+56,Temperature,10
+57,Cold temperature,10
+58,Extreme heat,10
+59,Temperature,10
+60,Temperature,10
+61,Climate factors,1
+62,Not specified,5
+63,Diurnal temperature range,10
+64,Temperature,10
+65,Temperature,10
+65,Humidity,3
+66,Not specified,5
+67,Thunderstorm conditions,11
+67,Humidity,3
+67,Wind,13
+68,Not specified,5
+69,Ambient temperature,10
+70,Temperature,10
+71,Temperature,10
+72,Temperature,10
+73,Temperature,10
+73,Humidity,3
+74,Not specified,5
+75,Not specified,5
+76,Humidity,3
+76,Temperature,10
+76,Thunderstorm,11
+77,Heat,10
+77,Cold,10
+77,Temperature variability,10
+78,Temperature,10
+79,Temperature,10
+80,Humidity,3
+80,Temperature,10
+81,Temperature extremes,10
+82,Not specified,5
+83,Sandstorms,8
+84,Temperature,10
+85,Thunderstorm,11
+85,Temperature,10
+85,Precipitation,6
+86,Extreme cold,2
+86,Extreme heat,10
+87,Thunderstorm,11
+88,Temperature,10
+89,Temperature,10
+90,Temperature,10
+91,Extreme cold,2
+91,Extreme heat,10
+92,Pressure changes,7
+92,Rapid temperature,10
+93,Temperature variability,10
+94,Dust storms,8
+95,Apparent temperature,10
+96,Extreme heat,10
+96,Extreme cold,2
+97,Temperature,10
+97,Humidity,3
+98,Temperature,10
+101,Temperature,10
+101,Heat metrics,10
+102,Adjusted meteorological variables,4
+103,Temperature,10
+103,Humidity,3
+104,Temperature,10
+104,Humidity,3
+104,Rainfall,6
+105,Temperature,10
+106,Not specified,5
+107,Not specified,5
+108,Extreme cold,2
+109,Not specified,5
+110,Not specified,5
+111,Meteo-climatic factors,1
+112,Diurnal temperature range,10
+113,Rainfall,6
+113,Weather variables,4
+114,Not specified,5
+115,Cold temperature,10
+116,Thunderstorm,11
+117,Not specified,5
+118,Not specified,5
+119,Diurnal temperature range,10
+119,Apparent temperature,10
+120,Not specified,5
+121,Not specified,5
+122,Indoor temperature,10
+123,High temperature,10
+124,Not specified,5
+125,Not specified,5
+126,Weather variables,4
+127,Not specified,5
+128,Temperature,10
+129,Not specified,5
+130,Not specified,5
+131,Not specified,5
+132,Cold weather,10
+133,Not specified,5
+134,Not specified,5
+135,Not specified,5
+136,Not specified,5
+137,Not specified,5
+138,Diurnal temperature range,10
+139,Temperature inversion,10
+140,Not specified,5
+141,Thunderstorm,11
+142,Not specified,5
+143,Not specified,5
+144,Not specified,5
+145,Not specified,5
+146,Meteorological factors,4
+147,Not specified,5
+148,Temperature,10
+148,Humidity,3
+149,Thunderstorm,11
+150,Not specified,5
+151,Environmental variables,4
+152,Not specified,5
+153,Not specified,5
+154,Not specified,5
+155,Not specified,5
+156,Not specified,5
+157,Cold stress,10
+157,Temperature,10
+158,Universal Climate Thermal Index,1
+159,Not specified,5
+160,Not specified,5
+161,Not specified,5
+162,Not specified,5
+163,Not specified,5
+164,Not specified,5
+165,Not specified,5
+166,Not specified,5
+167,Not specified,5
+168,Not specified,5
+169,Not specified,5
+170,Not specified,5
+171,Not specified,5
+172,Seasonal factors,9
+173,Local meteorological variables,4
+174,Meteorological factors,4
+175,Temperature,10
+176,Indoor temperature,10
+177,Not specified,5
+178,Thunderstorm,11
+179,Not specified,5
+180,Not specified,5
+181,Not specified,5
+182,Thermal stress,10
+183,Not specified,5
+184,Not specified,5
+185,Not specified,5
+186,Not specified,5
+187,Not specified,5
+188,Not specified,5
+189,Not specified,5
+190,Not specified,5
+191,Humidity,3
+191,Temperature,10
+192,Not specified,5
+193,Extreme heat,10
+194,Not specified,5
+195,Not specified,5
+196,Not specified,5
+197,Not specified,5
+198,Weather variables,4
+199,Not specified,5
+200,Not specified,5
+201,Not specified,5
+202,Temperature,10
+203,Not specified,5
+204,Climate variables,1

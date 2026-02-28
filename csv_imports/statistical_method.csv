@@ -1,0 +1,61 @@
+statistical_method_id,statistical_method
+1,Attribution modeling
+2,Bayesian hierarchical modeling
+3,Big data analysis
+4,Burden of disease assessment
+5,Case report analysis
+6,Case-control study
+7,Case-crossover analysis
+8,Case-crossover study
+9,Classification and regression tree
+10,Clinical review
+11,Cohort analysis
+12,Cohort survival analysis
+13,Comparative analysis
+14,Concentration-response modeling
+15,Correlation analysis
+16,Cross-sectional analysis
+17,Cumulative exposure analysis
+18,Data fusion framework; spatial analysis
+19,Deep learning algorithms
+20,Distributed lag nonlinear models
+21,Ecological time-series analysis
+22,Eigenvector spatial filtering
+23,Environmental association analysis
+24,Epidemiological analysis
+25,Generalized additive models
+26,Genetic association analysis
+27,Longitudinal analysis
+28,Long-term impact analysis
+29,Meta-analysis
+30,Modeling analysis
+31,Multi-city time-series analysis
+32,Multivariate regression
+33,Negative control exposure analysis
+34,Not specified
+35,Observational analysis
+36,Observational study;AI modeling
+37,Observational time-series analysis
+38,Poisson regression
+39,Population-based analysis
+40,Projection modeling
+41,Random forest;SHAP analysis
+42,Regression analysis
+43,Retrospective analysis
+44,Review
+45,Scoping review
+46,Spatial analysis
+47,Spatial-temporal analysis
+48,Surveillance analysis
+49,Surveillance data analysis
+50,Systematic review
+51,Systematic review and meta-analysis
+52,Temporal analysis
+53,Temporal trend analysis
+54,Time-series analysis
+55,Time-series and economic burden analysis
+56,Time-series regression
+57,Time-series study
+58,Time-stratified case-crossover
+59,Time-stratified case-crossover study
+60,Weight-of-evidence review

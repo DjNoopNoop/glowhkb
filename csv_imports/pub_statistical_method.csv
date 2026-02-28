@@ -1,0 +1,203 @@
+publication_id,statistical_method,statistical_method_id
+1,Systematic review and meta-analysis,51
+2,Systematic review,50
+3,Review,44
+4,Cohort analysis,11
+5,Not specified,34
+6,Weight-of-evidence review,60
+7,Time-series analysis,54
+8,Deep learning algorithms,19
+9,Scoping review,45
+10,Time-series analysis,54
+11,Clinical review,10
+12,Review,44
+13,Not specified,34
+14,Modeling analysis,30
+15,Temporal trend analysis,53
+16,Time-series analysis,54
+17,Review,44
+18,Time-series analysis,54
+19,Review,44
+20,Attribution modeling,1
+21,Time-series analysis,54
+22,Time-series analysis,54
+23,Case-crossover analysis,7
+24,Time-series analysis,54
+25,Systematic review and meta-analysis,51
+26,Cohort analysis,11
+27,Cross-sectional analysis,16
+28,Time-stratified case-crossover,58
+29,Time-series analysis,54
+30,Time-series analysis,54
+31,Time-series analysis,54
+32,Cohort survival analysis,12
+33,Review,44
+34,Time-series and economic burden analysis,55
+35,Time-series analysis,54
+36,Time-series analysis,54
+37,Time-series analysis,54
+38,Random forest;SHAP analysis,41
+39,Time-series analysis,54
+40,Time-series analysis,54
+41,Spatial analysis,46
+42,Review,44
+43,Time-series analysis,54
+44,Observational analysis,35
+45,Correlation analysis,15
+46,Systematic review,50
+47,Time-series analysis,54
+48,Time-series analysis,54
+49,Time-series analysis,54
+50,Observational analysis,35
+51,Time-series analysis,54
+52,Time-series analysis,54
+53,Surveillance analysis,48
+54,Time-series analysis,54
+55,Time-series analysis,54
+56,Cohort analysis,11
+57,Time-series analysis,54
+58,Projection modeling,40
+59,Multi-city time-series analysis,31
+60,Case-crossover analysis,7
+61,Observational analysis,35
+62,Systematic review,50
+63,Time-series analysis,54
+64,Time-series analysis,54
+65,Time-series analysis,54
+66,Meta-analysis,29
+67,Temporal analysis,52
+68,Genetic association analysis,26
+69,Time-series analysis,54
+70,Time-series analysis,54
+71,Time-series analysis,54
+72,Time-series analysis,54
+73,Observational analysis,35
+74,Regression analysis,42
+75,Systematic review;Meta-analysis,#N/A
+76,Time-series analysis,54
+77,Time-series analysis,54
+78,Spatial-temporal analysis,47
+79,Time-series analysis,54
+80,Observational study;AI modeling,36
+81,Time-stratified case-crossover study,59
+82,Systematic review;Meta-analysis,#N/A
+83,Observational analysis,35
+84,Case-crossover analysis,7
+85,Time-series analysis,54
+86,Time-series analysis,54
+87,Case report analysis,5
+88,Time-series analysis,54
+89,Time-series analysis,54
+90,Time-series analysis,54
+91,Time-series analysis,54
+92,Observational analysis,35
+93,Time-series analysis,54
+94,Time-series analysis,54
+95,Time-series analysis,54
+96,Time-series analysis,54
+97,Observational analysis,35
+98,Time-series analysis,54
+101,Distributed lag nonlinear models,20
+102,Time-series regression,56
+103,Generalized additive models,25
+104,Multivariate regression,32
+105,Poisson regression,38
+106,Population-based analysis,39
+107,Not specified,34
+108,Surveillance data analysis,49
+109,Environmental association analysis,23
+110,Time-stratified case-crossover,58
+111,Not specified,34
+112,Time-series analysis,54
+113,Epidemiological analysis,24
+114,Cross-sectional analysis,16
+115,Not specified,34
+116,Not specified,34
+117,Epidemiological analysis,24
+118,Case-control study,6
+119,Comparative analysis,13
+120,Time-series analysis,54
+121,Case-crossover study,8
+122,Cumulative exposure analysis,17
+123,Time-series analysis,54
+124,Time-stratified case-crossover,58
+125,Long-term impact analysis,28
+126,Time-series analysis,54
+127,Observational analysis,35
+128,Time-series analysis,54
+129,Time-series study,57
+130,Big data analysis,3
+131,Epidemiological analysis,24
+132,Not specified,34
+133,Time-series analysis,54
+134,Time-series analysis,54
+135,Burden of disease assessment,4
+136,Concentration-response modeling,14
+137,Time-series analysis,54
+138,Time-series analysis,54
+139,Time-series analysis,54
+140,Time-series analysis,54
+141,Systematic review,50
+142,Time-series analysis,54
+143,Eigenvector spatial filtering,22
+144,Classification and regression tree,9
+145,Time-series analysis,54
+146,Time-series analysis,54
+147,Not specified,34
+148,Time-series analysis,54
+149,Retrospective analysis,43
+150,Longitudinal analysis,27
+151,Observational analysis,35
+152,Time-series analysis,54
+153,Review,44
+154,Time-series analysis,54
+155,Observational time-series analysis,37
+156,Time-series analysis,54
+157,Observational analysis,35
+158,Systematic review,50
+159,Case-crossover analysis,7
+160,Time-series analysis,54
+161,Multi-city time-series analysis,31
+162,Not specified,34
+163,Observational analysis,35
+164,Negative control exposure analysis,33
+165,Time-series analysis,54
+166,Time-series analysis,54
+167,Time-series analysis,54
+168,Time-stratified case-crossover study,59
+169,Time-series analysis,54
+170,Time-series analysis,54
+171,Case-crossover study,8
+172,Not specified,34
+173,Observational analysis,35
+174,Retrospective analysis,43
+175,Time-series analysis,54
+176,Cross-sectional analysis,16
+177,Not specified,34
+178,Not specified,34
+179,Time-series analysis,54
+180,Not specified,34
+181,Not specified,34
+182,Not specified,34
+183,Not specified,34
+184,Not specified,34
+185,Not specified,34
+186,Not specified,34
+187,Systematic review and meta-analysis,51
+188,Time-stratified case-crossover study,59
+189,Not specified,34
+190,Ecological time-series analysis,21
+191,Time-series analysis,54
+192,Time-series analysis,54
+193,Not specified,34
+194,Time-series analysis,54
+195,Not specified,34
+196,Case-crossover analysis,7
+197,Bayesian hierarchical modeling,2
+198,Not specified,34
+199,Not specified,34
+200,Multi-city time-series analysis,31
+201,Data fusion framework; spatial analysis,18
+202,Not specified,34
+203,Not specified,34
+204,Not specified,34
