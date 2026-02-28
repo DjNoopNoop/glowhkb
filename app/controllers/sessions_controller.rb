@@ -2,7 +2,9 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by(email: params[:email])
+    # Allow users to sign in with either email or username
+    login = params[:email].to_s.strip
+    user = User.find_by(email: login) || User.find_by(name: login)
     if user&.authenticate(params[:password])
       if user.active?
         session[:user_id] = user.id
@@ -13,7 +15,7 @@ class SessionsController < ApplicationController
         render :new, status: :forbidden
       end
     else
-      flash.now[:alert] = "Invalid email or password"
+      flash.now[:alert] = "Invalid email/username or password"
       render :new, status: :unprocessable_entity
     end
   end

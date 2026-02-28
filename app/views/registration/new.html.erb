@@ -1,3 +1,29 @@
-<h1>Sign up</h1>
+<div class="container mt-4">
+	<% if flash.any? %>
+		<% flash.each do |key, msg| %>
+			<div class="alert alert-<%= key.to_s == 'notice' ? 'success' : 'danger' %> alert-dismissible fade show" role="alert">
+				<%= msg %>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		<% end %>
+	<% end %>
 
-<%= render "account/form" %>
+	<% if defined?(@user) && @user.errors.any? %>
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>There was a problem creating your account:</strong>
+			<ul class="mb-0 mt-2">
+				<% @user.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+				<% end %>
+			</ul>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<% end %>
+
+	<div class="row justify-content-center">
+		<div class="col-md-8">
+			<h1 class="mb-4">Sign up</h1>
+			<%= render "account/form" %>
+		</div>
+	</div>
+</div>
