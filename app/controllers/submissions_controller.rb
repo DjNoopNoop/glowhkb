@@ -68,8 +68,15 @@ class SubmissionsController < ApplicationController
           data.each_with_index do |row, i|
             submission = rows[i]
             show_link = view_context.link_to('Show', submission_path(submission), class: 'btn btn-sm btn-outline-secondary me-1')
-            edit_link = view_context.link_to('Edit', edit_submission_path(submission), class: 'btn btn-sm btn-outline-primary me-1')
-            delete_button = view_context.button_to('Delete', submission_path(submission), method: :delete, data: { turbo_confirm: 'Are you sure?' }, form: { class: 'd-inline' }, class: 'btn btn-sm btn-outline-danger')
+
+            if submission.pending?
+              edit_link = view_context.link_to('Edit', edit_submission_path(submission), class: 'btn btn-sm btn-outline-primary me-1')
+              delete_button = view_context.button_to('Delete', submission_path(submission), method: :delete, data: { turbo_confirm: 'Are you sure?' }, form: { class: 'd-inline' }, class: 'btn btn-sm btn-outline-danger')
+            else
+              edit_link = ''.html_safe
+              delete_button = ''.html_safe
+            end
+
             row[:actions_html] = (show_link + edit_link + delete_button).to_s
           end
 
@@ -132,7 +139,9 @@ class SubmissionsController < ApplicationController
   end
 
   def authorize_user
-    redirect_to submissions_path, alert: "Not authorized" unless @submission.user == current_user
+    unless @submission.user == current_user && @submission.pending?
+      redirect_to submissions_path, alert: "Not authorized"
+    end
   end
 
   def submission_params

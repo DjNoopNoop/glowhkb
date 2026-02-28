@@ -39,6 +39,15 @@ Rails.application.routes.draw do
     resources :publications
   end
 
+  namespace :adjudicate do
+    resources :submissions, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :deny
+      end
+    end
+  end
+
   resources :publications, only: [:index, :show]
   resources :submissions
 end

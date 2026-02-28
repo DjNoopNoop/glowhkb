@@ -1,0 +1,96 @@
+<div class="container mb-3">
+  <div class="d-flex justify-content-between align-items-start flex-wrap mt-3">
+    <div class="me-3">
+      <div class="d-flex align-items-center mb-2">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0 d-flex">
+            <li class="breadcrumb-item">Manage</li>
+            <li class="breadcrumb-item active" aria-current="page">Adjudicate</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="mt-2">
+        <h1 class="h3 mb-0">Adjudicate</h1>
+      </div>
+    </div>
+
+    <div class="ms-auto">
+      <!-- no actions -->
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-12">
+      <table id="adjudicate-submissions-table" class="display" style="width:100%">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Journal</th>
+            <th>Year</th>
+            <th>DOI</th>
+            <th>URL</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initAdjudicateTable() {
+      if (!(window.jQuery && $.fn.dataTable)) return;
+      var $table = $('#adjudicate-submissions-table');
+      var $wrapper = $table.closest('.dataTables_wrapper');
+      if ($wrapper.length && !$.fn.dataTable.isDataTable($table)) {
+        $wrapper.replaceWith($table);
+      }
+      if ($.fn.dataTable.isDataTable($table)) {
+        $table.DataTable().ajax.reload();
+        return;
+      }
+
+      $table.DataTable({
+        serverSide: true,
+        ajax: {
+          url: '<%= adjudicate_submissions_path(format: :json) %>',
+          dataSrc: 'data'
+        },
+        columns: [
+          { data: 'title', render: function(data){ return data || '—'; } },
+          { data: 'authors', render: function(data){ return data ? data : '—'; } },
+          { data: 'journal', render: function(data){ return data || '—'; } },
+          { data: 'year' },
+          { data: 'doi', render: function(data){ if(!data) return '—'; return '<a href="https://doi.org/'+data+'" target="_blank" rel="noopener">'+data+'</a>'; } },
+          { data: 'url', render: function(data){ if(!data) return '—'; var href = data.match(/^https?:\/\//) ? data : 'http://' + data; return '<a href="'+href+'" target="_blank" rel="noopener">Link</a>'; } },
+          { data: 'status', render: function(data){ return data || '—'; } },
+          { data: 'created_at', render: function(data){ return data ? new Date(data).toLocaleString() : '—'; } },
+          { data: 'updated_at', render: function(data){ return data ? new Date(data).toLocaleString() : '—'; } },
+          { data: 'actions_html', orderable: false, searchable: false, defaultContent: '' }
+        ],
+        columnDefs: [
+          { targets: -1, createdCell: function(td, cellData){ td.innerHTML = cellData || ''; } }
+        ],
+        pageLength: 25,
+        lengthMenu: [[25,50,100],[25,50,100]],
+        searching: true,
+        ordering: true,
+        processing: true,
+        deferRender: true
+      });
+    }
+
+    document.addEventListener('turbo:load', function() {
+      initAdjudicateTable();
+    });
+  })();
+</script>

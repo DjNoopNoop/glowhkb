@@ -33,7 +33,10 @@ class Submission < ApplicationRecord
   end
 
   def approve!(by_user = nil)
-    update!(status: APPROVED, adjudicated_by: by_user, adjudicated_at: Time.current)
+    ApplicationRecord.transaction do
+      update!(status: APPROVED, adjudicated_by: by_user, adjudicated_at: Time.current)
+      ::CreatePublicationFromSubmission.new(self).call
+    end
   end
 
   def deny!(by_user = nil)
@@ -50,6 +53,10 @@ class Submission < ApplicationRecord
 
   def denied?
     status == DENIED
+  end
+
+  def adjudicated?
+    !pending?
   end
 
   after_initialize :set_default_status_and_user, if: :new_record?

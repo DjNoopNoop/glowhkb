@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
 			redirect_to login_path, alert: "Please log in to continue"
 		end
 	end
+
+	def require_adjudicator
+		require_login
+		unless current_user&.is_adjudicator?
+			redirect_to root_path, alert: "Not authorized"
+		end
+	end
 end
