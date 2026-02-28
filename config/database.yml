@@ -18,5 +18,5 @@ test:
 production:
   <<: *default
   database: glowhkb_production
-  # In production you’ll usually set DATABASE_URL instead of username/password:
-  # url: <%= ENV["DATABASE_URL"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  # In production we prefer a single DATABASE_URL connection string.
