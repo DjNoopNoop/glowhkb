@@ -2,9 +2,8 @@
   <h1><%= @publication.title %></h1>
   <div class="actions d-flex gap-2 mt-2">
     <%= link_to 'Back', admin_publications_path, class: 'btn btn-secondary' %>
-    <%= link_to 'New', new_admin_publication_path, class: 'btn btn-outline-primary' %>
     <%= link_to 'Edit', edit_admin_publication_path(@publication), class: 'btn btn-primary' %>
-    <%= button_to 'Delete', admin_publication_path(@publication), method: :delete, data: { confirm: 'Are you sure?' }, form: { class: 'd-inline' }, class: 'btn btn-outline-danger' %>
+    <%= button_to 'Delete', admin_publication_path(@publication), method: :delete, data: { confirm: 'Are you sure?' }, form: { class: 'd-inline' }, class: 'btn btn-danger' %>
   </div>
 </div>
 

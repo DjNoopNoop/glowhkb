@@ -1,4 +1,4 @@
-<%= form_with model: [:admin, @publication], local: true do |f| %>
+<%= form_with model: [:admin, @publication], local: true, html: { class: 'publication-form' } do |f| %>
 
   <div class="mb-3">
     <%= f.label :title, class: 'form-label' %>
@@ -6,38 +6,6 @@
     <%= f.text_field :title, class: 'form-control' + (title_err ? ' is-invalid' : '') %>
     <% if title_err %>
       <div class="invalid-feedback d-block"><%= f.object.errors[:title].join(', ') %></div>
-    <% end %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :doi, class: 'form-label' %>
-    <% doi_err = f.object.errors[:doi].any? %>
-    <%= f.text_field :doi, class: 'form-control' + (doi_err ? ' is-invalid' : '') %>
-    <% if doi_err %>
-      <div class="invalid-feedback d-block"><%= f.object.errors[:doi].join(', ') %></div>
-    <% end %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :url, class: 'form-label' %>
-    <% url_err = f.object.errors[:url].any? %>
-    <%= f.url_field :url, class: 'form-control' + (url_err ? ' is-invalid' : '') %>
-    <% if url_err %>
-      <div class="invalid-feedback d-block"><%= f.object.errors[:url].join(', ') %></div>
-    <% end %>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :geographic_location_id, 'Geographic Location', class: 'form-label' %>
-    <% geo_err = f.object.errors[:geographic_location_id].any? %>
-    <%= f.collection_select :geographic_location_id,
-          GeographicLocation.order(:name),
-          :id,
-          :name,
-          { include_blank: true },
-          { data: { controller: 'tom-select' }, class: (geo_err ? 'is-invalid' : '') } %>
-    <% if geo_err %>
-      <div class="invalid-feedback d-block"><%= f.object.errors[:geographic_location_id].join(', ') %></div>
     <% end %>
   </div>
 
@@ -69,30 +37,36 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :air_pollutant_ids, 'Air Pollutants', class: 'form-label' %>
-    <% ap_err = f.object.errors[:air_pollutant_ids].any? %>
-    <%= f.collection_select :air_pollutant_ids,
-          AirPollutant.order(:name),
-          :id,
-          :name,
-          {},
-          { multiple: true, data: { controller: 'tom-select' }, class: (ap_err ? 'is-invalid' : '') } %>
-    <% if ap_err %>
-      <div class="invalid-feedback d-block"><%= f.object.errors[:air_pollutant_ids].join(', ') %></div>
+    <%= f.label :doi, class: 'form-label' %>
+    <% doi_err = f.object.errors[:doi].any? %>
+    <%= f.text_field :doi, class: 'form-control' + (doi_err ? ' is-invalid' : '') %>
+    <% if doi_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:doi].join(', ') %></div>
     <% end %>
   </div>
 
   <div class="mb-3">
-    <%= f.label :weather_parameter_ids, 'Weather Parameters', class: 'form-label' %>
-    <% wp_err = f.object.errors[:weather_parameter_ids].any? %>
-    <%= f.collection_select :weather_parameter_ids,
-          WeatherParameter.order(:name),
+    <%= f.label :url, class: 'form-label' %>
+    <% url_err = f.object.errors[:url].any? %>
+    <%= f.url_field :url, class: 'form-control' + (url_err ? ' is-invalid' : '') %>
+    <% if url_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:url].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <br><br>
+
+  <div class="mb-3">
+    <%= f.label :geographic_location_id, 'Geographic Location', class: 'form-label' %>
+    <% geo_err = f.object.errors[:geographic_location_id].any? %>
+    <%= f.collection_select :geographic_location_id,
+          GeographicLocation.order(:name),
           :id,
           :name,
-          {},
-          { multiple: true, data: { controller: 'tom-select' }, class: (wp_err ? 'is-invalid' : '') } %>
-    <% if wp_err %>
-      <div class="invalid-feedback d-block"><%= f.object.errors[:weather_parameter_ids].join(', ') %></div>
+          { include_blank: true },
+          { data: { controller: 'tom-select' }, class: (geo_err ? 'is-invalid' : '') } %>
+    <% if geo_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:geographic_location_id].join(', ') %></div>
     <% end %>
   </div>
 
@@ -104,9 +78,49 @@
           :id,
           :name,
           {},
-          { multiple: true, data: { controller: 'tom-select' }, class: (mc_err ? 'is-invalid' : '') } %>
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (mc_err ? 'is-invalid' : '')
+          } %>
     <% if mc_err %>
       <div class="invalid-feedback d-block"><%= f.object.errors[:medical_condition_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :weather_parameter_ids, 'Weather Parameters', class: 'form-label' %>
+    <% wp_err = f.object.errors[:weather_parameter_ids].any? %>
+    <%= f.collection_select :weather_parameter_ids,
+          WeatherParameter.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (wp_err ? 'is-invalid' : '')
+          } %>
+    <% if wp_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:weather_parameter_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :air_pollutant_ids, 'Air Pollutants', class: 'form-label' %>
+    <% ap_err = f.object.errors[:air_pollutant_ids].any? %>
+    <%= f.collection_select :air_pollutant_ids,
+          AirPollutant.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (ap_err ? 'is-invalid' : '')
+          } %>
+    <% if ap_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:air_pollutant_ids].join(', ') %></div>
     <% end %>
   </div>
 
@@ -130,6 +144,6 @@
 
   <div class="d-flex justify-content-center gap-3 mt-4">
     <%= link_to 'Back', admin_publications_path, class: 'btn btn-secondary' %>
-    <%= f.submit class: 'btn btn-primary' %>
+    <%= f.submit (@publication.persisted? ? 'Update Publication' : 'Create Publication'), class: 'btn btn-primary' %>
   </div>
 <% end %>
