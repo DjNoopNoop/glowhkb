@@ -44,11 +44,11 @@ class User < ApplicationRecord
   end
 
   def is_adjudicator?
-    role == ADJUDICATOR
+    role == ADJUDICATOR || is_admin?
   end
 
   def is_contributor?
-    role == CONTRIBUTOR
+    role == CONTRIBUTOR || is_adjudicator?
   end
 
   # Status predicate helpers
