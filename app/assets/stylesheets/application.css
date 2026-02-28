@@ -55,7 +55,7 @@ body.site {
   text-align: center;
 
   /* Shadow for readability over images */
-  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  text-shadow: 0 4px 14px rgba(0,0,0,0.78), 0 1px 3px rgba(0,0,0,0.5);
   margin: 0;
   padding: 1rem 1.25rem;
 }
@@ -111,7 +111,7 @@ body.site {
   margin-bottom: 1rem;
 
   /* Stronger shadow for readability */
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), 0 2px 6px rgba(0,0,0,0.6);
 }
 
 /* Existing tagline (slightly tuned) */
@@ -121,7 +121,7 @@ body.site {
   line-height: 1.45;
   margin: 0;
 
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.78), 0 1px 3px rgba(0,0,0,0.5);
 }
 
 /* Responsive tweak */
