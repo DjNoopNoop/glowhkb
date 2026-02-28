@@ -7,6 +7,15 @@
   flex: 1 1 auto;
 }
 
+/* When `main` has both `site-main` and `admin-site`, remove the page-level
+   horizontal padding applied by application styles so admin pages span
+   full-width between sidebar and viewport edges. Keep `admin-content`'s own
+   internal padding intact. */
+.site-main.admin-site {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 /* Sidebar is contained within the main admin area (not fixed to body) */
 .admin-sidebar {
   width: 240px;

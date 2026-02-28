@@ -1,0 +1,150 @@
+<%= form_with model: @submission, local: true, html: { class: 'submission-form' } do |f| %>
+
+  <div class="mb-3">
+    <%= f.label :title, class: 'form-label' %>
+    <% title_err = f.object.errors[:title].any? %>
+    <%= f.text_field :title, class: 'form-control' + (title_err ? ' is-invalid' : '') %>
+    <% if title_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:title].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :authors, class: 'form-label' %>
+    <% authors_err = f.object.errors[:authors].any? %>
+    <%= f.text_area :authors, class: 'form-control' + (authors_err ? ' is-invalid' : ''), rows: 3 %>
+    <% if authors_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:authors].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :journal, class: 'form-label' %>
+    <% journal_err = f.object.errors[:journal].any? %>
+    <%= f.text_field :journal, class: 'form-control' + (journal_err ? ' is-invalid' : '') %>
+    <% if journal_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:journal].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :year, class: 'form-label' %>
+    <% year_err = f.object.errors[:year].any? %>
+    <%= f.number_field :year, class: 'form-control' + (year_err ? ' is-invalid' : '') %>
+    <% if year_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:year].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :doi, class: 'form-label' %>
+    <% doi_err = f.object.errors[:doi].any? %>
+    <%= f.text_field :doi, class: 'form-control' + (doi_err ? ' is-invalid' : '') %>
+    <% if doi_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:doi].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :url, class: 'form-label' %>
+    <% url_err = f.object.errors[:url].any? %>
+    <%= f.url_field :url, class: 'form-control' + (url_err ? ' is-invalid' : '') %>
+    <% if url_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:url].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <br><br>
+
+  <div class="mb-3">
+    <%= f.label :geographic_location_id, 'Geographic Location', class: 'form-label' %>
+    <% geo_err = f.object.errors[:geographic_location_id].any? %>
+    <%= f.collection_select :geographic_location_id,
+          GeographicLocation.order(:name),
+          :id,
+          :name,
+          { include_blank: true },
+          { data: { controller: 'tom-select' }, class: (geo_err ? 'is-invalid' : '') } %>
+    <% if geo_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:geographic_location_id].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :medical_condition_ids, 'Medical Conditions', class: 'form-label' %>
+    <% mc_err = f.object.errors[:medical_condition_ids].any? %>
+    <%= f.collection_select :medical_condition_ids,
+          MedicalCondition.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (mc_err ? 'is-invalid' : '')
+          } %>
+    <% if mc_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:medical_condition_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :weather_parameter_ids, 'Weather Parameters', class: 'form-label' %>
+    <% wp_err = f.object.errors[:weather_parameter_ids].any? %>
+    <%= f.collection_select :weather_parameter_ids,
+          WeatherParameter.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (wp_err ? 'is-invalid' : '')
+          } %>
+    <% if wp_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:weather_parameter_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :air_pollutant_ids, 'Air Pollutants', class: 'form-label' %>
+    <% ap_err = f.object.errors[:air_pollutant_ids].any? %>
+    <%= f.collection_select :air_pollutant_ids,
+          AirPollutant.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (ap_err ? 'is-invalid' : '')
+          } %>
+    <% if ap_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:air_pollutant_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :statistical_method_ids, 'Statistical Methods', class: 'form-label' %>
+    <% sm_err = f.object.errors[:statistical_method_ids].any? %>
+    <%= f.collection_select :statistical_method_ids,
+          StatisticalMethod.order(:name),
+          :id,
+          :name,
+          {},
+          {
+            multiple: true,
+            data: { controller: 'tom-select' },
+            class: (sm_err ? 'is-invalid' : '')
+          } %>
+    <% if sm_err %>
+      <div class="invalid-feedback d-block"><%= f.object.errors[:statistical_method_ids].join(', ') %></div>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center gap-3 mt-4">
+    <%= link_to 'Back', submissions_path, class: 'btn btn-secondary' %>
+    <%= f.submit (@submission.persisted? ? 'Update Submission' : 'Create Submission'), class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

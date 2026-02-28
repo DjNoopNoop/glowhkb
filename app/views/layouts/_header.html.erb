@@ -53,7 +53,7 @@
                 <% if current_user&.is_admin? %>
                   <%= link_to "Admin", admin_users_path, class: "nav-dropdown-item admin-link", role: "menuitem" %>
                 <% end %>
-                <%= link_to "My publications", publications_path, class: "nav-dropdown-item", role: "menuitem" %>
+                  <%= link_to "Your submissions", submissions_path, class: "nav-dropdown-item", role: "menuitem" %>
               </div>
             </div>
 

@@ -1,0 +1,29 @@
+<div class="container mb-3">
+	<div class="d-flex justify-content-between align-items-start flex-wrap mt-3">
+		<div class="me-3">
+			<div class="d-flex align-items-center mb-2">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb mb-0 d-flex">
+						<li class="breadcrumb-item">Manage</li>
+						<li class="breadcrumb-item"><%= link_to 'Your submissions', submissions_path %></li>
+						<% if defined?(@submission) && @submission.present? %>
+							<li class="breadcrumb-item"><%= link_to truncate(@submission.title, length: 60), submission_path(@submission) %></li>
+						<% end %>
+						<li class="breadcrumb-item active" aria-current="page">Edit submission</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="mt-2">
+				<h1 class="h3 mb-0">Edit submission</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row mt-3 mb-4">
+		<div class="col-12">
+			<%= render "form" %>
+		</div>
+	</div>
+</div>

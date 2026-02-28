@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :publications, dependent: :nullify
+  has_many :submissions, dependent: :nullify
 
   STATUSES = [
     PENDING = 'pending'.freeze,

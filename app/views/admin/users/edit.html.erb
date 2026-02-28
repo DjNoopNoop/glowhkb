@@ -29,8 +29,8 @@
     </div>
   <% end %>
 
-  <div>
-    <%= f.submit 'Save', class: 'btn btn-primary' %>
+  <div class="d-flex justify-content-center gap-2">
     <%= link_to 'Cancel', admin_user_path(@user), class: 'btn btn-secondary' %>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

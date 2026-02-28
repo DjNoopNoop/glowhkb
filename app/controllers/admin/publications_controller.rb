@@ -19,6 +19,26 @@ module Admin
       end
     end
 
+    def new
+      @publication = Publication.new
+      render :new
+    end
+
+    def create
+      @publication = Publication.new(assignment_attrs)
+      sanitize_geographic_location(@publication)
+      apply_tag_creatable_associations(@publication)
+
+      # Admin-created publications are owned by the admin user creating them
+      @publication.user = current_user
+
+      if @publication.save
+        redirect_to admin_publication_path(@publication), notice: "Publication created"
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
     def show; end
 
     def edit; end
@@ -27,6 +47,8 @@ module Admin
       @publication.assign_attributes(assignment_attrs)
       sanitize_geographic_location(@publication)
       apply_tag_creatable_associations(@publication)
+
+      # Do not change ownership or link submissions via admin update.
 
       if @publication.save
         redirect_to admin_publication_path(@publication), notice: "Publication updated"

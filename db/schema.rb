@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_26_093000) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_28_000100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,7 +73,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_26_093000) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.bigint "geographic_location_id"
+    t.bigint "submission_id"
     t.index ["geographic_location_id"], name: "index_publications_on_geographic_location_id"
+    t.index ["submission_id"], name: "index_publications_on_submission_id"
     t.index ["user_id"], name: "index_publications_on_user_id"
   end
 
@@ -81,6 +83,52 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_26_093000) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sub_air_pollutants", id: false, force: :cascade do |t|
+    t.bigint "submission_id", null: false
+    t.bigint "air_pollutant_id", null: false
+    t.index ["air_pollutant_id", "submission_id"], name: "idx_ap_sub"
+    t.index ["submission_id", "air_pollutant_id"], name: "idx_sub_ap"
+  end
+
+  create_table "sub_medical_conditions", id: false, force: :cascade do |t|
+    t.bigint "submission_id", null: false
+    t.bigint "medical_condition_id", null: false
+    t.index ["medical_condition_id", "submission_id"], name: "idx_mc_sub"
+    t.index ["submission_id", "medical_condition_id"], name: "idx_sub_mc"
+  end
+
+  create_table "sub_statistical_methods", id: false, force: :cascade do |t|
+    t.bigint "submission_id", null: false
+    t.bigint "statistical_method_id", null: false
+    t.index ["statistical_method_id", "submission_id"], name: "idx_sm_sub"
+    t.index ["submission_id", "statistical_method_id"], name: "idx_sub_sm"
+  end
+
+  create_table "sub_weather_parameters", id: false, force: :cascade do |t|
+    t.bigint "submission_id", null: false
+    t.bigint "weather_parameter_id", null: false
+    t.index ["submission_id", "weather_parameter_id"], name: "idx_sub_wp"
+    t.index ["weather_parameter_id", "submission_id"], name: "idx_wp_sub"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "authors"
+    t.string "journal"
+    t.integer "year"
+    t.string "doi"
+    t.string "url"
+    t.bigint "user_id"
+    t.bigint "adjudicated_by_id"
+    t.datetime "adjudicated_at"
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "geographic_location_id"
+    t.index ["geographic_location_id"], name: "index_submissions_on_geographic_location_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,5 +149,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_26_093000) do
   end
 
   add_foreign_key "publications", "geographic_locations"
+  add_foreign_key "publications", "submissions"
   add_foreign_key "publications", "users"
+  add_foreign_key "submissions", "geographic_locations"
+  add_foreign_key "submissions", "users"
+  add_foreign_key "submissions", "users", column: "adjudicated_by_id"
 end

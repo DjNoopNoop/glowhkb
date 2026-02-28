@@ -1,0 +1,136 @@
+<div class="container mb-3">
+	<div class="d-flex justify-content-between align-items-start flex-wrap mt-3">
+		<div class="me-3">
+			<div class="d-flex align-items-center mb-2">
+				<%= link_to "Back", submissions_path, class: "btn btn-secondary me-3" %>
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb mb-0 d-flex">
+						<li class="breadcrumb-item">Manage</li>
+						<li class="breadcrumb-item"><%= link_to 'Your submissions', submissions_path %></li>
+						<li class="breadcrumb-item active" aria-current="page"><%= truncate(@submission.title, length: 60) %></li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+		<div class="ms-auto">
+			<div class="btn-group">
+				<%= link_to edit_submission_path(@submission), class: "btn btn-sm btn-primary" do %>
+					<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+					<span class="ms-1">Edit</span>
+				<% end %>
+				<%= button_to submission_path(@submission), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger ms-2" do %>
+					<i class="fa-solid fa-eraser" aria-hidden="true"></i>
+					<span class="ms-1">Delete</span>
+				<% end %>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-12 text-center d-md-none">
+			<h1 class="h4 mb-0"><%= @submission.title %></h1>
+		</div>
+		<div class="col-12 d-none d-md-block col-md-3 text-md-start">
+			<h1 class="h3 mb-0"><%= @submission.title %></h1>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row mb-2">
+		<div class="col-md-3 text-md-end fw-semibold">Authors:</div>
+		<div class="col-md-9"><%= @submission.authors %></div>
+	</div>
+
+	<div class="row mb-2">
+		<div class="col-md-3 text-md-end fw-semibold">Journal:</div>
+		<div class="col-md-9"><%= @submission.journal %></div>
+	</div>
+
+	<div class="row mb-2">
+		<div class="col-md-3 text-md-end fw-semibold">Year:</div>
+		<div class="col-md-9"><%= @submission.year %></div>
+	</div>
+
+	<% if @submission.doi.present? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">DOI:</div>
+			<div class="col-md-9"><%= @submission.doi %></div>
+		</div>
+	<% end %>
+
+	<% if @submission.url.present? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">URL:</div>
+			<div class="col-md-9"><%= link_to @submission.url, @submission.url, target: "_blank", rel: "noopener" %></div>
+		</div>
+	<% end %>
+
+	<br>
+
+	<% if @submission.geographic_location.present? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Geographic location:</div>
+			<div class="col-md-9"><%= @submission.geographic_location.name %></div>
+		</div>
+		<% if @submission.geographic_location.latitude.present? || @submission.geographic_location.longitude.present? %>
+			<div class="row mb-2">
+				<div class="col-md-3 text-md-end fw-semibold">Coordinates:</div>
+				<div class="col-md-9">
+					<% if @submission.geographic_location.latitude.present? %>
+						Lat: <%= @submission.geographic_location.latitude %>
+					<% end %>
+					<% if @submission.geographic_location.longitude.present? %>
+						<% if @submission.geographic_location.latitude.present? %>
+							&nbsp;•&nbsp;
+						<% end %>
+						Lon: <%= @submission.geographic_location.longitude %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+
+	<% if @submission.medical_conditions.any? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Medical conditions:</div>
+			<div class="col-md-9"><%= @submission.medical_conditions.map(&:name).join(', ') %></div>
+		</div>
+	<% end %>
+
+	<% if @submission.weather_parameters.any? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Weather parameters:</div>
+			<div class="col-md-9"><%= @submission.weather_parameters.map(&:name).join(', ') %></div>
+		</div>
+	<% end %>
+
+	<% if @submission.air_pollutants.any? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Air pollutants:</div>
+			<div class="col-md-9"><%= @submission.air_pollutants.map(&:name).join(', ') %></div>
+		</div>
+	<% end %>
+
+	<% if @submission.statistical_methods.any? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Statistical methods:</div>
+			<div class="col-md-9"><%= @submission.statistical_methods.map(&:name).join(', ') %></div>
+		</div>
+	<% end %>
+
+	<br>
+
+	<div class="row mb-2">
+		<div class="col-md-3 text-md-end fw-semibold">Status:</div>
+		<div class="col-md-9"><%= @submission.status %></div>
+	</div>
+
+	<% if @submission.adjudicated_by.present? %>
+		<div class="row mb-2">
+			<div class="col-md-3 text-md-end fw-semibold">Adjudicated by:</div>
+			<div class="col-md-9"><%= @submission.adjudicated_by.email %> at <%= @submission.adjudicated_at %></div>
+		</div>
+	<% end %>
+</div>

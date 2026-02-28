@@ -6,6 +6,7 @@
 /* Prevent scrolling and make layout fit viewport */
 html, body {
   height: 100%;
+  overflow: hidden; /* prevent page-level scrollbars; use .site-main for scrolling */
 }
 
 body.site {
@@ -205,4 +206,7 @@ body.site {
   display: inline-block;
 }
 
-
+/* Make all Bootstrap buttons have rounded corners */
+.btn {
+  border-radius: 0.5rem !important;
+}

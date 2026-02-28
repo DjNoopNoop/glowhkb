@@ -1,7 +1,5 @@
 class PublicationsController < ApplicationController
-  before_action :set_publication, only: %i[show edit update destroy]
-  before_action :require_login, except: %i[index show]
-  before_action :authorize_user, only: %i[edit update destroy]
+  before_action :set_publication, only: %i[show]
 
   def index
     @publications = Publication.order(year: :desc)
@@ -9,49 +7,10 @@ class PublicationsController < ApplicationController
 
   def show; end
 
-  def new
-    @publication = current_user.publications.build
-  end
-
-  def create
-    @publication = Publication.new(assignment_attrs)
-    sanitize_geographic_location(@publication)
-    apply_tag_creatable_associations(@publication)
-
-    if @publication.save
-      redirect_to @publication, notice: "Publication created"
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def edit; end
-
-  def update
-    @publication.assign_attributes(assignment_attrs)
-    sanitize_geographic_location(@publication)
-    apply_tag_creatable_associations(@publication)
-
-    if @publication.save
-      redirect_to @publication, notice: "Publication updated"
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @publication.destroy
-    redirect_to publications_path, notice: "Publication deleted"
-  end
-
   private
 
   def set_publication
     @publication = Publication.find(params[:id])
-  end
-
-  def authorize_user
-    redirect_to publications_path, alert: "Not authorized" unless @publication.user == current_user
   end
 
   def publication_params

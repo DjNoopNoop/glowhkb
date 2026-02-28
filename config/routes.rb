@@ -36,8 +36,9 @@ Rails.application.routes.draw do
         patch :deny
       end
     end
-    resources :publications, only: [:index, :show, :edit, :update, :destroy]
+    resources :publications
   end
 
-  resources :publications
+  resources :publications, only: [:index, :show]
+  resources :submissions
 end
