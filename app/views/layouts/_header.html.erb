@@ -79,7 +79,7 @@
                 type="button"
               >
                 <%= image_tag "avatar-placeholder.svg", alt: "", class: "avatar" %>
-                <span class="username"><%= current_user.name.presence || current_user.email %></span>
+                <span class="username"><%= current_user.username.presence || current_user.email %></span>
                 <span class="nav-caret" aria-hidden="true">▾</span>
               </button>
 

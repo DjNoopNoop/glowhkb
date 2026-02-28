@@ -3,7 +3,7 @@
 <table id="admin-registrants-table" class="display" style="width:100%">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Username</th>
       <th>Email</th>
       <th>Role</th>
       <th>Created</th>
@@ -32,7 +32,7 @@
           dataSrc: ''
         },
         columns: [
-          { data: 'name', render: function(data){ return data || '—'; } },
+          { data: 'username', render: function(data){ return data || '—'; } },
           { data: 'email' },
           { data: 'role', render: function(data){ return data || '—'; } },
           { data: 'created_at', render: function(data){ return data ? new Date(data).toLocaleString() : '—'; } },

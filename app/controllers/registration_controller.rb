@@ -29,7 +29,7 @@ class RegistrationController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :role)
   end
 
   def sanitize_role(permitted_params)

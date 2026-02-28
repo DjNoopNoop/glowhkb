@@ -104,7 +104,7 @@ class User < ApplicationRecord
     status == DENIED
   end
 
-  validates :name, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :status, presence: true, inclusion: { in: STATUSES }
   validates :role, presence: true, inclusion: { in: ROLES }

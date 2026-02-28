@@ -52,7 +52,7 @@ class AccountController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:username, :email)
   end
 
   def password_params

@@ -6,7 +6,7 @@ module Admin
       @registrants = User.pending.order(:email)
       respond_to do |format|
         format.html
-        format.json { render json: @registrants.as_json(only: %i[id name email role created_at]) }
+        format.json { render json: @registrants.as_json(only: %i[id username email role created_at]) }
       end
     end
 

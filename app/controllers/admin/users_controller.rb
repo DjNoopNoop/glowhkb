@@ -6,7 +6,7 @@ module Admin
       @users = User.active.order(:email)
       respond_to do |format|
         format.html
-        format.json { render json: @users.as_json(only: %i[id name email role status]) }
+        format.json { render json: @users.as_json(only: %i[id username email role status]) }
       end
     end
 

@@ -1,11 +1,11 @@
 <h1>New Registrant Awaiting Approval</h1>
 
-<p>Hello <%= @admin.name.presence || 'Administrator' %>,</p>
+<p>Hello <%= @admin.username.presence || 'Administrator' %>,</p>
 
 <p>A new user has registered and is awaiting approval.</p>
 
 <ul>
-  <li><strong>Name:</strong> <%= @user.name.presence || '(not provided)' %></li>
+  <li><strong>Username:</strong> <%= @user.username.presence || '(not provided)' %></li>
   <li><strong>Email:</strong> <%= @user.email %></li>
   <li><strong>Role:</strong> <%= @user.role %></li>
 </ul>

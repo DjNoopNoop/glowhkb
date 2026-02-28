@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def create
     # Allow users to sign in with either email or username
     login = params[:email].to_s.strip
-    user = User.find_by(email: login) || User.find_by(name: login)
+    user = User.find_by(email: login) || User.find_by(username: login)
     if user&.authenticate(params[:password])
       if user.active?
         session[:user_id] = user.id

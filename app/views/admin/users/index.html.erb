@@ -3,7 +3,7 @@
 <table id="admin-users-table" class="display" style="width:100%">
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Username</th>
       <th>Email</th>
       <th>Role</th>
       <th>Status</th>
@@ -35,7 +35,7 @@
           dataSrc: ''
         },
         columns: [
-          { data: 'name', render: function(data,type,row){ return data || '—'; } },
+          { data: 'username', render: function(data,type,row){ return data || '—'; } },
           { data: 'email' },
           { data: 'role' },
               { data: 'status' },

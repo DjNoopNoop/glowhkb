@@ -4,11 +4,11 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-6">
-          <%= f.label :name, class: 'form-label fw-bold' %>
-          <% name_class = 'form-control' + (f.object.errors[:name].any? ? ' is-invalid' : '') %>
-          <%= f.text_field :name, class: name_class %>
-          <% if f.object.errors[:name].any? %>
-            <div class="invalid-feedback"><%= f.object.errors[:name].first %></div>
+          <%= f.label :username, class: 'form-label fw-bold' %>
+          <% username_class = 'form-control' + (f.object.errors[:username].any? ? ' is-invalid' : '') %>
+          <%= f.text_field :username, class: username_class %>
+          <% if f.object.errors[:username].any? %>
+            <div class="invalid-feedback"><%= f.object.errors[:username].first %></div>
           <% end %>
         </div>
 

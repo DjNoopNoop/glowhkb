@@ -7,7 +7,7 @@
             <li class="breadcrumb-item">Admin</li>
             <li class="breadcrumb-item"><%= link_to 'Users', admin_users_path %></li>
             <% if defined?(@user) && @user.present? %>
-              <li class="breadcrumb-item"><%= link_to truncate(@user.name || @user.email, length: 60), admin_user_path(@user) %></li>
+              <li class="breadcrumb-item"><%= link_to truncate(@user.username || @user.email, length: 60), admin_user_path(@user) %></li>
             <% end %>
             <li class="breadcrumb-item active" aria-current="page">Edit user</li>
           </ol>
@@ -37,11 +37,11 @@
 
       <%= form_with model: [:admin, @user], local: true, html: { class: 'admin-form' } do |f| %>
         <div class="mb-3">
-          <%= f.label :name, class: 'form-label' %>
-          <% name_err = @user.errors[:name].any? %>
-          <%= f.text_field :name, class: 'form-control' + (name_err ? ' is-invalid' : '') %>
-          <% if name_err %>
-            <div class="invalid-feedback d-block"><%= @user.errors[:name].join(', ') %></div>
+          <%= f.label :username, class: 'form-label' %>
+          <% username_err = @user.errors[:username].any? %>
+          <%= f.text_field :username, class: 'form-control' + (username_err ? ' is-invalid' : '') %>
+          <% if username_err %>
+            <div class="invalid-feedback d-block"><%= @user.errors[:username].join(', ') %></div>
           <% end %>
         </div>
 
@@ -73,7 +73,7 @@
         </div>
 
         <%# Add other editable attributes dynamically, excluding password fields %>
-        <% (User.attribute_names.map(&:to_sym) - %i[id name email role status password password_digest created_at updated_at]).each do |attr| %>
+        <% (User.attribute_names.map(&:to_sym) - %i[id username email role status password password_digest created_at updated_at]).each do |attr| %>
           <% attr_err = @user.errors[attr].any? %>
           <div class="mb-3">
             <%= f.label attr, class: 'form-label' %>

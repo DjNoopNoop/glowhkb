@@ -1,8 +1,8 @@
 New registrant awaiting approval
 
-Hello <%= @admin.name.presence || 'Administrator' %>,
+Hello <%= @admin.username.presence || 'Administrator' %>,
 
-Name: <%= @user.name.presence || '(not provided)' %>
+Username: <%= @user.username.presence || '(not provided)' %>
 Email: <%= @user.email %>
 Role: <%= @user.role %>
 
