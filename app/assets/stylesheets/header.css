@@ -216,6 +216,16 @@
   text-decoration: none;
 }
 
+/* Make the active display button match the hover/focus visual state */
+.display-button.active,
+.display-button.active:focus {
+  background: #145ea8;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  text-decoration: none;
+}
+
 .display-button .fa,
 .display-button .fas,
 .display-button .far,

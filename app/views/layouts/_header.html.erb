@@ -3,12 +3,12 @@
     <div class="header-left">
       <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
       <div class="display-buttons">
-        <%= link_to global_map_path, class: "nav-link display-button" do %>
+        <%= link_to global_map_path, class: "nav-link display-button #{'active' if current_page?(global_map_path)}" do %>
           <i class="fa-solid fa-map-location-dot"></i>
           <span class="display-text">Map</span>
         <% end %>
 
-        <%= link_to publications_path, class: "nav-link display-button" do %>
+        <%= link_to publications_path, class: "nav-link display-button #{'active' if current_page?(publications_path)}" do %>
           <i class="fa-solid fa-table"></i>
           <span class="display-text">Tables</span>
         <% end %>
