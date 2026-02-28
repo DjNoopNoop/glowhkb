@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_28_000100) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_28_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -139,7 +139,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_28_000100) do
     t.datetime "updated_at", null: false
     t.string "status", default: "pending", null: false
     t.string "role", default: "contributor", null: false
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_digest"], name: "index_users_on_reset_digest"
   end
 
   create_table "weather_parameters", force: :cascade do |t|
