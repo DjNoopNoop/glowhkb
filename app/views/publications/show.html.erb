@@ -44,7 +44,7 @@
 					<% if @publication.geographic_location.present? %>
 						<p class="mb-2"><strong>Location:</strong> <%= @publication.geographic_location.name %></p>
 						<% if @publication.geographic_location.latitude.present? || @publication.geographic_location.longitude.present? %>
-							<p class="mb-0 small text-muted">
+							<p class="mb-2 small text-muted">
 								<% if @publication.geographic_location.latitude.present? %>
 									Lat: <%= @publication.geographic_location.latitude %>
 								<% end %>
