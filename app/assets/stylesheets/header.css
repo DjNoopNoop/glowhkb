@@ -125,12 +125,6 @@
   background: rgba(0,0,0,0.06);
 }
 
-.header-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 /* Show on hover + keyboard focus within */
 .nav-dropdown:hover .nav-dropdown-menu,
 .nav-dropdown:focus-within .nav-dropdown-menu {
@@ -461,4 +455,211 @@
   width: 100%;
   padding: 8px 12px;
   text-align: left;
+}
+
+/* Responsive: narrow screens (stacked header) — applied at 980px and below */
+@media (max-width: 980px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    padding: 0.6rem 1rem;
+    gap: 0.6rem;
+  }
+
+  /* Top row: logo on the left, display buttons tight to the right */
+  .header-left {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    order: 1;
+    gap: 0.5rem;
+  }
+
+  .display-buttons {
+    margin-left: 0;
+  }
+
+  .display-button {
+    padding: 0.22rem 0.5rem;
+    font-weight: 700;
+    border-radius: 6px;
+    min-width: 0;
+  }
+
+  .site-logo {
+    font-size: 1.25rem;
+  }
+
+  /* Second row: search full width */
+  .header-center {
+    position: static;
+    left: auto;
+    transform: none;
+    width: 100%;
+    order: 2;
+    padding: 0;
+    margin-bottom: 0.4rem;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Third row: nav / dropdown buttons side-by-side and wrapping */
+  .header-right {
+    width: 100%;
+    order: 3;
+    display: block;
+  }
+
+  /* Ensure the nav container aligns its content to the right, and
+     keep the auth links right-aligned even when they wrap */
+  .header-right .site-nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .auth-links {
+    margin-left: 0;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.25rem 0;
+  }
+
+  .menu-button,
+  .signup-button,
+  .about-button,
+  .updates-button {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .user-menu,
+  .manage-menu {
+    flex: 0 0 auto;
+  }
+
+  /* prevent the header-center absolute centering interfering */
+  .header-center,
+  .header-left,
+  .header-right {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Slightly reduce shadows/transforms to prevent overflow on small screens */
+  .nav-dropdown-menu,
+  .user-menu-dropdown {
+    left: 0;
+    right: auto;
+    min-width: 160px;
+  }
+}
+
+/* Icon-only circle buttons for header-right at narrow widths */
+@media (max-width: 980px) {
+  /* hide textual labels and carets for compact buttons */
+  .header-right .about-text,
+  .header-right .updates-text,
+  .header-right .username,
+  .header-right .display-text,
+  .header-right .nav-caret {
+    display: none !important;
+  }
+
+  /* make the header-right action buttons circular and icon-centered */
+  .header-right .about-button,
+  .header-right .updates-button,
+  .header-right .manage-button,
+  .header-right .user-button {
+    min-width: 0 !important;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+  }
+
+  /* ensure icons are visible (cover multiple FA class variants) */
+  /* hide plain text inside the manage button but keep the icon visible */
+  .header-right .manage-button { font-size: 0; }
+
+  .header-right .manage-button .fa,
+  .header-right .manage-button .fas,
+  .header-right .manage-button .fa-solid,
+  .header-right .manage-button .far,
+  .header-right .manage-button .fal,
+  .header-right .manage-button .fab,
+  .header-right .about-button .fa,
+  .header-right .about-button .fas,
+  .header-right .about-button .fa-solid,
+  .header-right .about-button .far,
+  .header-right .about-button .fal,
+  .header-right .about-button .fab,
+  .header-right .updates-button .fa,
+  .header-right .updates-button .fas,
+  .header-right .updates-button .fa-solid,
+  .header-right .updates-button .far,
+  .header-right .updates-button .fal,
+  .header-right .updates-button .fab {
+    font-size: 1.05rem;
+    width: auto;
+  }
+
+  /* ensure manage icon is exactly centered (block-level centering) */
+  .header-right .manage-button i,
+  .header-right .manage-button .fa,
+  .header-right .manage-button .fas,
+  .header-right .manage-button .fa-solid,
+  .header-right .manage-button i {
+    display: inline-block;
+    margin: 0;
+    line-height: 1;
+    text-align: center;
+  }
+
+  /* remove the inherited gap so the single icon sits perfectly centered */
+  .header-right .manage-button { gap: 0; justify-content: center; }
+
+  /* avatar size inside the circular user button */
+  .header-right .user-button .avatar {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* ensure hover/active states still look good in compact mode */
+  .header-right .about-button:hover,
+  .header-right .updates-button:hover,
+  .header-right .manage-button:hover,
+  .header-right .user-button:hover {
+    transform: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+  }
+
+  /* keep the signup link readable (don't force circle) */
+  .header-right .signup-button {
+    display: inline-flex;
+    padding: 0.25rem 0.6rem;
+  }
+}
+
+/* Remove left margin from display buttons earlier so they align flush
+   on medium/narrow viewports (1208px and below) */
+@media (max-width: 1208px) {
+  .display-buttons {
+    margin-left: 0;
+  }
 }
