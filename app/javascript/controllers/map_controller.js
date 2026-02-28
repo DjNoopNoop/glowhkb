@@ -25,14 +25,41 @@ export default class extends Controller {
 
     mapboxgl.accessToken = token
 
+    // Attempt to restore persisted map center/zoom
+    let initialCenter = [0, 0]
+    let initialZoom = 1
+    this._hasPersistedMapState = false
+    try {
+      const raw = localStorage.getItem('site:mapState')
+      if (raw) {
+        const st = JSON.parse(raw)
+        if (Array.isArray(st.center) && typeof st.zoom === 'number') {
+          initialCenter = st.center
+          initialZoom = st.zoom
+          this._hasPersistedMapState = true
+        }
+      }
+    } catch (e) { /* ignore */ }
+
     this.map = new mapboxgl.Map({
       container: this.element,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [0, 0],
-      zoom: 1
+      center: initialCenter,
+      zoom: initialZoom
     })
 
     this.map.addControl(new mapboxgl.NavigationControl())
+
+    // persist map position when user moves/zooms
+    this.map.on('moveend', () => {
+      try {
+        const center = this.map.getCenter()
+        const zoom = this.map.getZoom()
+        localStorage.setItem('site:mapState', JSON.stringify({ center: [center.lng, center.lat], zoom: Number(zoom) }))
+        // mark that we now have a persisted state
+        this._hasPersistedMapState = true
+      } catch (e) { /* ignore */ }
+    })
 
     let publications = []
     this._markers = []
@@ -124,7 +151,11 @@ export default class extends Controller {
     const fit = () => {
       try {
         if (!bounds.isEmpty()) {
-          this.map.fitBounds(bounds, { padding: 40, maxZoom: 12 })
+          // Only auto-fit to markers if the user does not have a persisted map position/zoom
+          if (!this._hasPersistedMapState) {
+            this.map.fitBounds(bounds, { padding: 40, maxZoom: 12 })
+          }
+          // otherwise leave the user's persisted center/zoom intact
         }
       } catch (e) {
         // ignore
