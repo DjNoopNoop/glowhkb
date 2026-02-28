@@ -76,6 +76,15 @@ export default class extends Controller {
     this.updateClearState()
     this.fetchMap()
     this.updateBadges()
+    // notify other components (e.g. datatable) that filters changed
+    const params = new URLSearchParams()
+    const dropdowns = this.element.querySelectorAll('[data-filter-target="dropdown"]')
+    dropdowns.forEach(dd => {
+      const key = dd.dataset.filterParamKey
+      const checked = Array.from(dd.querySelectorAll('input:checked')).map(i => i.value)
+      checked.forEach(v => params.append(`${key}[]`, v))
+    })
+    document.dispatchEvent(new CustomEvent('filters:changed', { detail: { params: params } }))
   }
 
   updateClearState() {
@@ -90,6 +99,8 @@ export default class extends Controller {
     this.updateClearState()
     this.fetchMap()
     this.updateBadges()
+    // notify datatable to reload
+    document.dispatchEvent(new CustomEvent('filters:changed', { detail: { params: new URLSearchParams() } }))
   }
 
   fetchMap() {

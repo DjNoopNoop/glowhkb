@@ -3,6 +3,60 @@ class PublicationsController < ApplicationController
 
   def index
     @publications = Publication.order(year: :desc)
+
+    respond_to do |format|
+      format.html
+      format.json do
+        pubs = filtered_publications.order(year: :desc)
+        render json: pubs.map { |p|
+          {
+            id: p.id,
+            title: p.title,
+            authors: p.authors,
+            journal: p.journal,
+            year: p.year,
+            geographic_location: p.geographic_location&.name,
+            url: p.url,
+            doi: p.doi,
+            air_pollutants: p.air_pollutants.map(&:name),
+            medical_conditions: p.medical_conditions.map(&:name),
+            weather_parameters: p.weather_parameters.map(&:name),
+            statistical_methods: p.statistical_methods.map(&:name)
+          }
+        }
+      end
+    end
+  end
+
+  private
+
+  def filtered_publications
+    scope = Publication.all
+
+    if params[:q].present?
+      q = "%#{params[:q].to_s.strip}%"
+      scope = scope.where("title ILIKE :q OR authors ILIKE :q OR journal ILIKE :q", q: q)
+    end
+
+    %w[geographic_location_ids air_pollutant_ids medical_condition_ids weather_parameter_ids statistical_method_ids].each do |key|
+      if params[key].present?
+        ids = Array(params[key]).map(&:to_i)
+        case key
+        when 'geographic_location_ids'
+          scope = scope.where(geographic_location_id: ids)
+        when 'air_pollutant_ids'
+          scope = scope.joins(:air_pollutants).where(air_pollutants: { id: ids })
+        when 'medical_condition_ids'
+          scope = scope.joins(:medical_conditions).where(medical_conditions: { id: ids })
+        when 'weather_parameter_ids'
+          scope = scope.joins(:weather_parameters).where(weather_parameters: { id: ids })
+        when 'statistical_method_ids'
+          scope = scope.joins(:statistical_methods).where(statistical_methods: { id: ids })
+        end
+      end
+    end
+
+    scope.distinct
   end
 
   def show; end

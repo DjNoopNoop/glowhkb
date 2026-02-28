@@ -1,45 +1,78 @@
-<h1><%= @publication.title %></h1>
-
-<p><strong>Authors:</strong> <%= @publication.authors %></p>
-<p><strong>Journal:</strong> <%= @publication.journal %></p>
-<p><strong>Year:</strong> <%= @publication.year %></p>
-<p><strong>Owner:</strong> <%= @publication.user&.email || "(unassigned)" %></p>
-<% if @publication.url.present? %>
-	<p><strong>URL:</strong> <%= link_to @publication.url, @publication.url, target: "_blank", rel: "noopener" %></p>
-<% end %>
-
-<% if @publication.doi.present? %>
-	<p><strong>DOI:</strong> <%= @publication.doi %></p>
-<% end %>
-
-<% if @publication.geographic_location.present? %>
-	<p><strong>Geographic location:</strong> <%= @publication.geographic_location.name %></p>
-	<% if @publication.geographic_location.latitude.present? || @publication.geographic_location.longitude.present? %>
-		<p><strong>Coordinates:</strong>
-			<% if @publication.geographic_location.latitude.present? %>
-				Lat: <%= @publication.geographic_location.latitude %>
+<div class="container my-4">
+	<div class="row mb-3 align-items-center">
+		<div class="col-auto">
+			<%= link_to publications_path, class: 'btn btn-secondary btn-sm' do %>
+				<i class="fa-solid fa-arrow-left me-1" aria-hidden="true"></i>
+				Back
 			<% end %>
-			<% if @publication.geographic_location.longitude.present? %>
-				Lon: <%= @publication.geographic_location.longitude %>
+		</div>
+		<div class="col">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb mb-0">
+					<li class="breadcrumb-item"><%= link_to 'Publications', publications_path %></li>
+					<li class="breadcrumb-item active" aria-current="page"><%= @publication.title %></li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-8">
+			<h1 class="h4"><%= @publication.title %></h1>
+			<p class="mb-1"><strong>Authors:</strong> <%= @publication.authors %></p>
+			<p class="mb-1"><strong>Journal:</strong> <%= @publication.journal %></p>
+			<p class="mb-1"><strong>Year:</strong> <%= @publication.year %></p>
+
+			<% if @publication.doi.present? %>
+				<p class="mb-1"><strong>DOI:</strong> <%= @publication.doi %></p>
 			<% end %>
-		</p>
-	<% end %>
-<% end %>
 
-<% if @publication.air_pollutants.any? %>
-	<p><strong>Air pollutants:</strong> <%= @publication.air_pollutants.map(&:name).join(', ') %></p>
-<% end %>
+			<% if @publication.url.present? %>
+				<p class="mb-1"><strong>URL:</strong> <%= link_to @publication.url, @publication.url, target: "_blank", rel: "noopener" %></p>
+			<% end %>
+			<br />
+			<%# Owner moved here to appear above adjudication info %>
+			<p class="mb-1"><strong>Owner:</strong> <%= @publication.user&.email || "(unassigned)" %></p>
+			<% if @publication.submission&.adjudicated_at.present? %>
+				<p class="small text-muted mb-0">Adjudicated at <%= l(@publication.submission.adjudicated_at) %> by <%= @publication.submission.adjudicated_by&.email %></p>
+			<% end %>
+		</div>
 
-<% if @publication.weather_parameters.any? %>
-	<p><strong>Weather parameters:</strong> <%= @publication.weather_parameters.map(&:name).join(', ') %></p>
-<% end %>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-body p-3">
+					<% if @publication.geographic_location.present? %>
+						<p class="mb-2"><strong>Location:</strong> <%= @publication.geographic_location.name %></p>
+						<% if @publication.geographic_location.latitude.present? || @publication.geographic_location.longitude.present? %>
+							<p class="mb-0 small text-muted">
+								<% if @publication.geographic_location.latitude.present? %>
+									Lat: <%= @publication.geographic_location.latitude %>
+								<% end %>
+								<% if @publication.geographic_location.longitude.present? %>
+									<% if @publication.geographic_location.latitude.present? %> • <% end %>
+									Lon: <%= @publication.geographic_location.longitude %>
+								<% end %>
+							</p>
+						<% end %>
+					<% end %>
 
-<% if @publication.medical_conditions.any? %>
-	<p><strong>Medical conditions:</strong> <%= @publication.medical_conditions.map(&:name).join(', ') %></p>
-<% end %>
+					<% if @publication.air_pollutants.any? %>
+						<p class="mb-2"><strong>Air pollutants:</strong> <%= @publication.air_pollutants.map(&:name).join(', ') %></p>
+					<% end %>
 
-<% if @publication.statistical_methods.any? %>
-	<p><strong>Statistical methods:</strong> <%= @publication.statistical_methods.map(&:name).join(', ') %></p>
-<% end %>
+					<% if @publication.weather_parameters.any? %>
+						<p class="mb-2"><strong>Weather parameters:</strong> <%= @publication.weather_parameters.map(&:name).join(', ') %></p>
+					<% end %>
 
-<%= link_to "Back", publications_path %>
+					<% if @publication.medical_conditions.any? %>
+						<p class="mb-2"><strong>Medical conditions:</strong> <%= @publication.medical_conditions.map(&:name).join(', ') %></p>
+					<% end %>
+
+					<% if @publication.statistical_methods.any? %>
+						<p class="mb-0"><strong>Statistical methods:</strong> <%= @publication.statistical_methods.map(&:name).join(', ') %></p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
