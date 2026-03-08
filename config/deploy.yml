@@ -18,7 +18,7 @@ builder:
 
 env:
   clear:
-    DB_HOST: glowhkb-db
+    DB_HOST: db
     DB_PORT: 5432
     DB_USERNAME: postgres
   secret:
@@ -35,6 +35,6 @@ accessories:
         POSTGRES_DB: glowhkb_production
         POSTGRES_USER: postgres
       secret:
-        - DB_PASSWORD
+        - POSTGRES_PASSWORD
     directories:
       - data:/var/lib/postgresql/data
