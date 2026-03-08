@@ -17,5 +17,24 @@ builder:
   arch: amd64
 
 env:
+  clear:
+    DB_HOST: glowhkb-db
+    DB_PORT: 5432
+    DB_USERNAME: postgres
   secret:
     - RAILS_MASTER_KEY
+    - DB_PASSWORD
+
+accessories:
+  db:
+    image: postgres:16
+    host: 167.172.27.4
+    port: 5432
+    env:
+      clear:
+        POSTGRES_DB: glowhkb_production
+        POSTGRES_USER: postgres
+      secret:
+        - DB_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
