@@ -6,7 +6,7 @@ servers:
     - 167.172.27.4
 
 proxy:
-  ssl: true
+  ssl: false
   host: glowhkb.net
   app_port: 3000
 
