@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "support@glowhkb.net"
   layout "mailer"
   # Expose helper methods to mailer views
   helper do

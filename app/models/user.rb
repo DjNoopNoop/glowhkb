@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
   # Sends password reset email using PasswordMailer
   def send_password_reset_email
-    PasswordMailer.password_reset(self).deliver_later
+    PasswordMailer.password_reset(self, reset_token).deliver_later
   end
 
   # Returns true if the given token matches the digest for the attribute.
