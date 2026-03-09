@@ -23,6 +23,7 @@ env:
     DB_USERNAME: postgres
   secret:
     - RAILS_MASTER_KEY
+    - SECRET_KEY_BASE
     - DB_PASSWORD
     - MAPBOX_ACCESS_TOKEN
 
