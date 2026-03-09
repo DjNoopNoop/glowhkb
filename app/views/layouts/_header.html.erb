@@ -97,6 +97,6 @@
     </div>
   </div>
 </header>
-<% if !controller_path.start_with?("admin/") && ((action_name == 'map') || (controller_name == 'publications' && action_name == 'index')) %>
+<% if !controller_path.start_with?("admin/") && ((controller_name == 'map' && action_name == 'index') || (controller_name == 'publications' && action_name == 'index')) %>
   <%= render 'layouts/filter' %>
 <% end %>
