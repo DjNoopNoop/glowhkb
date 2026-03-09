@@ -5,4 +5,10 @@ set -euo pipefail
 docker compose up -d db web
 
 # Run Rails inside the web container from the app root
-exec docker compose exec -w /rails web bundle exec rails "$@"
+# Forward common editor and master-key env vars so interactive commands work
+env_flags=()
+if [ -n "${VISUAL-}" ]; then env_flags+=( -e "VISUAL=${VISUAL}" ); fi
+if [ -n "${EDITOR-}" ]; then env_flags+=( -e "EDITOR=${EDITOR}" ); fi
+if [ -n "${RAILS_MASTER_KEY-}" ]; then env_flags+=( -e "RAILS_MASTER_KEY=${RAILS_MASTER_KEY}" ); fi
+
+exec docker compose exec "${env_flags[@]}" -w /rails web bundle exec rails "$@"

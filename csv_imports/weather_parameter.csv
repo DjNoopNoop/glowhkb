@@ -1,0 +1,14 @@
+weather_id,weather_parameter
+1,Climate
+2,Extreme weather
+3,Humidity
+4,Meteorological variables
+5,nil
+6,Precipitation
+7,Pressure
+8,Sandstorms
+9,Seasonal
+10,Temperature
+11,Thunderstorm
+12,Weather change
+13,Wind

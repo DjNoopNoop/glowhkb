@@ -1,0 +1,212 @@
+publication_id,med_condition_name,med_condition_id
+1,Asthma,9
+2,Asthma and allergic diseases,9
+3,Arrhythmias,3
+4,Cardiovascular diseases,3
+5,Multiple chronic diseases,8
+6,Asthma,9
+7,Cardiovascular diseases,3
+8,Asthma,9
+9,Cardiovascular diseases,3
+10,Multiple conditions,8
+11,Cardiovascular diseases,3
+12,Asthma,9
+13,Asthma,9
+14,Asthma,9
+15,Asthma,9
+16,Asthma,9
+17,Cardiovascular and respiratory diseases,2
+18,Cerebrovascular disease,4
+19,Cardiovascular and respiratory diseases,2
+20,Asthma,9
+21,Cardiovascular and respiratory diseases,2
+22,Cardiovascular and respiratory diseases,2
+23,Asthma,9
+24,Cardiovascular diseases,3
+25,Cardiovascular and respiratory diseases,2
+26,Asthma,9
+27,Cardiovascular and respiratory diseases,2
+28,Allergic respiratory diseases,9
+29,Cardiovascular diseases,3
+30,Respiratory diseases,9
+31,Asthma,9
+32,Cardiovascular diseases,3
+33,Cardiovascular and respiratory diseases,2
+34,Cardiovascular diseases,3
+35,Cardiovascular and respiratory diseases,2
+36,Cardiovascular diseases,3
+37,Cardiovascular and respiratory diseases,2
+38,Cardiovascular diseases,3
+39,Cardiovascular and respiratory diseases,2
+40,Myocardial infarction,3
+41,Cardiopulmonary diseases,1
+42,Asthma,9
+43,Cardiovascular diseases,3
+44,Asthma,9
+45,Asthma,9
+46,Cardiovascular diseases,3
+47,Cardiovascular and respiratory diseases,2
+48,Cardiovascular diseases,3
+49,Aortic dissection,3
+50,Asthma,9
+51,Asthma,9
+52,Cardiovascular and respiratory diseases,2
+53,Asthma,9
+54,Respiratory diseases,9
+55,Respiratory diseases,9
+56,Cardiovascular diseases,3
+57,Cardiovascular diseases,3
+58,Cardiovascular diseases,3
+59,Asthma,9
+60,Cardiovascular diseases,3
+61,Asthma,9
+62,Respiratory diseases,9
+63,Cardiopulmonary diseases,1
+64,Asthma,9
+65,Asthma,9
+66,Asthma,9
+67,Asthma,9
+68,Asthma,9
+69,Cardiovascular diseases,3
+70,Cardiovascular diseases,3
+71,Cardiovascular diseases,3
+72,Asthma,9
+72,COPD,9
+73,Asthma,9
+74,Asthma,9
+75,Asthma,9
+76,Asthma,9
+77,Multiple conditions,8
+78,Cardiovascular diseases,3
+79,Cardiovascular and respiratory diseases,2
+80,Asthma,9
+81,Cardiac arrest,3
+82,Asthma,9
+83,Asthma,9
+84,Asthma,9
+85,Asthma,9
+86,Multiple conditions,8
+87,Asthma,9
+88,Cardiovascular diseases,3
+89,Cardiovascular and respiratory diseases,2
+90,Asthma,9
+91,Cardiovascular diseases,3
+92,Cardiovascular diseases,3
+93,Multiple conditions,8
+94,Asthma,9
+95,Cardiovascular and respiratory diseases,2
+96,Asthma,9
+97,Asthma,9
+98,Asthma,9
+101,Cardiovascular diseases,3
+102,Asthma,9
+103,Cardiovascular and respiratory diseases,2
+104,Asthma,9
+105,Asthma,9
+106,COPD,9
+106,Asthma,9
+107,Cardiovascular and respiratory diseases,2
+108,Cold-related morbidity and mortality,6
+109,COPD,9
+109,Asthma,9
+110,Asthma,9
+111,Cardiovascular diseases,3
+112,Asthma,9
+113,Bronchospasm,9
+114,Respiratory allergies,9
+115,Asthma,9
+116,Respiratory diseases,9
+117,Asthma,9
+118,Asthma,9
+119,Cardiovascular diseases,3
+120,Respiratory diseases,9
+121,Asthma,9
+122,Cardiovascular diseases,3
+123,Cardiovascular diseases,3
+124,Asthma,9
+125,Respiratory-related conditions,9
+126,Asthma,9
+127,Cardiovascular diseases,3
+128,Asthma,9
+129,Ischemic heart disease,3
+130,Respiratory diseases,9
+131,Cardiovascular diseases,3
+132,Asthma,9
+133,Cardiovascular and respiratory diseases,2
+134,Asthma,9
+135,Multiple diseases,8
+136,Multiple morbidity endpoints,8
+137,Cardiovascular events,3
+138,Cardiovascular and respiratory diseases,2
+139,Asthma,9
+140,Asthma,9
+140,COPD,9
+141,Asthma,9
+142,Cardiovascular diseases,3
+143,Asthma,9
+144,Asthma,9
+145,Cardiorespiratory morbidity,1
+145,Mortality,7
+146,Respiratory diseases,9
+147,COPD,9
+148,Angina pectoris,3
+149,Asthma,9
+150,Asthma,9
+151,Asthma,9
+151,COPD,9
+152,Allergic asthma,9
+153,Respiratory hypersensitivity,9
+154,Cardiovascular diseases,3
+154,Mortality,7
+155,Cardiac arrest,3
+156,Asthma,9
+157,Cardiovascular and respiratory diseases,2
+158,Climate-related health outcomes,5
+159,Asthma,9
+160,Acute respiratory disease,9
+161,Asthma,9
+162,Asthma,9
+163,Cardiovascular diseases,3
+164,Respiratory diseases,9
+165,Acute respiratory illness,9
+166,Asthma,9
+166,COPD,9
+167,Cardiovascular diseases,3
+168,Asthma,9
+169,Multiple diseases,8
+170,Asthma,9
+171,Respiratory diseases,9
+172,Asthma,9
+172,COPD,9
+173,Acute wheezing,9
+174,Asthma,9
+175,Cardiovascular diseases,3
+176,Cardiovascular abnormalities,3
+177,Asthma,9
+178,Asthma,9
+179,Respiratory diseases,9
+180,Cardiovascular diseases,3
+181,Asthma,9
+182,Cardiovascular diseases,3
+183,Asthma,9
+184,Asthma mortality,9
+185,Asthma,9
+186,Asthma,9
+187,Cardiovascular diseases,3
+188,Allergic respiratory diseases,9
+189,Respiratory diseases,9
+190,Respiratory diseases,9
+191,Asthma,9
+192,Cardiovascular diseases,3
+193,Cardiovascular diseases,3
+194,Respiratory diseases,9
+195,Respiratory diseases,9
+196,Asthma,9
+197,Respiratory diseases,9
+198,Asthma,9
+199,Asthma,9
+200,Cardiac and respiratory diseases,2
+201,Cardiovascular and respiratory outcomes,1
+202,Cardiovascular diseases,3
+203,Cardiovascular diseases,3
+204,Asthma,9
