@@ -50,8 +50,10 @@ COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
+# Ensure the bundle directory and app files are owned by the `rails` user so
+# Bundler can load installed gems at runtime when running as non-root.
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /usr/local/bundle /rails db log storage tmp
 USER rails:rails
 
 # Entrypoint prepares the database.
