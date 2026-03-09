@@ -24,6 +24,7 @@ env:
   secret:
     - RAILS_MASTER_KEY
     - DB_PASSWORD
+    - MAPBOX_ACCESS_TOKEN
 
 accessories:
   db:
