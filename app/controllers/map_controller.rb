@@ -1,5 +1,5 @@
-class GlobalController < ApplicationController
-  def map
+class MapController < ApplicationController
+  def index
     @publications = Publication.joins(:geographic_location)
       scope = Publication.joins(:geographic_location)
                          .where.not(geographic_locations: { latitude: nil, longitude: nil })
@@ -51,8 +51,5 @@ class GlobalController < ApplicationController
           render json: @publications.as_json(only: [:id, :title, :authors, :year, :journal, :url, :latitude, :longitude])
         end
       end
-  end
-
-  def search
   end
 end

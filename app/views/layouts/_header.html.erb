@@ -3,7 +3,7 @@
     <div class="header-left">
       <%= link_to "GLOWH-kb", root_path, class: "site-logo" %>
       <div class="display-buttons">
-        <%= link_to global_map_path, class: "nav-link display-button #{'active' if current_page?(global_map_path)}" do %>
+        <%= link_to map_path, class: "nav-link display-button #{'active' if current_page?(map_path)}" do %>
           <i class="fa-solid fa-map-location-dot"></i>
           <span class="display-text">Map</span>
         <% end %>
@@ -97,6 +97,6 @@
     </div>
   </div>
 </header>
-<% if !controller_path.start_with?("admin/") && ((controller_name == 'global' && action_name == 'map') || (controller_name == 'publications' && action_name == 'index')) %>
+<% if !controller_path.start_with?("admin/") && ((action_name == 'map') || (controller_name == 'publications' && action_name == 'index')) %>
   <%= render 'layouts/filter' %>
 <% end %>

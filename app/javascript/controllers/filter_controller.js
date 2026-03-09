@@ -229,7 +229,7 @@ export default class extends Controller {
     })
 
     // request publications JSON and dispatch update to the map controller
-    const url = `/global/map.json?${params.toString()}`
+    const url = `/map.json?${params.toString()}`
     fetch(url, { headers: { 'Accept': 'application/json' } })
       .then(r => r.json())
       .then(pubs => {

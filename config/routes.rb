@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
-  get "global/map", to: "global#map", as: :global_map
-  get "global/search", to: "global#search", as: :global_search
+  get "map", to: "map#index", as: :map
   get "search", to: "search#index", as: :search
   get "autocomplete/:resource", to: "autocomplete#search", as: :autocomplete
   
