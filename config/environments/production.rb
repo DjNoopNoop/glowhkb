@@ -108,7 +108,7 @@ end
 # If a Mailgun API key is present, prefer API delivery method (mailgun_api).
 if ENV['MAILGUN_API_KEY'].present?
   config.action_mailer.delivery_method = :mailgun_api
-  config.action_mailer.mailgun_api_settings = {
+  config.action_mailer.mailgun_settings = {
     api_key: ENV['MAILGUN_API_KEY'],
     domain:  ENV['MAILGUN_DOMAIN'] || ENV['SMTP_DOMAIN']
   }
