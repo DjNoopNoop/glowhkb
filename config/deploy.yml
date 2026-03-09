@@ -21,11 +21,25 @@ env:
     DB_HOST: 167.172.27.4
     DB_PORT: 5432
     DB_USERNAME: postgres
+    # Mailgun domain moved to secrets for safety
+    APP_HOST: glowhkb.net
+    DEFAULT_FROM_EMAIL: support@glowhkb.net
+    SMTP_ADDRESS: smtp.mailgun.org
+    SMTP_PORT: 587
+    SMTP_DOMAIN: glowhkb.net
+    SMTP_AUTH: plain
+    SMTP_ENABLE_STARTTLS_AUTO: "true"
+    SMTP_OPEN_TIMEOUT: 5
+    SMTP_READ_TIMEOUT: 5
   secret:
     - RAILS_MASTER_KEY
     - SECRET_KEY_BASE
     - DB_PASSWORD
     - MAPBOX_ACCESS_TOKEN
+    - SMTP_USERNAME
+    - SMTP_PASSWORD
+    - MAILGUN_API_KEY
+    - MAILGUN_DOMAIN
 
 accessories:
   db:

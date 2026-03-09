@@ -52,6 +52,9 @@ gem "faraday"
 
 gem 'kamal'
 
+# Mailgun API client for sending email via the Mailgun HTTP API (optional)
+gem 'mailgun-ruby'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

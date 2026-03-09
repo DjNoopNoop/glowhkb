@@ -124,6 +124,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday-multipart (1.2.0)
+      multipart-post (~> 2.0)
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
     geocoder (1.8.6)
@@ -167,12 +169,18 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun-ruby (1.4.2)
+      faraday (~> 2.1)
+      faraday-multipart (< 2)
+      mini_mime
+      zeitwerk
     marcel (1.1.0)
     matrix (0.4.3)
     mini_mime (1.1.5)
     minitest (6.0.1)
       prism (~> 1.5)
     msgpack (1.8.0)
+    multipart-post (2.4.1)
     mutex_m (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
@@ -349,6 +357,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  mailgun-ruby
   pg (~> 1.6, >= 1.6.3)
   pg_search (~> 2.3)
   puma (>= 5.0)

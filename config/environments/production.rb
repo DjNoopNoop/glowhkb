@@ -73,9 +73,49 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  # Action Mailer: configure SMTP delivery in production via environment variables.
+  # Set APP_HOST, SMTP_ADDRESS, SMTP_PORT, SMTP_DOMAIN, SMTP_USERNAME, SMTP_PASSWORD, etc.
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: ENV.fetch("APP_HOST", "glowhkb.net"), protocol: "https" }
+
+  config.action_mailer.smtp_settings = {
+    address: ENV.fetch("SMTP_ADDRESS", "smtp.sendgrid.net"),
+    port: ENV.fetch("SMTP_PORT", 587),
+    domain: ENV.fetch("SMTP_DOMAIN", "glowhkb.net"),
+    user_name: ENV["SMTP_USERNAME"],
+    password: ENV["SMTP_PASSWORD"],
+    authentication: ENV.fetch("SMTP_AUTH", "plain").to_sym,
+    enable_starttls_auto: ENV.fetch("SMTP_ENABLE_STARTTLS_AUTO", "true") == "true",
+    open_timeout: ENV.fetch("SMTP_OPEN_TIMEOUT", 5).to_i,
+    read_timeout: ENV.fetch("SMTP_READ_TIMEOUT", 5).to_i
+  }
+
+# If a Mailgun API key is provided, prefer it for SMTP password when an explicit
+# SMTP password isn't set. This lets deploys provide a single `MAILGUN_API_KEY`
+# secret and avoids storing the same credential twice. Do not log the key itself.
+if ENV['MAILGUN_API_KEY'].present?
+  smtp_pw = ENV['SMTP_PASSWORD'].presence || ENV['MAILGUN_API_KEY']
+  config.action_mailer.smtp_settings[:password] = smtp_pw
+  if defined?(Rails) && Rails.logger
+    Rails.logger.info "[Mail] Mailgun API key present; using it for SMTP authentication (password not shown)"
+  elsif config.logger
+    config.logger.info "[Mail] Mailgun API key present; using it for SMTP authentication (password not shown)"
+  end
+end
+
+# If a Mailgun API key is present, prefer API delivery method (mailgun_api).
+if ENV['MAILGUN_API_KEY'].present?
+  config.action_mailer.delivery_method = :mailgun_api
+  config.action_mailer.mailgun_api_settings = {
+    api_key: ENV['MAILGUN_API_KEY'],
+    domain:  ENV['MAILGUN_DOMAIN'] || ENV['SMTP_DOMAIN']
+  }
+  if defined?(Rails) && Rails.logger
+    Rails.logger.info "[Mail] Configured Action Mailer to use Mailgun API delivery method (MAILGUN_DOMAIN set: #{ENV['MAILGUN_DOMAIN'].present?})"
+  end
+end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
