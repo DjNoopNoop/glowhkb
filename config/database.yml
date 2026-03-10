@@ -18,5 +18,3 @@ test:
 production:
   <<: *default
   database: glowhkb_production
-  url: <%= ENV["DATABASE_URL"] %>
-  # In production we prefer a single DATABASE_URL connection string.
