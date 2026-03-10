@@ -52,5 +52,7 @@ accessories:
         POSTGRES_USER: postgres
       secret:
         - POSTGRES_PASSWORD
-    volumes:
-      - /var/lib/glowhkb/postgres:/var/lib/postgresql/data
+    directories:
+      - local: /var/lib/glowhkb/postgres
+        remote: /var/lib/postgresql/data
+        owner: "999:999"
