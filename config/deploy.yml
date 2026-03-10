@@ -18,10 +18,9 @@ builder:
 
 env:
   clear:
-    DB_HOST: 167.172.27.4
+    DB_HOST: glowhkb-db
     DB_PORT: 5432
     DB_USERNAME: postgres
-    # Mailgun domain moved to secrets for safety
     APP_HOST: glowhkb.net
     DEFAULT_FROM_EMAIL: support@glowhkb.net
     SMTP_ADDRESS: smtp.mailgun.org
