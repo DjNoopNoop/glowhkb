@@ -16,7 +16,7 @@
 <% end %>
 
 <% if @publication.doi.present? %>
-  <p><strong>DOI:</strong> <%= @publication.doi %></p>
+  <p><strong>DOI:</strong> <%= link_to @publication.doi, "https://doi.org/" + @publication.doi, target: "_blank", rel: "noopener" %></p>
 <% end %>
 
 <% if @publication.geographic_location.present? %>

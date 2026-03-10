@@ -58,7 +58,7 @@
 	<% if @submission.doi.present? %>
 		<div class="row mb-2">
 			<div class="col-md-3 text-md-end fw-semibold">DOI:</div>
-			<div class="col-md-9"><%= @submission.doi %></div>
+			<div class="col-md-9"><%= link_to @submission.doi, "https://doi.org/" + @submission.doi, target: "_blank", rel: "noopener" %></div>
 		</div>
 	<% end %>
 
