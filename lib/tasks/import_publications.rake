@@ -14,15 +14,28 @@ namespace :import do
 
   # Find (case-insensitive) or create a record by name. Tries exact lowercase match,
   # exact match, then ILIKE partial match, then creates the record if none found.
-  def find_or_create_by_name(model_cls, raw_name)
+  # Find (case-insensitive) or create a record by name. If `id:` is provided,
+  # prefer the record with that id or create a new one with that id.
+  def find_or_create_by_name(model_cls, raw_name, id: nil)
     return nil if raw_name.nil?
     name = raw_name.to_s.strip
     return nil if name.empty?
+
+    if id && id.to_s.strip != ''
+      rec = model_cls.find_by(id: id.to_i)
+      return rec if rec
+    end
+
     rec = model_cls.where('LOWER(name) = ?', name.downcase).first
     rec ||= model_cls.find_by(name: name)
     rec ||= model_cls.where('name ILIKE ?', "%#{name}%").first
     return rec if rec
-    model_cls.create!(name: name)
+
+    if id && id.to_s.strip != ''
+      model_cls.create!(id: id.to_i, name: name)
+    else
+      model_cls.create!(name: name)
+    end
   rescue => e
     puts "Failed to find/create #{model_cls.name} for '#{raw_name}': #{e.message}"
     nil
@@ -82,7 +95,13 @@ namespace :import do
       each_csv_row(path) do |row|
       name = row['air_pollutant'].to_s.strip
       next if name.empty?
-      AirPollutant.find_or_create_by!(name: name)
+      apid = row['id'] || row['air_pollutant_id']
+      if apid && apid.to_s.strip != ''
+        rec = AirPollutant.find_by(id: apid.to_i)
+        rec ||= AirPollutant.create!(id: apid.to_i, name: name)
+      else
+        rec = AirPollutant.find_or_create_by!(name: name)
+      end
       count += 1
     end
     puts "Imported/ensured #{count} air_pollutants from #{path}"
@@ -94,7 +113,13 @@ namespace :import do
       each_csv_row(path) do |row|
       name = row['weather_parameter'].to_s.strip
       next if name.empty?
-      WeatherParameter.find_or_create_by!(name: name)
+      wpid = row['id'] || row['weather_parameter_id'] || row['weather_id']
+      if wpid && wpid.to_s.strip != ''
+        rec = WeatherParameter.find_by(id: wpid.to_i)
+        rec ||= WeatherParameter.create!(id: wpid.to_i, name: name)
+      else
+        rec = WeatherParameter.find_or_create_by!(name: name)
+      end
       count += 1
     end
     puts "Imported/ensured #{count} weather_parameters from #{path}"
@@ -104,9 +129,15 @@ namespace :import do
     path = args[:path]
     count = 0
       each_csv_row(path) do |row|
-      name = ['med_condition_name'].to_s.strip
+      name = row['med_condition_name'].to_s.strip
       next if name.empty?
-      MedicalCondition.find_or_create_by!(name: name)
+      mcid = row['id'] || row['med_condition_id']
+      if mcid && mcid.to_s.strip != ''
+        rec = MedicalCondition.find_by(id: mcid.to_i)
+        rec ||= MedicalCondition.create!(id: mcid.to_i, name: name)
+      else
+        rec = MedicalCondition.find_or_create_by!(name: name)
+      end
       count += 1
     end
     puts "Imported/ensured #{count} medical_conditions from #{path}"
@@ -118,7 +149,13 @@ namespace :import do
       each_csv_row(path) do |row|
       name = row['statistical_method'].to_s.strip
       next if name.empty?
-      StatisticalMethod.find_or_create_by!(name: name)
+      smid = row['id'] || row['statistical_method_id']
+      if smid && smid.to_s.strip != ''
+        rec = StatisticalMethod.find_by(id: smid.to_i)
+        rec ||= StatisticalMethod.create!(id: smid.to_i, name: name)
+      else
+        rec = StatisticalMethod.find_or_create_by!(name: name)
+      end
       count += 1
     end
     puts "Imported/ensured #{count} statistical_methods from #{path}"
@@ -130,7 +167,13 @@ namespace :import do
       each_csv_row(path) do |row|
       name = row['geo_location_name'].to_s.strip
       next if name.empty?
-      GeographicLocation.find_or_create_by!(name: name)
+      glid = row['id'] || row['geo_location_id'] || row['geoLocation_id']
+      if glid && glid.to_s.strip != ''
+        rec = GeographicLocation.find_by(id: glid.to_i)
+        rec ||= GeographicLocation.create!(id: glid.to_i, name: name)
+      else
+        rec = GeographicLocation.find_or_create_by!(name: name)
+      end
       count += 1
     end
     puts "Imported/ensured #{count} geographic_locations from #{path}"
@@ -150,16 +193,17 @@ namespace :import do
         next
       end
 
+      # Only attach by explicit id (do not create or match by name)
       ap = nil
-      if (apid = row['air_pollutant_id']) && apid.to_s.strip != ''
+      apid = row['air_pollutant_id'] || row['airPollutant_id'] || row['air_pollutantId'] || row['airPollutantId']
+      if apid && apid.to_s.strip != ''
         ap = AirPollutant.find_by(id: apid.to_i)
       end
-      ap ||= find_or_create_by_name(AirPollutant, row['air_pollutant']) if row['air_pollutant']
       if ap
         pub.air_pollutants << ap unless pub.air_pollutants.exists?(ap.id)
         count += 1
       else
-        puts "AirPollutant not found for row: #{row.to_h.inspect}"
+        puts "AirPollutant not found for id=#{apid.inspect}, skipping row: #{row.to_h.inspect}"
       end
     end
     puts "Attached #{count} air_pollutant associations from #{path}"
@@ -177,17 +221,18 @@ namespace :import do
         next
       end
 
+      # Only attach by explicit id (do not create or match by name)
       gl = nil
-      if (glid = row['geoLocation_id']) && glid.to_s.strip != ''
+      glid = row['geo_location_id'] || row['geoLocation_id'] || row['geo_locationId']
+      if glid && glid.to_s.strip != ''
         gl = GeographicLocation.find_by(id: glid.to_i)
       end
-      gl ||= find_or_create_by_name(GeographicLocation, row['geo_location'])
       if gl
         pub.geographic_location = gl
         pub.save! if pub.changed?
         count += 1
       else
-        puts "GeographicLocation not found for row: #{row.to_h.inspect}"
+        puts "GeographicLocation not found for id=#{glid.inspect}, skipping row: #{row.to_h.inspect}"
       end
     end
     puts "Attached/updated #{count} geographic_location associations from #{path}"
@@ -205,16 +250,17 @@ namespace :import do
         next
       end
 
+      # Only attach by explicit id (do not create or match by name)
       mc = nil
-      if (mcid = row['med_condition_id']) && mcid.to_s.strip != ''
+      mcid = row['med_condition_id'] || row['medCondition_id'] || row['med_conditionId']
+      if mcid && mcid.to_s.strip != ''
         mc = MedicalCondition.find_by(id: mcid.to_i)
       end
-      mc ||= find_or_create_by_name(MedicalCondition, row['med_condition_name'])
       if mc
         pub.medical_conditions << mc unless pub.medical_conditions.exists?(mc.id)
         count += 1
       else
-        puts "MedicalCondition not found for row: #{row.to_h.inspect}"
+        puts "MedicalCondition not found for id=#{mcid.inspect}, skipping row: #{row.to_h.inspect}"
       end
     end
     puts "Attached #{count} medical_condition associations from #{path}"
@@ -232,16 +278,17 @@ namespace :import do
         next
       end
 
+      # Only attach by explicit id (do not create or match by name)
       sm = nil
-      if (smid = row['statistical_method_id']) && smid.to_s.strip != ''
+      smid = row['statistical_method_id'] || row['statisticalMethod_id'] || row['statistical_methodId']
+      if smid && smid.to_s.strip != ''
         sm = StatisticalMethod.find_by(id: smid.to_i)
       end
-      sm ||= find_or_create_by_name(StatisticalMethod, row['statistical_method'])
       if sm
         pub.statistical_methods << sm unless pub.statistical_methods.exists?(sm.id)
         count += 1
       else
-        puts "StatisticalMethod not found for row: #{row.to_h.inspect}"
+        puts "StatisticalMethod not found for id=#{smid.inspect}, skipping row: #{row.to_h.inspect}"
       end
     end
     puts "Attached #{count} statistical_method associations from #{path}"
@@ -259,16 +306,17 @@ namespace :import do
         next
       end
 
+      # Only attach by explicit id (do not create or match by name)
       wp = nil
-      if (wpid = row['weather_id']) && wpid.to_s.strip != ''
+      wpid = row['weather_id'] || row['weather_parameter_id'] || row['weatherParameter_id'] || row['weather_parameterId']
+      if wpid && wpid.to_s.strip != ''
         wp = WeatherParameter.find_by(id: wpid.to_i)
       end
-      wp ||= find_or_create_by_name(WeatherParameter, row['weather_parameter'])
       if wp
         pub.weather_parameters << wp unless pub.weather_parameters.exists?(wp.id)
         count += 1
       else
-        puts "WeatherParameter not found for row: #{row.to_h.inspect}"
+        puts "WeatherParameter not found for id=#{wpid.inspect}, skipping row: #{row.to_h.inspect}"
       end
     end
     puts "Attached #{count} weather_parameter associations from #{path}"
