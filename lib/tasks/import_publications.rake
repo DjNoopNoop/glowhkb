@@ -96,6 +96,7 @@ namespace :import do
       name = row['air_pollutant'].to_s.strip
       next if name.empty?
       apid = row['id'] || row['air_pollutant_id']
+      puts "Processing AirPollutant import: id=#{apid.inspect} name=#{name.inspect}"
       if apid && apid.to_s.strip != ''
         rec = AirPollutant.find_by(id: apid.to_i)
         rec ||= AirPollutant.create!(id: apid.to_i, name: name)
@@ -114,6 +115,7 @@ namespace :import do
       name = row['weather_parameter'].to_s.strip
       next if name.empty?
       wpid = row['id'] || row['weather_parameter_id'] || row['weather_id']
+      puts "Processing WeatherParameter import: id=#{wpid.inspect} name=#{name.inspect}"
       if wpid && wpid.to_s.strip != ''
         rec = WeatherParameter.find_by(id: wpid.to_i)
         rec ||= WeatherParameter.create!(id: wpid.to_i, name: name)
@@ -132,6 +134,7 @@ namespace :import do
       name = row['med_condition_name'].to_s.strip
       next if name.empty?
       mcid = row['id'] || row['med_condition_id']
+      puts "Processing MedicalCondition import: id=#{mcid.inspect} name=#{name.inspect}"
       if mcid && mcid.to_s.strip != ''
         rec = MedicalCondition.find_by(id: mcid.to_i)
         rec ||= MedicalCondition.create!(id: mcid.to_i, name: name)
@@ -150,6 +153,7 @@ namespace :import do
       name = row['statistical_method'].to_s.strip
       next if name.empty?
       smid = row['id'] || row['statistical_method_id']
+      puts "Processing StatisticalMethod import: id=#{smid.inspect} name=#{name.inspect}"
       if smid && smid.to_s.strip != ''
         rec = StatisticalMethod.find_by(id: smid.to_i)
         rec ||= StatisticalMethod.create!(id: smid.to_i, name: name)
@@ -168,6 +172,7 @@ namespace :import do
       name = row['geo_location_name'].to_s.strip
       next if name.empty?
       glid = row['id'] || row['geo_location_id'] || row['geoLocation_id']
+      puts "Processing GeographicLocation import: id=#{glid.inspect} name=#{name.inspect}"
       if glid && glid.to_s.strip != ''
         rec = GeographicLocation.find_by(id: glid.to_i)
         rec ||= GeographicLocation.create!(id: glid.to_i, name: name)
@@ -196,6 +201,7 @@ namespace :import do
       # Only attach by explicit id (do not create or match by name)
       ap = nil
       apid = row['air_pollutant_id'] || row['airPollutant_id'] || row['air_pollutantId'] || row['airPollutantId']
+      puts "Processing publication-air_pollutant association: publication_id=#{pub_id.inspect} air_pollutant_id=#{apid.inspect} air_pollutant_name=#{row['air_pollutant']&.to_s&.strip.inspect}"
       if apid && apid.to_s.strip != ''
         ap = AirPollutant.find_by(id: apid.to_i)
       end
@@ -224,6 +230,7 @@ namespace :import do
       # Only attach by explicit id (do not create or match by name)
       gl = nil
       glid = row['geo_location_id'] || row['geoLocation_id'] || row['geo_locationId']
+      puts "Processing publication-geographic_location association: publication_id=#{pub_id.inspect} geo_location_id=#{glid.inspect} geo_location_name=#{row['geo_location']&.to_s&.strip.inspect}"
       if glid && glid.to_s.strip != ''
         gl = GeographicLocation.find_by(id: glid.to_i)
       end
@@ -253,6 +260,7 @@ namespace :import do
       # Only attach by explicit id (do not create or match by name)
       mc = nil
       mcid = row['med_condition_id'] || row['medCondition_id'] || row['med_conditionId']
+      puts "Processing publication-medical_condition association: publication_id=#{pub_id.inspect} med_condition_id=#{mcid.inspect} med_condition_name=#{row['med_condition_name']&.to_s&.strip.inspect}"
       if mcid && mcid.to_s.strip != ''
         mc = MedicalCondition.find_by(id: mcid.to_i)
       end
@@ -281,6 +289,7 @@ namespace :import do
       # Only attach by explicit id (do not create or match by name)
       sm = nil
       smid = row['statistical_method_id'] || row['statisticalMethod_id'] || row['statistical_methodId']
+      puts "Processing publication-statistical_method association: publication_id=#{pub_id.inspect} statistical_method_id=#{smid.inspect} statistical_method_name=#{row['statistical_method']&.to_s&.strip.inspect}"
       if smid && smid.to_s.strip != ''
         sm = StatisticalMethod.find_by(id: smid.to_i)
       end
@@ -309,6 +318,7 @@ namespace :import do
       # Only attach by explicit id (do not create or match by name)
       wp = nil
       wpid = row['weather_id'] || row['weather_parameter_id'] || row['weatherParameter_id'] || row['weather_parameterId']
+      puts "Processing publication-weather_parameter association: publication_id=#{pub_id.inspect} weather_id=#{wpid.inspect} weather_parameter_name=#{row['weather_parameter']&.to_s&.strip.inspect}"
       if wpid && wpid.to_s.strip != ''
         wp = WeatherParameter.find_by(id: wpid.to_i)
       end
@@ -334,6 +344,8 @@ namespace :import do
       begin
         title = row['title'].to_s.strip
         next if title.empty?
+
+        puts "Processing Publication import: id=#{row['publication_id'].inspect} title=#{title.inspect}"
 
         pub_attrs = {
           id: row['publication_id'],
