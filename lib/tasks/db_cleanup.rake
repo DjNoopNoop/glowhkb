@@ -9,8 +9,10 @@ namespace :db do
 
     Rails.application.eager_load!
 
-    first_user = User.order(:id).first
-    puts "Preserving User id=#{first_user&.id || 'none'}"
+    # Preserve the first two administrator users (by id order) if present
+    admins_to_preserve = User.administrators.order(:id).limit(2).to_a
+    preserved_ids = admins_to_preserve.map(&:id)
+    puts "Preserving administrator ids=#{preserved_ids.any? ? preserved_ids.join(',') : 'none'}"
 
     # Collect models that map to tables
     models = ActiveRecord::Base.descendants.select do |m|
@@ -23,11 +25,11 @@ namespace :db do
     models.each do |model|
       begin
         if model.name == 'User'
-          if first_user
-            puts "Destroying Users except id=#{first_user.id}..."
-            model.where.not(id: first_user.id).find_each(batch_size: 100) { |r| r.destroy }
+          if preserved_ids.any?
+            puts "Destroying Users except administrator ids=#{preserved_ids.join(',')}..."
+            model.where.not(id: preserved_ids).find_each(batch_size: 100) { |r| r.destroy }
           else
-            puts "No users found — destroying all Users..."
+            puts "No administrators found — destroying all Users..."
             model.find_each(batch_size: 100) { |r| r.destroy }
           end
         else
