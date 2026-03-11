@@ -44,7 +44,6 @@ accessories:
   db:
     image: postgres:16
     host: 167.172.27.4
-    port: 5432
     env:
       clear:
         POSTGRES_DB: glowhkb_production
