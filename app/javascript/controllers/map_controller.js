@@ -105,45 +105,81 @@ export default class extends Controller {
       // ignore
     }
     this._markers = []
+    if (this._activeMultiPopup) { this._activeMultiPopup.remove(); this._activeMultiPopup = null }
 
     if (!publications || !publications.length) return
 
     const bounds = new mapboxgl.LngLatBounds()
 
+    // Group publications by exact coordinates
+    const grouped = {}
     publications.forEach((p) => {
       const lat = parseFloat(p.latitude)
       const lng = parseFloat(p.longitude)
       if (!Number.isFinite(lat) || !Number.isFinite(lng)) return
+      const key = `${lat},${lng}`
+      if (!grouped[key]) grouped[key] = { lat, lng, pubs: [] }
+      grouped[key].pubs.push(p)
+    })
 
+    Object.values(grouped).forEach(({ lat, lng, pubs }) => {
       const markerEl = document.createElement('div')
       markerEl.className = 'pub-marker'
-      markerEl.style.position = 'absolute'
-      markerEl.style.width = '18px'
-      markerEl.style.height = '18px'
-      markerEl.style.borderRadius = '50%'
-      markerEl.style.background = 'rgba(0,122,255,0.95)'
-      markerEl.style.boxShadow = '0 1px 3px rgba(0,0,0,0.3)'
-      markerEl.style.cursor = 'pointer'
 
-      const title = escapeHTML(p.title || '')
-      const authors = escapeHTML(p.authors || '')
-      const meta = []
-      if (p.journal) meta.push(escapeHTML(p.journal))
-      if (p.year) meta.push('' + p.year)
+      if (pubs.length === 1) {
+        const p = pubs[0]
+        const title = escapeHTML(p.title || '')
+        const authors = escapeHTML(p.authors || '')
+        const meta = []
+        if (p.journal) meta.push(escapeHTML(p.journal))
+        if (p.year) meta.push('' + p.year)
 
-      let popupHtml = `<div style="font-size:14px;font-weight:600;margin-bottom:6px;">${title}</div>`
-      if (authors) popupHtml += `<div style="font-size:13px;color:#333;margin-bottom:4px;">${authors}</div>`
-      popupHtml += `<div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
+        let popupHtml = `<div style="font-size:14px;font-weight:600;margin-bottom:6px;">${title}</div>`
+        if (authors) popupHtml += `<div style="font-size:13px;color:#333;margin-bottom:4px;">${authors}</div>`
+        popupHtml += `<div style="font-size:12px;color:#444">${escapeHTML(meta.join(' • '))}</div>`
 
-      const popup = new mapboxgl.Popup({ offset: 12, closeButton: false, closeOnClick: false }).setHTML(popupHtml)
+        const popup = new mapboxgl.Popup({ offset: 12, closeButton: false, closeOnClick: false }).setHTML(popupHtml)
+        const marker = new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).setPopup(popup).addTo(this.map)
 
-      const marker = new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).setPopup(popup).addTo(this.map)
+        markerEl.addEventListener('mouseenter', () => { marker.getPopup().addTo(this.map) })
+        markerEl.addEventListener('mouseleave', () => { marker.getPopup().remove() })
+        markerEl.addEventListener('click', () => { window.location.href = `/publications/${p.id}` })
 
-      markerEl.addEventListener('mouseenter', () => { marker.getPopup().addTo(this.map) })
-      markerEl.addEventListener('mouseleave', () => { marker.getPopup().remove() })
-      markerEl.addEventListener('click', () => { window.location.href = `/publications/${p.id}` })
+        this._markers.push(marker)
+      } else {
+        markerEl.classList.add('pub-marker--multi')
+        markerEl.textContent = pubs.length
 
-      this._markers.push(marker)
+        const listItems = pubs.map(p => {
+          const title = escapeHTML(p.title || 'Untitled')
+          const year = p.year ? escapeHTML(` (${p.year})`) : ''
+          return `<div class="pub-marker-list-item"><a href="/publications/${p.id}">${title}${year}</a></div>`
+        }).join('')
+
+        const popupHtml = `
+          <div class="pub-marker-list-header">${pubs.length} publications at this location</div>
+          <div class="pub-marker-list-scroll">${listItems}</div>
+        `
+        const popup = new mapboxgl.Popup({ offset: 14, closeButton: true, closeOnClick: true, maxWidth: '300px', className: 'pub-marker-popup' }).setHTML(popupHtml)
+        const marker = new mapboxgl.Marker(markerEl).setLngLat([lng, lat]).addTo(this.map)
+
+        markerEl.addEventListener('click', (e) => {
+          e.stopPropagation()
+          if (this._activeMultiPopup && this._activeMultiPopup !== popup) {
+            this._activeMultiPopup.remove()
+          }
+          if (popup.isOpen()) {
+            popup.remove()
+            this._activeMultiPopup = null
+          } else {
+            popup.setLngLat([lng, lat]).addTo(this.map)
+            this._activeMultiPopup = popup
+          }
+        })
+
+        this._markers.push(marker)
+      }
+
       bounds.extend([lng, lat])
     })
 

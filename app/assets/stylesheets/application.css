@@ -220,6 +220,46 @@ body.site {
   display: inline-block;
 }
 
+.pub-marker--multi {
+  width: 26px;
+  height: 26px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pub-marker-list-scroll {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.pub-marker-list-header {
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.pub-marker-list-item {
+  padding: 4px 0;
+  border-top: 1px solid #eee;
+}
+
+.pub-marker-list-item a {
+  color: #007aff;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.4;
+  display: block;
+}
+
+.pub-marker-list-item a:hover {
+  text-decoration: underline;
+}
+
 /* Make all Bootstrap buttons have rounded corners */
 .btn {
   border-radius: 0.5rem !important;
