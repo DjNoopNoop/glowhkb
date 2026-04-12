@@ -7,21 +7,41 @@ class PublicationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        pubs = filtered_publications.order(year: :desc)
-        render json: pubs.map { |p|
-          {
-            id: p.id,
-            title: p.title,
-            authors: p.authors,
-            journal: p.journal,
-            year: p.year,
-            geographic_location: p.geographic_location&.name,
-            url: p.url,
-            doi: p.doi,
-            air_pollutants: p.air_pollutants.map(&:name),
-            medical_conditions: p.medical_conditions.map(&:name),
-            weather_parameters: p.weather_parameters.map(&:name),
-            statistical_methods: p.statistical_methods.map(&:name)
+        draw   = params[:draw].to_i
+        start  = params[:start].to_i
+        length = params[:length].to_i
+        length = 25 if length <= 0
+
+        base             = filtered_publications
+        records_total    = Publication.count
+        records_filtered = base.count
+
+        sortable_columns = { 0 => 'title', 1 => 'authors', 2 => 'journal', 3 => 'year' }
+        order_col  = params.dig(:order, '0', :column).to_i
+        order_dir  = params.dig(:order, '0', :dir) == 'asc' ? 'ASC' : 'DESC'
+        order_sql  = sortable_columns[order_col] ? "#{sortable_columns[order_col]} #{order_dir}" : 'year DESC'
+
+        pubs = base.order(Arel.sql(order_sql)).offset(start).limit(length)
+
+        render json: {
+          draw:            draw,
+          recordsTotal:    records_total,
+          recordsFiltered: records_filtered,
+          data:            pubs.map { |p|
+            {
+              id:                   p.id,
+              title:                p.title,
+              authors:              p.authors,
+              journal:              p.journal,
+              year:                 p.year,
+              geographic_location:  p.geographic_location&.name,
+              url:                  p.url,
+              doi:                  p.doi,
+              air_pollutants:       p.air_pollutants.map(&:name),
+              medical_conditions:   p.medical_conditions.map(&:name),
+              weather_parameters:   p.weather_parameters.map(&:name),
+              statistical_methods:  p.statistical_methods.map(&:name)
+            }
           }
         }
       end
@@ -33,8 +53,9 @@ class PublicationsController < ApplicationController
   def filtered_publications
     scope = Publication.all
 
-    if params[:q].present?
-      q = "%#{params[:q].to_s.strip}%"
+    q_term = params[:q].presence || params.dig(:search, :value).presence
+    if q_term.present?
+      q = "%#{q_term.strip}%"
       scope = scope.where("title ILIKE :q OR authors ILIKE :q OR journal ILIKE :q", q: q)
     end
 

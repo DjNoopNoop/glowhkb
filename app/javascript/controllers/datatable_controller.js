@@ -56,6 +56,7 @@ export default class extends Controller {
 
     const self = this
     this.dt = window.jQuery(table).DataTable({
+      serverSide: true,
       ajax: {
         url: '/publications.json',
         data: function(d) {
@@ -71,7 +72,7 @@ export default class extends Controller {
             if (checked.length) d[key] = checked
           })
         },
-        dataSrc: ''
+        dataSrc: 'data'
       },
       columns: [
         { data: 'title', render: function(data, type, row) {
@@ -112,8 +113,7 @@ export default class extends Controller {
 
   reloadWithFilters(params) {
     if (!this.dt) return
-    // DataTables will call ajax.data to include current filter inputs; if params provided, temporarily apply
-    this.dt.ajax.reload()
+    this.dt.page(0).draw()
   }
 }
 
