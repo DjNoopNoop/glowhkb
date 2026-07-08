@@ -1,4 +1,8 @@
 class RegistrationController < ApplicationController
+  REGISTRATIONS_OPEN = false
+
+  before_action :check_registrations_open, only: [:new, :create]
+
   def new
     @user = User.new
     render 'registration/new'
@@ -27,6 +31,12 @@ class RegistrationController < ApplicationController
   def pending; end
 
   private
+
+  def check_registrations_open
+    unless REGISTRATIONS_OPEN
+      redirect_to root_path, alert: 'Registrations are currently closed.'
+    end
+  end
 
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :role)
