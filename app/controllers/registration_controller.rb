@@ -1,5 +1,5 @@
 class RegistrationController < ApplicationController
-  REGISTRATIONS_OPEN = false
+  REGISTRATIONS_OPEN = true
 
   before_action :check_registrations_open, only: [:new, :create]
 
@@ -11,6 +11,12 @@ class RegistrationController < ApplicationController
   def create
     permitted = sanitize_role(user_params)
     @user = User.new(permitted)
+
+    unless RecaptchaVerifier.verify(params["g-recaptcha-response"], remote_ip: request.remote_ip)
+      @user.errors.add(:base, "Please complete the CAPTCHA to verify you're not a robot.")
+      return render 'registration/new', status: :unprocessable_entity
+    end
+
     if @user.save
       # send emails: to registrant and to site admins
       begin

@@ -27,3 +27,7 @@
 		</div>
 	</div>
 </div>
+
+<% if ENV["RECAPTCHA_SITE_KEY"].present? %>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<% end %>

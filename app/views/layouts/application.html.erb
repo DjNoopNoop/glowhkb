@@ -20,6 +20,9 @@
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag "https://code.jquery.com/jquery-3.7.1.min.js", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js", "data-turbo-track": "reload" %>
+    <% if controller_name == 'registration' && ENV["RECAPTCHA_SITE_KEY"].present? %>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <% end %>
   </head>
 
   <body class="site <%= "#{controller.controller_name}-#{controller.action_name}" %>">

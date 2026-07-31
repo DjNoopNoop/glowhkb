@@ -60,6 +60,12 @@
           <% end %>
         </div>
       <% end %>
+
+      <% if @user.new_record? && ENV["RECAPTCHA_SITE_KEY"].present? %>
+        <div class="mt-3">
+          <div class="g-recaptcha" data-sitekey="<%= ENV["RECAPTCHA_SITE_KEY"] %>"></div>
+        </div>
+      <% end %>
     </div>
 
     <div class="card-footer bg-transparent border-0">
