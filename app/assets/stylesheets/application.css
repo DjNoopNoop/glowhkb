@@ -124,6 +124,30 @@ body.site {
   text-shadow: 0 4px 14px rgba(0, 0, 0, 0.78), 0 1px 3px rgba(0,0,0,0.5);
 }
 
+/* Map/Table callouts in the tagline, shaped like the header display buttons */
+.hero-display-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.12rem 0.45rem;
+  font-size: 0.7em;
+  font-weight: 700;
+  text-shadow: none;
+  vertical-align: middle;
+}
+
+.hero-display-badge .fa,
+.hero-display-badge .fas,
+.hero-display-badge .far,
+.hero-display-badge .fal,
+.hero-display-badge .fab {
+  width: 14px;
+  text-align: center;
+}
+
 /* Responsive tweak */
 @media (max-width: 640px) {
   .home-title {

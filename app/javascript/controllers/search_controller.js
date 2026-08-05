@@ -20,13 +20,30 @@ export default class extends Controller {
       const res = await fetch(`${this.endpoint}?q=${encodeURIComponent(q)}`, { headers: { Accept: 'application/json' } })
       if (!res.ok) { this.clearResults(); return }
       const data = await res.json()
-      this.showResults(data)
+      this.showResults(data, q)
     } catch (err) {
       this.clearResults()
     }
   }
 
-  showResults(items) {
+  appendHighlighted(el, text, q) {
+    const lowerText = text.toLowerCase()
+    const lowerQ = q.toLowerCase()
+    let start = 0
+    let idx = lowerText.indexOf(lowerQ, start)
+    if (idx === -1) { el.appendChild(document.createTextNode(text)); return }
+    while (idx !== -1) {
+      if (idx > start) el.appendChild(document.createTextNode(text.slice(start, idx)))
+      const strong = document.createElement('strong')
+      strong.textContent = text.slice(idx, idx + q.length)
+      el.appendChild(strong)
+      start = idx + q.length
+      idx = lowerText.indexOf(lowerQ, start)
+    }
+    if (start < text.length) el.appendChild(document.createTextNode(text.slice(start)))
+  }
+
+  showResults(items, q) {
     if (!items || items.length === 0) { this.clearResults(); return }
     const ul = document.createElement('ul')
     ul.className = 'search-results-list'
@@ -35,11 +52,14 @@ export default class extends Controller {
       li.className = 'search-result'
       const a = document.createElement('a')
       a.href = item.url
-      a.textContent = item.title
       a.className = 'search-result-link'
+      const title = document.createElement('span')
+      title.className = 'search-result-title'
+      this.appendHighlighted(title, item.title, q)
       const meta = document.createElement('span')
       meta.className = 'search-result-meta'
-      meta.textContent = ` ${item.type}`
+      meta.textContent = item.type
+      a.appendChild(title)
       a.appendChild(meta)
       li.appendChild(a)
       ul.appendChild(li)
